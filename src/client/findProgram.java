@@ -24,7 +24,7 @@ public class findProgram {
     private JScrollPane scrollPane;
     
     JPanel mainPanel = new JPanel(new BorderLayout());
-    public findProgram(ArrListInterface<Program> programList) {
+    public findProgram(ListInterface<Program> programList) {
         this.programList = programList;
         frame = new JFrame("Search Program");
         frame.setSize(600, 400);
@@ -129,7 +129,7 @@ public class findProgram {
     }
 
     public static void main(String[] args) {
-        ArrListInterface<Program> programList = new ArrList<>(); 
+        ListInterface<Program> programList = new ArrList<>(); 
         programList.add(new Program("RSD", "Bachelor Degree", "Bachelor of Information Technology (Honours) in Software Systems Development", "FOCS - Faculty of Computing and Information Technology", "This programme produces and equips graduates with in-depth knowledge and skills that are essential to work as professionals in the software systems development and computer networking sectors."));
         programList.add(new Program("RAC", "Bachelor Degree", "Bachelor of Accounting (Honours)", "FAFB - Faculty of Accountancy, Finance & Business", "This programme provides a wide spectrum of knowledge and skills required for a career in the accountancy and finance profession."));
 
