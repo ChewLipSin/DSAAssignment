@@ -52,7 +52,7 @@ public class CourseMaintenance {
         courseDAO.saveToFile(courseList);
     }
 
-    public String getAllProducts() {
+    public String getAllCourses() {
         String outputStr = "";
         for (int i = 1; i <= courseList.size(); i++) {
             outputStr += courseList.getEntry(i) + "\n";
