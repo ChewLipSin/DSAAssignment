@@ -55,7 +55,7 @@ public class CourseMaintenanceUI {
             i++;
         }
 
-        courseList.contains();
+//        courseList.contains();
         System.out.println("Enter Course Code");
         String courseCode = rv.readString();
         return courseCode;
