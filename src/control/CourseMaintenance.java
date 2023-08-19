@@ -18,15 +18,15 @@ import utility.MessageUI;
  */
 public class CourseMaintenance {
 
-    private ListInterface<Course> courseList = new ArrList<>();
+//    private ListInterface<Course> courseList = new ArrList<>();
     private CourseDAO courseDAO = new CourseDAO();
     private CourseMaintenanceUI courseUI = new CourseMaintenanceUI();
 
-    public CourseMaintenance() {
+    public CourseMaintenance(ListInterface<Course> courseList) {
         courseList = courseDAO.retrieveFromFile();
     }
 
-    public void runCourseMaintenance() throws IOException {
+    public void runCourseMaintenance(ListInterface<Course> courseList){
         int choice = 0;
         do {
             choice = courseUI.getMenuChoices();
@@ -36,8 +36,8 @@ public class CourseMaintenance {
                     MessageUI.displayExitMessage();
                     break;
                 case 1:
-                    addNewCourse();
-                    courseUI.listAllCourses(getAllCourses());
+                    addNewCourse(courseList);
+                    courseUI.listAllCourses(getAllCourses(courseList));
                     break;
                 default:
                     MessageUI.displayInvalidChoiceMessage();
@@ -47,18 +47,18 @@ public class CourseMaintenance {
 
     }
 
-    private void addNewCourse() throws IOException {
-        Course newCourse = courseUI.inputCourseDetails();
+    private void addNewCourse(ListInterface<Course> courseList){
+        Course newCourse = courseUI.inputCourseDetails(courseList);
         courseList.add(newCourse);
         courseDAO.saveToFile(courseList);
     }
 
-    public String getAllCourses() {
+    public String getAllCourses(ListInterface<Course>  courseList) {
         int currentIndex = 0;
 //        for (int i = 1; i <= courseList.size(); i++) {
 //            outputStr += courseList.getEntry(i) + "\n";
 //        }
-        String outputStr ="";
+        String outputStr = "";
         Iterator it = courseList.getIterator();
 
         while (it.hasNext()) {

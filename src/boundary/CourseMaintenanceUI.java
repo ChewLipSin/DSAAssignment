@@ -4,8 +4,11 @@
  */
 package boundary;
 
+import adt.ListInterface;
 import entity.Course;
+import java.util.Iterator;
 import java.util.Scanner;
+import utility.readValue;
 
 /**
  *
@@ -13,8 +16,8 @@ import java.util.Scanner;
  */
 public class CourseMaintenanceUI {
 
-    Scanner sc = new Scanner(System.in);
     int choice;
+    readValue rv = new readValue();
 
     public int getMenuChoices() {
         System.out.println("\nCourse Management Subsystem Menu");
@@ -29,25 +32,44 @@ public class CourseMaintenanceUI {
         System.out.println("0. Exit");
         System.out.print("Enter choice: ");
         do {
-            try {
-                choice = sc.nextInt();
-                sc.nextLine();
-                System.out.println();
-            } catch (Exception e) {
-                System.out.print("Invalid, please enter a number:");
-                sc.next();
-            }
+            choice = rv.readInteger();
         } while (choice > 9 || choice < 0);
 
         return choice;
     }
 
-    public Course inputCourseDetails() {
+    public Course inputCourseDetails(ListInterface<Course> courseList) {
+        String courseCode = inputCourseCode(courseList);
+        String title = inputTitle(courseList);
+        int creditHour = inputCreditHour(courseList);
+        System.out.println();
+        return new Course(courseCode, title, creditHour);
+    }
+
+    private String inputCourseCode(ListInterface<Course> courseList) {
+        Iterator it = courseList.getIterator();
+        int i = 0;
+        while (it.hasNext()) {
+            it.next();
+            
+            i++;
+        }
+
+        courseList.contains();
+        System.out.println("Enter Course Code");
+        String courseCode = rv.readString();
+        return courseCode;
+    }
+
+    private String inputTitle(ListInterface<Course> courseList) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private int inputCreditHour(ListInterface<Course> courseList) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     public void listAllCourses(String allCourses) {
-        //Haven't do design
         System.out.println("\nList of Products:\n" + allCourses);
     }
 

@@ -28,19 +28,20 @@ public class CourseInitializer {
         return cList;
     }
 
-    public static void main(String[] args) throws IOException {
-        CourseMaintenanceUI courseUI = new CourseMaintenanceUI();
-        CourseMaintenance courseMain = new CourseMaintenance();
-        // To illustrate how to use the initializeProducts() method
+    public static void main(String[] args){
         CourseInitializer c = new CourseInitializer();
-        CourseDAO d = new CourseDAO();
         ListInterface<Course> courseList = c.initializeCourse();
+        CourseMaintenanceUI courseUI = new CourseMaintenanceUI();
+        CourseMaintenance courseMain = new CourseMaintenance(courseList);
+        // To illustrate how to use the initializeProducts() method
+        CourseDAO d = new CourseDAO();
         d.saveToFile(courseList);
-        courseList.clear();
         ListInterface<Course> courseList2 = d.retrieveFromFile();
         System.out.println("\nCourse:\n" + courseList);
         System.out.println("\nCourse:\n" + courseList2);
-        courseUI.listAllCourses(courseMain.getAllCourses());
+        courseUI.listAllCourses(courseMain.getAllCourses(courseList));
+        CourseMaintenance cm = new CourseMaintenance(courseList);
+        cm.runCourseMaintenance(courseList);
 
     }
 
