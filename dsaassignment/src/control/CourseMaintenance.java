@@ -8,6 +8,7 @@ import adt.*;
 import boundary.CourseMaintenanceUI;
 import dao.CourseDAO;
 import entity.Course;
+import java.io.IOException;
 import java.util.Iterator;
 import utility.MessageUI;
 
@@ -25,7 +26,7 @@ public class CourseMaintenance {
         courseList = courseDAO.retrieveFromFile();
     }
 
-    public void runCourseMaintenance() {
+    public void runCourseMaintenance() throws IOException {
         int choice = 0;
         do {
             choice = courseUI.getMenuChoices();
@@ -33,10 +34,10 @@ public class CourseMaintenance {
 
                 case 0:
                     MessageUI.displayExitMessage();
-                    courseUI.listAllCourses(getAllCourses());
                     break;
                 case 1:
                     addNewCourse();
+                    courseUI.listAllCourses(getAllCourses());
                     break;
                 default:
                     MessageUI.displayInvalidChoiceMessage();
@@ -46,16 +47,23 @@ public class CourseMaintenance {
 
     }
 
-    private void addNewCourse() {
+    private void addNewCourse() throws IOException {
         Course newCourse = courseUI.inputCourseDetails();
         courseList.add(newCourse);
         courseDAO.saveToFile(courseList);
     }
 
     public String getAllCourses() {
-        String outputStr = "";
-        for (int i = 1; i <= courseList.size(); i++) {
-            outputStr += courseList.getEntry(i) + "\n";
+        int currentIndex = 0;
+//        for (int i = 1; i <= courseList.size(); i++) {
+//            outputStr += courseList.getEntry(i) + "\n";
+//        }
+        String outputStr ="";
+        Iterator it = courseList.getIterator();
+
+        while (it.hasNext()) {
+//            System.out.println(it.next());
+            outputStr += it.next() + "\n";
         }
         return outputStr;
     }
