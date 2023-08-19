@@ -5,7 +5,10 @@
 package dao;
 
 import adt.*;
+import boundary.CourseMaintenanceUI;
+import control.CourseMaintenance;
 import entity.Course;
+import java.io.IOException;
 
 /**
  *
@@ -25,11 +28,20 @@ public class CourseInitializer {
         return cList;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        CourseMaintenanceUI courseUI = new CourseMaintenanceUI();
+        CourseMaintenance courseMain = new CourseMaintenance();
         // To illustrate how to use the initializeProducts() method
         CourseInitializer c = new CourseInitializer();
+        CourseDAO d = new CourseDAO();
         ListInterface<Course> courseList = c.initializeCourse();
+        d.saveToFile(courseList);
+        courseList.clear();
+        ListInterface<Course> courseList2 = d.retrieveFromFile();
         System.out.println("\nCourse:\n" + courseList);
+        System.out.println("\nCourse:\n" + courseList2);
+        courseUI.listAllCourses(courseMain.getAllCourses());
+
     }
 
 }
