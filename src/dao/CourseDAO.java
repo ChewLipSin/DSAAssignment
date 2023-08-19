@@ -17,7 +17,7 @@ public class CourseDAO<T> {
 
     private String fileName = "course.dat"; // For security and maintainability, should not have filename hardcoded here.
 
-    public void saveToFile(ListInterface<T> courseList) throws IOException {
+    public void saveToFile(ListInterface<T> list){
         File file = new File(fileName);
 //        if (file.createNewFile()) {
 //            System.out.println(fileName + " File Created");
@@ -26,7 +26,7 @@ public class CourseDAO<T> {
 //        }
         try {
             ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream(file));
-            ooStream.writeObject(courseList);
+            ooStream.writeObject(list);
             ooStream.close();
         } catch (FileNotFoundException ex) {
             System.out.println("\nFile not found");
