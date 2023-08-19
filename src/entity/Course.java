@@ -13,12 +13,20 @@ public class Course implements Serializable {
     private String courseCode;
     private String title;
     private int creditHours;
+    private Sem semester;
+//    private static final String[] SEM = {"JAN", "JULY"};
+
+    public enum Sem {
+        JAN,
+        JUL;
+    };
     private LocalDateTime updateTime;
 
-    public Course(String courseCode, String title, int creditHours) {
+    public Course(String courseCode, String title, int creditHours, Sem semester) {
         this.courseCode = courseCode;
         this.title = title;
         this.creditHours = creditHours;
+        this.semester = semester;
         this.updateTime = LocalDateTime.now();
     }
 
@@ -49,6 +57,9 @@ public class Course implements Serializable {
         this.creditHours = creditHours;
     }
 
+//    public static String getSEM(int i) {
+//        return SEM[i];
+//    }
     @Override
     public int hashCode() {
         int hash = 3;
@@ -81,6 +92,6 @@ public class Course implements Serializable {
 
     @Override
     public String toString() {
-        return "Course" + "courseCode=" + courseCode + ", title=" + title + ", creditHours=" + creditHours + ", updateTime=" + updateTime;
+        return "Course" + "courseCode=" + courseCode + ", title=" + title + ", creditHours=" + creditHours + ", updateTime=" + updateTime + ", Semester=" + semester;
     }
 }

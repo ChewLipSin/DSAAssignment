@@ -6,6 +6,7 @@ package boundary;
 
 import adt.ListInterface;
 import entity.Course;
+import entity.Course.Sem;
 import java.util.Iterator;
 import java.util.Scanner;
 import utility.readValue;
@@ -42,22 +43,25 @@ public class CourseMaintenanceUI {
         String courseCode = inputCourseCode(courseList);
         String title = inputTitle(courseList);
         int creditHour = inputCreditHour(courseList);
+        Sem semester = inputSemester(courseList);
         System.out.println();
-        return new Course(courseCode, title, creditHour);
+        return new Course(courseCode, title, creditHour, semester);
     }
 
     private String inputCourseCode(ListInterface<Course> courseList) {
         Iterator it = courseList.getIterator();
         int i = 0;
+        boolean match = false;
+        System.out.println("Enter Course Code");
+        String courseCode = rv.readString();
         while (it.hasNext()) {
             it.next();
-            
+            String oldCourseCode = courseList.getEntry(i).getCourseCode();
+            match = oldCourseCode.equals(courseCode);
             i++;
         }
 
 //        courseList.contains();
-        System.out.println("Enter Course Code");
-        String courseCode = rv.readString();
         return courseCode;
     }
 
@@ -71,6 +75,10 @@ public class CourseMaintenanceUI {
 
     public void listAllCourses(String allCourses) {
         System.out.println("\nList of Products:\n" + allCourses);
+    }
+
+    private Sem inputSemester(ListInterface<Course> courseList) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

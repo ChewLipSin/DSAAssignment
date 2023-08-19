@@ -19,16 +19,16 @@ public class CourseInitializer {
     //  Method to return a collection of with hard-coded entity values
     public ListInterface<Course> initializeCourse() {
         ListInterface<Course> cList = new ArrList<>();
-        cList.add(new Course("BAIT1013", "Introduction of Computer Networks", 4));
-        cList.add(new Course("BAMS1623", "Discrete Mathematics", 3));
-        cList.add(new Course("BAMS1054", "Probability and Statistics", 4));
-        cList.add(new Course("BJEL1713", "English for Tertiary Studies", 3));
-        cList.add(new Course("BJEL1723", "Academic English", 3));
-        cList.add(new Course("BACS1053", "Database Management", 4));
+        cList.add(new Course("BAIT1013", "Introduction of Computer Networks", 4, Course.Sem.JAN));
+        cList.add(new Course("BAMS1623", "Discrete Mathematics", 3, Course.Sem.JAN));
+        cList.add(new Course("BAMS1054", "Probability and Statistics", 4, Course.Sem.JAN));
+        cList.add(new Course("BJEL1713", "English for Tertiary Studies", 3, Course.Sem.JAN));
+        cList.add(new Course("BJEL1723", "Academic English", 3, Course.Sem.JUL));
+        cList.add(new Course("BACS1053", "Database Management", 4, Course.Sem.JUL));
         return cList;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         CourseInitializer c = new CourseInitializer();
         ListInterface<Course> courseList = c.initializeCourse();
         CourseMaintenanceUI courseUI = new CourseMaintenanceUI();
