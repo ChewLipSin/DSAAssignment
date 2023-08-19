@@ -47,7 +47,8 @@ public class CourseMaintenanceUI {
     }
 
     public void listAllCourses(String allCourses) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //Haven't do design
+        System.out.println("\nList of Products:\n" + allCourses);
     }
 
 }
