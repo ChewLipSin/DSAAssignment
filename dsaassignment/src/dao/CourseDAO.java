@@ -7,17 +7,23 @@ package dao;
 import adt.*;
 import entity.Course;
 import java.io.*;
+import java.io.File;
 
 /**
  *
  * @author Chew Lip Sin
  */
-public class CourseDAO {
+public class CourseDAO<T> {
 
     private String fileName = "course.dat"; // For security and maintainability, should not have filename hardcoded here.
 
-    public void saveToFile(ListInterface<Course> courseList) {
+    public void saveToFile(ListInterface<T> courseList) throws IOException {
         File file = new File(fileName);
+//        if (file.createNewFile()) {
+//            System.out.println(fileName + " File Created");
+//        } else {
+//            System.out.println("File " + fileName + " already exists");
+//        }
         try {
             ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream(file));
             ooStream.writeObject(courseList);
