@@ -1,5 +1,6 @@
 package adt;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Iterator;
  * @author Lim Yi Leong
  * @param <T>
  */
-public class ArrList<T> implements ListInterface<T> {
+public class ArrList<T> implements ListInterface<T>, Serializable {
 
     private T[] arr;
     private int numberOfEntries;
