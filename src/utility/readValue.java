@@ -24,7 +24,7 @@ public class readValue {
                 sc.nextLine();
                 System.out.println();
             } catch (Exception e) {
-                System.out.print("Invalid, please enter a number:");
+                System.out.print("Invalid, please enter in integer:");
                 sc.next();
                 isInteger = true;
             }
@@ -35,6 +35,40 @@ public class readValue {
 
     public String readString() {
         String input = sc.nextLine();
+        return input;
+    }
+
+    public String readCourseCode() {
+        String input;
+        boolean match = false;
+        do {
+            input = sc.nextLine();
+
+            match = input.matches("^[A-Za-z]{4}\\d{4}$");
+            if ("0".equals(input)) {
+                match = true;
+                return "0";
+            }
+            if (!match) {
+                MessageUI.displayInvalidFormat();
+            }
+        } while (!match);
+        return input;
+    }
+
+    public String readCharInt() {
+        String input;
+        boolean match = false;
+        do {
+            input = sc.nextLine();
+            if (input == "0") {
+                return input;
+            }
+            match = input.matches("^[a-zA-Z0-9\\s]+$");
+            if (!match) {
+                MessageUI.displayInvalidFormat();
+            }
+        } while (!match);
         return input;
     }
 }

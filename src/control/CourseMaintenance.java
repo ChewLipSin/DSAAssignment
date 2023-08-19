@@ -26,7 +26,7 @@ public class CourseMaintenance {
         courseList = courseDAO.retrieveFromFile();
     }
 
-    public void runCourseMaintenance(ListInterface<Course> courseList){
+    public void runCourseMaintenance(ListInterface<Course> courseList) {
         int choice = 0;
         do {
             choice = courseUI.getMenuChoices();
@@ -36,7 +36,11 @@ public class CourseMaintenance {
                     MessageUI.displayExitMessage();
                     break;
                 case 1:
-                    addNewCourse(courseList);
+//                    addNewCourse(courseList);
+                    courseUI.inputCourseDetails(courseList);
+                    courseUI.listAllCourses(getAllCourses(courseList));
+                    break;
+                case 5:
                     courseUI.listAllCourses(getAllCourses(courseList));
                     break;
                 default:
@@ -47,13 +51,13 @@ public class CourseMaintenance {
 
     }
 
-    private void addNewCourse(ListInterface<Course> courseList){
+    private void addNewCourse(ListInterface<Course> courseList) {
         Course newCourse = courseUI.inputCourseDetails(courseList);
         courseList.add(newCourse);
         courseDAO.saveToFile(courseList);
     }
 
-    public String getAllCourses(ListInterface<Course>  courseList) {
+    public String getAllCourses(ListInterface<Course> courseList) {
         int currentIndex = 0;
 //        for (int i = 1; i <= courseList.size(); i++) {
 //            outputStr += courseList.getEntry(i) + "\n";

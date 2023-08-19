@@ -18,7 +18,18 @@ public class Course implements Serializable {
 
     public enum Sem {
         JAN,
-        JUL;
+        JUL,
+        ALL;
+
+        public String toString(Sem sem) {
+            if (sem == JAN) {
+                return "JAN";
+            } else if (sem == JUL) {
+                return "JUL";
+            } else {
+                return "ALL";
+            }
+        }
     };
     private LocalDateTime updateTime;
 
@@ -92,6 +103,14 @@ public class Course implements Serializable {
 
     @Override
     public String toString() {
-        return "Course" + "courseCode=" + courseCode + ", title=" + title + ", creditHours=" + creditHours + ", updateTime=" + updateTime + ", Semester=" + semester;
+        String sems;
+        if (semester == Sem.JAN) {
+            sems = "JAN";
+        } else if (semester == Sem.JUL) {
+            sems = "JUL";
+        } else {
+            sems = "ALL";
+        }
+        return "Course" + "courseCode=" + courseCode + ", title=" + title + ", creditHours=" + creditHours + ", updateTime=" + updateTime + ", Semester=" + sems;
     }
 }
