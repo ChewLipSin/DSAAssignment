@@ -7,22 +7,35 @@ package utility;
 public class MessageUI {
 
     public static void displayInvalidChoiceMessage() {
-        System.out.println("\nInvalid choice");
+        printFormattedText("\nInvalid choice\n", ConsoleColor.RED);
     }
 
     public static void displayExitMessage() {
-        System.out.println("\nExiting system");
+        printFormattedText("\nExiting system...", ConsoleColor.GREEN);
+
     }
 
     public static void displayInvalidCreditHourMessage(int creditHour) {
         if (creditHour > 20) {
-            System.out.println("Your input credit hour is more than the range");
+            printFormattedText("Your input credit hour is more than the range\n", ConsoleColor.YELLOW);
         } else if (creditHour < 0) {
-            System.out.println("Your input credit hour is less than the range");
+            printFormattedText("Your input credit hour is less than the range\n", ConsoleColor.YELLOW);
         }
     }
 
+    public static void askConfirmationMessage(String val) {
+        printFormattedText("Are you sure to " + val + " it?(1 is Yes and 0 is No): ", ConsoleColor.BRIGHTBLUE);
+    }
+
+    public static void displaySuccessConfirmationMessage(String val) {
+        printFormattedText(val + "ed Successfully!\n", ConsoleColor.GREEN);
+    }
+
     public static void displayInvalidFormat() {
-        System.out.print("Your input is not in correct format: ");
+        printFormattedText("Your input is not in correct format: ", ConsoleColor.YELLOW);
+    }
+
+    public static void printFormattedText(String text, ConsoleColor color) {
+        System.out.print(color + text + ConsoleColor.RESET);
     }
 }
