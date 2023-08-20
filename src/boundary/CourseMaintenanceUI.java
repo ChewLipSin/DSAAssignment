@@ -8,8 +8,10 @@ import adt.ListInterface;
 import entity.Course;
 import entity.Course.Sem;
 import java.util.Iterator;
+import utility.Command;
+import utility.ConsoleColor;
 import utility.MessageUI;
-import utility.readValue;
+import utility.ReadValue;
 
 /**
  *
@@ -18,7 +20,7 @@ import utility.readValue;
 public class CourseMaintenanceUI {
 
     int choice;
-    readValue rv = new readValue();
+    ReadValue rv = new ReadValue();
     MessageUI msg = new MessageUI();
 
     public int getMenuChoices() {
@@ -44,6 +46,10 @@ public class CourseMaintenanceUI {
     }
 
     public Course inputCourseDetails(ListInterface<Course> courseList) {
+        System.out.println("    ||==============||");
+        System.out.println("    ||Add New Course||");
+        System.out.println("    ||==============||");
+        System.out.println("");
         String courseCode = inputCourseCode(courseList);
         if ("0".equals(courseCode)) {
             return new Course(null, null, 0, null);
@@ -60,8 +66,10 @@ public class CourseMaintenanceUI {
         if (semester == null) {
             return new Course(null, null, 0, null);
         }
+        Course newCourse = new Course(courseCode, title, creditHour, semester);
         System.out.println();
-        return new Course(courseCode, title, creditHour, semester);
+
+        return newCourse;
     }
 
     private String inputCourseCode(ListInterface<Course> courseList) {
@@ -103,8 +111,8 @@ public class CourseMaintenanceUI {
     private int inputCreditHour() {
         int creditHour = 0;
 
-        System.out.print("Enter credit hour(Enter '0' to exit): ");
         do {
+            System.out.print("Enter credit hour(Enter '0' to exit): ");
             creditHour = rv.readInteger();
             MessageUI.displayInvalidCreditHourMessage(creditHour);
         } while (creditHour < 0 || creditHour > 20);
@@ -115,9 +123,11 @@ public class CourseMaintenanceUI {
         int choice = 0;
         Sem semester = null;
         do {
+            System.out.println("SEMESTER");
             System.out.println("1. JAN");
             System.out.println("2. JUL");
             System.out.println("3. ALL");
+            System.out.println("0. Exit");
             System.out.print("Select course semester: ");
             choice = rv.readInteger();
             switch (choice) {
@@ -130,6 +140,8 @@ public class CourseMaintenanceUI {
                 case 3:
                     semester = Sem.ALL;
                     break;
+                case 0:
+                    semester = null;
                 default:
                     break;
             }
@@ -142,6 +154,28 @@ public class CourseMaintenanceUI {
 
     public void listAllCourses(String allCourses) {
         System.out.println("\nList of Products:\n" + allCourses);
+    }
+
+    public void displayCourseDetails(Course newCourse) {
+        MessageUI.printFormattedText("New Course Details\n", ConsoleColor.CYAN);
+        MessageUI.printFormattedText("-------------------\n", ConsoleColor.CYAN);
+        MessageUI.printFormattedText("Course Code : " + newCourse.getCourseCode() + "\n", ConsoleColor.CYAN);
+        MessageUI.printFormattedText("Course Title: " + newCourse.getTitle() + "\n", ConsoleColor.CYAN);
+        MessageUI.printFormattedText("Credit Hours: " + newCourse.getCreditHours() + "\n", ConsoleColor.CYAN);
+        MessageUI.printFormattedText("Semester    : " + newCourse.semToString(newCourse.getSemester()) + "\n", ConsoleColor.CYAN);
+    }
+
+    public boolean getConfirmationChoice() {
+        int choice = 0;
+        do {
+            MessageUI.askConfirmationMessage("add");
+            choice = rv.readInteger();
+        } while (choice < 0 || choice > 1);
+        if (choice == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }

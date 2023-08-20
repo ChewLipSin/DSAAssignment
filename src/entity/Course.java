@@ -68,9 +68,6 @@ public class Course implements Serializable {
         this.creditHours = creditHours;
     }
 
-//    public static String getSEM(int i) {
-//        return SEM[i];
-//    }
     @Override
     public int hashCode() {
         int hash = 3;
@@ -99,6 +96,27 @@ public class Course implements Serializable {
             return false;
         }
         return Objects.equals(this.title, other.title);
+    }
+
+    public Sem getSemester() {
+        return semester;
+    }
+
+    public void setSemester(Sem semester) {
+        this.semester = semester;
+    }
+
+    public String semToString(Sem semester) {
+        if (semester == Sem.JAN) {
+            return "JAN";
+        } else if (semester == Sem.JUL) {
+            return "JUL";
+        } else if (semester == Sem.ALL) {
+            return "ALL";
+        } else {
+            return null;
+    
+        }
     }
 
     @Override
