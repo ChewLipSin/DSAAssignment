@@ -156,19 +156,30 @@ public class CourseMaintenanceUI {
         System.out.println("\nList of Products:\n" + allCourses);
     }
 
-    public void displayCourseDetails(Course newCourse) {
+    public void displayNewCourse(Course newCourse) {
         MessageUI.printFormattedText("New Course Details\n", ConsoleColor.CYAN);
         MessageUI.printFormattedText("-------------------\n", ConsoleColor.CYAN);
-        MessageUI.printFormattedText("Course Code : " + newCourse.getCourseCode() + "\n", ConsoleColor.CYAN);
-        MessageUI.printFormattedText("Course Title: " + newCourse.getTitle() + "\n", ConsoleColor.CYAN);
-        MessageUI.printFormattedText("Credit Hours: " + newCourse.getCreditHours() + "\n", ConsoleColor.CYAN);
-        MessageUI.printFormattedText("Semester    : " + newCourse.semToString(newCourse.getSemester()) + "\n", ConsoleColor.CYAN);
+        displayCourseDetails(newCourse);
+
     }
 
-    public boolean getConfirmationChoice() {
+    public void displayCourse(Course courseSelected) {
+        MessageUI.printFormattedText("  Course Details\n", ConsoleColor.CYAN);
+        MessageUI.printFormattedText("-------------------\n", ConsoleColor.CYAN);
+        displayCourseDetails(courseSelected);
+    }
+
+    public void displayCourseDetails(Course course) {
+        MessageUI.printFormattedText("Course Code : " + course.getCourseCode() + "\n", ConsoleColor.CYAN);
+        MessageUI.printFormattedText("Course Title: " + course.getTitle() + "\n", ConsoleColor.CYAN);
+        MessageUI.printFormattedText("Credit Hours: " + course.getCreditHours() + "\n", ConsoleColor.CYAN);
+        MessageUI.printFormattedText("Semester    : " + course.semToString(course.getSemester()) + "\n", ConsoleColor.CYAN);
+    }
+
+    public boolean getConfirmationChoice(String val) {
         int choice = 0;
         do {
-            MessageUI.askConfirmationMessage("add");
+            MessageUI.askConfirmationMessage(val);
             choice = rv.readInteger();
         } while (choice < 0 || choice > 1);
         if (choice == 0) {
@@ -176,6 +187,31 @@ public class CourseMaintenanceUI {
         } else {
             return true;
         }
+    }
+
+    public int inputRemoveCode(ListInterface<Course> courseList) {
+        Iterator it = courseList.getIterator();
+        int i = 1;
+        boolean match = false;
+        System.out.print("Enter the course code you want to delete(Enter '0' to exit): ");
+        String courseCode = rv.readCourseCode();
+        if ("0".equals(courseCode)) {
+            return -1;
+        }
+        courseCode = courseCode.toUpperCase();
+        while (it.hasNext()) {
+            it.next();
+            String oldCourseCode = courseList.getEntry(i).getCourseCode();
+            oldCourseCode = oldCourseCode.toUpperCase();
+            match = oldCourseCode.equals(courseCode);
+
+            if (match) {
+                return i;
+            }
+            i++;
+        }
+        System.out.println("This " + courseCode + " is not in the list.");
+        return -1;
     }
 
 }

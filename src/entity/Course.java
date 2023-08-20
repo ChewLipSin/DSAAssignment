@@ -1,7 +1,7 @@
 package entity;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -31,14 +31,14 @@ public class Course implements Serializable {
             }
         }
     };
-    private LocalDateTime updateTime;
+    private LocalDate updateTime;
 
     public Course(String courseCode, String title, int creditHours, Sem semester) {
         this.courseCode = courseCode;
         this.title = title;
         this.creditHours = creditHours;
         this.semester = semester;
-        this.updateTime = LocalDateTime.now();
+        this.updateTime = LocalDate.now();
     }
 
     public Course() {
