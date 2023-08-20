@@ -43,6 +43,10 @@ public class CourseMaintenance {
                     courseUI.listAllCourses(getAllCourses(courseList));
                     Command.pressEnterToContinue();
                     break;
+                case 2:
+                    removeCourse(courseList);
+                    courseUI.listAllCourses(getAllCourses(courseList));
+                    Command.pressEnterToContinue();
                 case 5:
                     courseUI.listAllCourses(getAllCourses(courseList));
                     break;
@@ -65,7 +69,7 @@ public class CourseMaintenance {
             if (confirm == true) {
                 courseList.add(newCourse);
                 courseDAO.saveToFile(courseList);
-                MessageUI.displaySuccessConfirmationMessage("Add");
+                MessageUI.displaySuccessConfirmationMessage("Added");
                 Command.pressEnterToContinue();
 
             }
@@ -88,8 +92,32 @@ public class CourseMaintenance {
     }
 
     public boolean addConfirmation(Course newCourse) {
-        courseUI.displayCourseDetails(newCourse);
-        boolean confirm = courseUI.getConfirmationChoice();
+        courseUI.displayNewCourse(newCourse);
+        boolean confirm = courseUI.getConfirmationChoice("add");
+        return confirm;
+    }
+
+    private void removeCourse(ListInterface<Course> courseList) {
+        boolean confirm = false;
+        boolean deleteCourse = false;
+        int courseSelected = courseUI.inputRemoveCode(courseList);
+
+        deleteCourse = (courseSelected > -1);
+        if (deleteCourse == true) {
+            confirm = deleteConfirmation(courseList.getEntry(courseSelected));
+            if (confirm == true) {
+                courseList.remove(courseSelected);
+                courseDAO.saveToFile(courseList);
+                MessageUI.displaySuccessConfirmationMessage("Removed");
+                Command.pressEnterToContinue();
+            }
+
+        }
+    }
+
+    private boolean deleteConfirmation(Course courseSelected) {
+        courseUI.displayCourse(courseSelected);
+        boolean confirm = courseUI.getConfirmationChoice("remove");
         return confirm;
     }
 

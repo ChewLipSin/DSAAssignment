@@ -28,7 +28,7 @@ public class MessageUI {
     }
 
     public static void displaySuccessConfirmationMessage(String val) {
-        printFormattedText(val + "ed Successfully!\n", ConsoleColor.GREEN);
+        printFormattedText(val + " Successfully!\n", ConsoleColor.GREEN);
     }
 
     public static void displayInvalidFormat() {
