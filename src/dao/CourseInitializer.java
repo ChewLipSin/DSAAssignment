@@ -23,7 +23,7 @@ public class CourseInitializer {
         cList.add(new Course("BAMS1623", "Discrete Mathematics", 3, Course.Sem.JAN));
         cList.add(new Course("BAMS1054", "Probability and Statistics", 4, Course.Sem.JAN));
         cList.add(new Course("BJEL1713", "English for Tertiary Studies", 3, Course.Sem.JAN));
-        cList.add(new Course("BJEL1723", "Academic English", 3, Course.Sem.JUL));
+        cList.add(new Course("BJEL1723", "Academic English", 03, Course.Sem.JUL));
         cList.add(new Course("BACS1053", "Database Management", 4, Course.Sem.ALL));
         return cList;
     }
