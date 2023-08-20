@@ -10,7 +10,7 @@ import java.util.Scanner;
  *
  * @author Chew Lip Sin
  */
-public class readValue {
+public class ReadValue {
 
     Scanner sc = new Scanner(System.in);
 
@@ -22,9 +22,8 @@ public class readValue {
             try {
                 number = sc.nextInt();
                 sc.nextLine();
-                System.out.println();
             } catch (Exception e) {
-                System.out.print("Invalid, please enter in integer:");
+                MessageUI.printFormattedText("Invalid format, please enter in integer: ", ConsoleColor.YELLOW);
                 sc.next();
                 isInteger = true;
             }
@@ -44,7 +43,7 @@ public class readValue {
         do {
             input = sc.nextLine();
 
-            match = input.matches("^[A-Za-z]{4}\\d{4}$");
+            match = input.matches("^[ABFMabfm][A-Za-z]{3}\\d{4}$|^[Mm][Pp][Uu][-]\\d{4}$");
             if ("0".equals(input)) {
                 match = true;
                 return "0";
@@ -64,7 +63,7 @@ public class readValue {
             if (input == "0") {
                 return input;
             }
-            match = input.matches("^[a-zA-Z0-9\\s]+$");
+            match = input.matches("^[a-zA-Z0-9\\s]$");
             if (!match) {
                 MessageUI.displayInvalidFormat();
             }
