@@ -20,7 +20,7 @@ import utility.InputValue;
 public class CourseMaintenanceUI {
 
     int choice;
-    InputValue iv = new ReadValue();
+    InputValue iv = new InputValue();
     MessageUI msg = new MessageUI();
 
     public int getMenuChoices() {
