@@ -21,6 +21,7 @@ public class CourseMaintenanceUI {
 
     int choice;
     InputValue iv = new InputValue();
+
     MessageUI msg = new MessageUI();
 
     public int getMenuChoices() {
