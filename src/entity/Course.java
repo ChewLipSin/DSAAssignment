@@ -2,7 +2,6 @@ package entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.Objects;
 
 /**
@@ -15,25 +14,27 @@ public class Course implements Serializable {
     private String title;
     private int creditHours;
     private Sem semester;
-    private LocalDate createTime;
-    private LocalDate updateTime;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 
 //    private static final String[] SEM = {"JAN", "JULY"};
     public enum Sem {
         ALL,
         JAN,
         JUL;
-        
 
-        public String toString(Sem sem) {
-            if (sem == JAN) {
-                return "JAN";
-            } else if (sem == JUL) {
-                return "JUL";
-            } else {
-                return "ALL";
+        public String getString(Sem sem) {
+            switch (sem) {
+                case ALL:
+                    return "ALL";
+                case JAN:
+                    return "JAN";
+                case JUL:
+                    return "JUL";
             }
+            return "ALL";
         }
+
     };
 
     public Course(String courseCode, String title, int creditHours, Sem semester) {
@@ -41,8 +42,8 @@ public class Course implements Serializable {
         this.title = title;
         this.creditHours = creditHours;
         this.semester = semester;
-        this.createTime = LocalDate.now();
-        this.updateTime = LocalDate.now();
+        this.createdAt = LocalDate.now();
+        this.updatedAt = LocalDate.now();
     }
 
     public Course() {
@@ -64,16 +65,16 @@ public class Course implements Serializable {
         this.courseCode = courseCode;
     }
 
-    public LocalDate getCreateTime() {
-        return createTime;
+    public LocalDate getCreatedAt() {
+        return createdAt;
     }
 
-    public LocalDate getUpdateTime() {
-        return updateTime;
+    public LocalDate getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdateTime(LocalDate updateTime) {
-        this.updateTime = updateTime;
+    public void setUpdatedAt(LocalDate updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public void setTitle(String title) {
@@ -122,6 +123,16 @@ public class Course implements Serializable {
         this.semester = semester;
     }
 
+    public int compareSem(Sem sem) {
+        if (this.semester.compareTo(sem) < 0) {
+            return -1;
+        } else if (this.semester.compareTo(sem) == 0) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
     public String semToString(Sem semester) {
         if (semester == Sem.JAN) {
             return "JAN";
@@ -145,24 +156,23 @@ public class Course implements Serializable {
         } else {
             sems = "ALL";
         }
-        return "Course" + "courseCode= " + courseCode + ", title= " + title + ", creditHours= " + creditHours + ", Semester= " + sems + ", Created Time= " + createTime + ", Update Time= " + updateTime;
+        return "Course" + "courseCode= " + courseCode + ", title= " + title + ", creditHours= " + creditHours + ", Semester= " + sems + ", Created At= " + createdAt + ", Updated At= " + updatedAt;
     }
 
-    class SortbyCourseCode implements Comparator<Course> {
-
-        @Override
-        public int compare(Course c1, Course c2) {
-            int comparison = c1.courseCode.compareTo(c2.courseCode);
-            if (comparison == 0) {
-                return 0;
-            } else if (comparison > 1) {
-                return 1;
-            } else {
-                return -1;
-            }
-
-        }
-
-    }
-
+//    class SortbyCourseCode implements Comparator<Course> {
+//
+//        @Override
+//        public int compare(Course c1, Course c2) {
+//            int comparison = c1.courseCode.compareTo(c2.courseCode);
+//            if (comparison == 0) {
+//                return 0;
+//            } else if (comparison > 1) {
+//                return 1;
+//            } else {
+//                return -1;
+//            }
+//
+//        }
+//
+//    }
 }
