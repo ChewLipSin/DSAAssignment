@@ -8,7 +8,9 @@ import adt.*;
 import boundary.CourseMaintenanceUI;
 import control.CourseMaintenance;
 import entity.Course;
+import java.util.Collections;
 import java.io.IOException;
+import utility.Sort;
 
 /**
  *
@@ -41,6 +43,10 @@ public class CourseInitializer {
         System.out.println("\nCourse:\n" + courseList2);
         courseUI.listAllCourses(courseMain.getAllCourses(courseList));
         CourseMaintenance cm = new CourseMaintenance(courseList);
+        Sort.quickSort(courseList, 1, courseList.size(),"semester");
+        for (int i = 1; i <= courseList.size(); i++) {
+            System.out.println(courseList.getEntry(i));
+        }
         cm.runCourseMaintenance(courseList);
 
     }

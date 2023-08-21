@@ -6,7 +6,7 @@ package utility;
 
 /**
  *
- * @author chewr
+ * @author Chew Lip Sin
  */
 public enum ConsoleColor {
     RESET("\u001B[0m"),

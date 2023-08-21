@@ -2,6 +2,7 @@ package entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.Objects;
 
 /**
@@ -14,12 +15,15 @@ public class Course implements Serializable {
     private String title;
     private int creditHours;
     private Sem semester;
-//    private static final String[] SEM = {"JAN", "JULY"};
+    private LocalDate createTime;
+    private LocalDate updateTime;
 
+//    private static final String[] SEM = {"JAN", "JULY"};
     public enum Sem {
+        ALL,
         JAN,
-        JUL,
-        ALL;
+        JUL;
+        
 
         public String toString(Sem sem) {
             if (sem == JAN) {
@@ -31,13 +35,13 @@ public class Course implements Serializable {
             }
         }
     };
-    private LocalDate updateTime;
 
     public Course(String courseCode, String title, int creditHours, Sem semester) {
         this.courseCode = courseCode;
         this.title = title;
         this.creditHours = creditHours;
         this.semester = semester;
+        this.createTime = LocalDate.now();
         this.updateTime = LocalDate.now();
     }
 
@@ -58,6 +62,18 @@ public class Course implements Serializable {
 
     public void setCourseCode(String courseCode) {
         this.courseCode = courseCode;
+    }
+
+    public LocalDate getCreateTime() {
+        return createTime;
+    }
+
+    public LocalDate getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(LocalDate updateTime) {
+        this.updateTime = updateTime;
     }
 
     public void setTitle(String title) {
@@ -115,7 +131,7 @@ public class Course implements Serializable {
             return "ALL";
         } else {
             return null;
-    
+
         }
     }
 
@@ -129,6 +145,24 @@ public class Course implements Serializable {
         } else {
             sems = "ALL";
         }
-        return "Course" + "courseCode=" + courseCode + ", title=" + title + ", creditHours=" + creditHours + ", updateTime=" + updateTime + ", Semester=" + sems;
+        return "Course" + "courseCode= " + courseCode + ", title= " + title + ", creditHours= " + creditHours + ", Semester= " + sems + ", Created Time= " + createTime + ", Update Time= " + updateTime;
     }
+
+    class SortbyCourseCode implements Comparator<Course> {
+
+        @Override
+        public int compare(Course c1, Course c2) {
+            int comparison = c1.courseCode.compareTo(c2.courseCode);
+            if (comparison == 0) {
+                return 0;
+            } else if (comparison > 1) {
+                return 1;
+            } else {
+                return -1;
+            }
+
+        }
+
+    }
+
 }

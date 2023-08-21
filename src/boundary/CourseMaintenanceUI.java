@@ -11,7 +11,7 @@ import java.util.Iterator;
 import utility.Command;
 import utility.ConsoleColor;
 import utility.MessageUI;
-import utility.ReadValue;
+import utility.InputValue;
 
 /**
  *
@@ -20,7 +20,7 @@ import utility.ReadValue;
 public class CourseMaintenanceUI {
 
     int choice;
-    ReadValue rv = new ReadValue();
+    InputValue iv = new ReadValue();
     MessageUI msg = new MessageUI();
 
     public int getMenuChoices() {
@@ -36,7 +36,7 @@ public class CourseMaintenanceUI {
         System.out.println("0. Exit");
         System.out.print("Enter choice: ");
         do {
-            choice = rv.readInteger();
+            choice = iv.readInteger();
             if (choice > 9 || choice < 0) {
                 msg.displayInvalidChoiceMessage();
             }
@@ -80,7 +80,7 @@ public class CourseMaintenanceUI {
         do {
             match = false;
             System.out.print("Enter Course Code(Enter '0' to exit):");
-            courseCode = rv.readCourseCode();
+            courseCode = iv.readCourseCode();
             if ("0".equals(courseCode)) {
                 return courseCode = "0";
             }
@@ -103,7 +103,7 @@ public class CourseMaintenanceUI {
 
     private String inputTitle() {
         System.out.print("Enter the title(Enter '0' to exit): ");
-        String title = rv.readCharInt();
+        String title =iv.readCharInt();
         return title;
 
     }
@@ -113,7 +113,7 @@ public class CourseMaintenanceUI {
 
         do {
             System.out.print("Enter credit hour(Enter '0' to exit): ");
-            creditHour = rv.readInteger();
+            creditHour = iv.readInteger();
             MessageUI.displayInvalidCreditHourMessage(creditHour);
         } while (creditHour < 0 || creditHour > 20);
         return creditHour;
@@ -129,7 +129,7 @@ public class CourseMaintenanceUI {
             System.out.println("3. ALL");
             System.out.println("0. Exit");
             System.out.print("Select course semester: ");
-            choice = rv.readInteger();
+            choice = iv.readInteger();
             switch (choice) {
                 case 1:
                     semester = Sem.JAN;
@@ -180,7 +180,7 @@ public class CourseMaintenanceUI {
         int choice = 0;
         do {
             MessageUI.askConfirmationMessage(val);
-            choice = rv.readInteger();
+            choice = iv.readInteger();
         } while (choice < 0 || choice > 1);
         if (choice == 0) {
             return false;
@@ -194,7 +194,7 @@ public class CourseMaintenanceUI {
         int i = 1;
         boolean match = false;
         System.out.print("Enter the course code you want to delete(Enter '0' to exit): ");
-        String courseCode = rv.readCourseCode();
+        String courseCode = iv.readCourseCode();
         if ("0".equals(courseCode)) {
             return -1;
         }

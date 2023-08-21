@@ -47,6 +47,10 @@ public class CourseMaintenance {
                     removeCourse(courseList);
                     courseUI.listAllCourses(getAllCourses(courseList));
                     Command.pressEnterToContinue();
+                case 3:
+                    searchCourse(courseList);
+                    Command.pressEnterToContinue();
+                    break;
                 case 5:
                     courseUI.listAllCourses(getAllCourses(courseList));
                     break;
@@ -119,6 +123,11 @@ public class CourseMaintenance {
         courseUI.displayCourse(courseSelected);
         boolean confirm = courseUI.getConfirmationChoice("remove");
         return confirm;
+    }
+
+    private void searchCourse(ListInterface<Course> courseList) {
+//        Sort.heapSort(courseList);
+        System.out.println(courseList);
     }
 
 }

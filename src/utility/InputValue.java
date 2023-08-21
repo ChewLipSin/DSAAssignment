@@ -10,7 +10,7 @@ import java.util.Scanner;
  *
  * @author Chew Lip Sin
  */
-public class ReadValue {
+public class InputValue {
 
     Scanner sc = new Scanner(System.in);
 
