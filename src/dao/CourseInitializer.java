@@ -35,7 +35,6 @@ public class CourseInitializer {
         cList.add(new Course("BBMF3203", "Research Method", 3, Course.Sem.ALL));
         cList.add(new Course("MPU-2312", "Civic Consciousness and Volunteerism", 2, Course.Sem.ALL));
         cList.add(new Course("MPU-2212", "Bahasa Kebangsaan A", 2, Course.Sem.ALL));
-        
 
         return cList;
     }
@@ -52,16 +51,19 @@ public class CourseInitializer {
         ListInterface<Course> courseList2 = d.retrieveFromFile();
 //        System.out.println("\nCourse:\n" + courseList);
 //        System.out.println("\nCourse:\n" + courseList2);
-                
-        courseUI.listAllCourses(courseMain.getAllCourses(courseList));
-        CourseMaintenance cm = new CourseMaintenance(courseList); 
-//        s.insertionSort(courseList,"courseCode");
-        Sort.quickSort(courseList, 1, courseList.size(), "title");
-        System.out.println("\nCourse:\n" + courseList);
 
+//        courseMain.listedCourse(courseList);
+        CourseMaintenance cm = new CourseMaintenance(courseList);
+//        s.insertionSort(courseList,"courseCode");
+        Sort.quickSort(courseList, 1, courseList.size(), "updatedAt");
+        System.out.println(courseList);
+        Sort.quickSort(courseList, 1, courseList.size(), "createdAt");
+        System.out.println(courseList);
+        s.insertionSortDes(courseList, "courseCode");
+        System.out.println(courseList);
+//        System.out.println("\nCourse:\n" + courseList);
         cm.runCourseMaintenance(courseList);
 
     }
-
 
 }

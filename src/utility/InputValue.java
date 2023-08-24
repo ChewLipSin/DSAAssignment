@@ -33,8 +33,14 @@ public class InputValue {
     }
 
     public String readString() {
-        String input = sc.nextLine();
-        input = input.trim();
+        String input;
+        do {
+            input = sc.nextLine();
+            input = input.trim();
+            if (input.equals("")) {
+                MessageUI.displayInvalidFormat();
+            }
+        } while (input.equals(""));
         return input;
     }
 

@@ -161,7 +161,7 @@ public class Course <T>implements Serializable {
         } else {
             sems = "ALL";
         }
-        return "Course" + "courseCode= " + courseCode + ", title= " + title + ", creditHours= " + creditHours + ", Semester= " + sems + ", Created At= " + createdAt + ", Updated At= " + updatedAt;
+        return String.format("|%-12s|%-52s|  %-2d          |  %-8s|%-12s|%-12s", courseCode,title,creditHours,sems,createdAt,updatedAt);
     }
 
 //    class SortbyCourseCode implements Comparator<Course> {

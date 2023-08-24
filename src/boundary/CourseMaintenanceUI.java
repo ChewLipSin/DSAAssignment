@@ -108,6 +108,7 @@ public class CourseMaintenanceUI {
     public String inputTitle() {
         System.out.print("Enter the title(Enter '0' to exit): ");
         String title = iv.readString();
+        title = title.substring(0, 51);
         return title;
 
     }
@@ -156,8 +157,31 @@ public class CourseMaintenanceUI {
         return semester;
     }
 
-    public void listAllCourses(String allCourses) {
-        System.out.println("\nList of Products:\n" + allCourses);
+    public void listAllCourses(ListInterface<Course> courseList) {
+        System.out.println("\nList of Courses:");
+        System.out.println("=======================================================================================================================");
+        System.out.println("No |Course Code |Course Title                                        |Credit Hours  |Semester  |Created At  |Updated At");
+        System.out.println("=======================================================================================================================");
+        System.out.println(getAllCourses(courseList));
+        System.out.println("=======================================================================================================================");
+
+    }
+
+    public String getAllCourses(ListInterface<Course> courseList) {
+//        int currentIndex = 0;
+//        for (int i = 1; i <= courseList.size(); i++) {
+//            outputStr += courseList.getEntry(i) + "\n";
+//        }
+        String outputStr = "";
+        Iterator it = courseList.getIterator();
+        int i = 1;
+
+        while (it.hasNext()) {
+//            System.out.println(it.next());
+            outputStr += String.format("%-3d", i) + it.next() + "\n";
+            i++;
+        }
+        return outputStr;
     }
 
     public void displayCourse(Course course, String val) {
@@ -362,6 +386,46 @@ public class CourseMaintenanceUI {
             }
         } while (loop);
         return -1;
+    }
+
+    public int getSortMenu(ListInterface<Course> courseList) {
+        int choice = 0;
+        System.out.println("Sort");
+        System.out.println("----");
+        System.out.println("1. Ascending Order");
+        System.out.println("2. Descending Order");
+        System.out.println("0. Exit");
+        do {
+            System.out.print("Enter choice: ");
+            choice = iv.readInteger();
+            if (choice > 2 || choice < 0) {
+                MessageUI.displayInvalidChoiceMessage();
+            }
+        } while (choice > 2 || choice < 0);
+
+        return choice;
+    }
+
+    public int getSortMenuChoice(ListInterface<Course> courseList, String val) {
+        int choice = 0;
+        System.out.println(val);
+        System.out.println("----");
+        System.out.println("1. Course Code");
+        System.out.println("2. Course Title");
+        System.out.println("3. Credit Hours");
+        System.out.println("4. Semester");
+        System.out.println("5. Created At");
+        System.out.println("6. Updated At");
+        System.out.println("0. Exit");
+        do {
+            System.out.print("Enter choice: ");
+            choice = iv.readInteger();
+            if (choice > 6 || choice < 0) {
+                MessageUI.displayInvalidChoiceMessage();
+            }
+        } while (choice > 6 || choice < 0);
+
+        return choice;
     }
 
 }

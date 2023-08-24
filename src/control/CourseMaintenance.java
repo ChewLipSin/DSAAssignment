@@ -9,6 +9,7 @@ import boundary.CourseMaintenanceUI;
 import dao.CourseDAO;
 import entity.Course;
 import entity.Course.Sem;
+import java.time.LocalDate;
 import java.util.Iterator;
 import utility.*;
 
@@ -41,13 +42,10 @@ public class CourseMaintenance {
                     break;
                 case 1:
                     addNewCourse(courseList);
-                    courseUI.listAllCourses(getAllCourses(courseList));
-                    Command.pressEnterToContinue();
                     break;
                 case 2:
                     removeCourse(courseList);
-                    courseUI.listAllCourses(getAllCourses(courseList));
-                    break;
+bv                    break;
                 case 3:
                     searchCourse(courseList, "search");
                     break;
@@ -55,7 +53,7 @@ public class CourseMaintenance {
                     searchCourse(courseList, "ammend");
                     break;
                 case 5:
-                    courseUI.listAllCourses(getAllCourses(courseList));
+                    listedCourse(courseList);
                     break;
                 default:
                     MessageUI.displayInvalidChoiceMessage();
@@ -81,21 +79,6 @@ public class CourseMaintenance {
                 }
             }
         } while (loop);
-    }
-
-    public String getAllCourses(ListInterface<Course> courseList) {
-//        int currentIndex = 0;
-//        for (int i = 1; i <= courseList.size(); i++) {
-//            outputStr += courseList.getEntry(i) + "\n";
-//        }
-        String outputStr = "";
-        Iterator it = courseList.getIterator();
-
-        while (it.hasNext()) {
-//            System.out.println(it.next());
-            outputStr += it.next() + "\n";
-        }
-        return outputStr;
     }
 
     public boolean askConfirmation(Course newCourse, String val, String val2) {
@@ -178,7 +161,7 @@ public class CourseMaintenance {
                 }
                 courseList2.clear();
                 loop = courseUI.getConfirmationChoice(val, 0);
-            }else if(found == 0){
+            } else if (found == 0) {
                 loop = false;
             }
         } while (loop);
@@ -231,6 +214,7 @@ public class CourseMaintenance {
         if (!match) {
             boolean confirm = askConfirmation(tempCourse, "Ammend", "ammend");
             if (confirm == true) {
+                tempCourse.setUpdatedAt(LocalDate.now());
                 courseList.replace(found + 1, tempCourse);
                 courseDAO.saveToFile(courseList);
                 MessageUI.displaySuccessConfirmationMessage("Ammend");
@@ -242,6 +226,92 @@ public class CourseMaintenance {
             MessageUI.printFormattedText("No changing\n", ConsoleColor.YELLOW);
         }
 //        } while (loop);
+
+    }
+
+    public void listedCourse(ListInterface<Course> courseList) {
+        int choice = 0;
+        s.insertionSort(courseList, "courseCode");
+        courseUI.listAllCourses(courseList);
+        do {
+            choice = courseUI.getSortMenu(courseList);
+            switch (choice) {
+                case 0:
+                    break;
+                case 1:
+                    ascListedCourse(courseList);
+                    break;
+                case 2:
+                    desListedCourse(courseList);
+                    break;
+                default:
+                    MessageUI.displayInvalidChoiceMessage();
+            }
+        } while (choice != 0);
+    }
+
+    private void ascListedCourse(ListInterface<Course> courseList) {
+        int choice = 0;
+        do {
+            choice = courseUI.getSortMenuChoice(courseList, "Ascending Order");
+            switch (choice) {
+                case 0:
+                    break;
+                case 1:
+                    s.insertionSort(courseList, "courseCode");
+                    break;
+                case 2:
+                    s.insertionSort(courseList, "title");
+                    break;
+                case 3:
+                    s.insertionSort(courseList, "creditHours");
+                    break;
+                case 4:
+                    s.insertionSort(courseList, "semester");
+                    break;
+                case 5:
+                    s.insertionSort(courseList, "createdAt");
+                    break;
+                case 6:
+                    s.insertionSort(courseList, "updatedAt");
+                    break;
+                default:
+                    MessageUI.displayInvalidChoiceMessage();
+            }
+            courseUI.listAllCourses(courseList);
+        } while (choice != 0);
+    }
+
+    private void desListedCourse(ListInterface<Course> courseList) {
+        int choice = 0;
+        do {
+            choice = courseUI.getSortMenuChoice(courseList, "Descending Order");
+            switch (choice) {
+                case 0:
+                    break;
+                case 1:
+                    s.insertionSortDes(courseList, "courseCode");
+                    break;
+                case 2:
+                    s.insertionSortDes(courseList, "title");
+                    break;
+                case 3:
+                    s.insertionSortDes(courseList, "creditHours");
+                    break;
+                case 4:
+                    s.insertionSortDes(courseList, "semester");
+                    break;
+                case 5:
+                    s.insertionSortDes(courseList, "createdAt");
+                    break;
+                case 6:
+                    s.insertionSortDes(courseList, "updatedAt");
+                    break;
+                default:
+                    MessageUI.displayInvalidChoiceMessage();
+            }
+            courseUI.listAllCourses(courseList);
+        } while (choice != 0);
 
     }
 
