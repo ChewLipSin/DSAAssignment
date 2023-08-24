@@ -23,7 +23,7 @@ public class InputValue {
                 number = sc.nextInt();
                 sc.nextLine();
             } catch (Exception e) {
-                MessageUI.printFormattedText("Invalid format, please enter in integer: ", ConsoleColor.YELLOW);
+                MessageUI.printFormattedText("Invalid format, please enter in integer: ", ConsoleColor.RED);
                 sc.next();
                 isInteger = true;
             }

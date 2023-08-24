@@ -17,9 +17,9 @@ public class MessageUI {
 
     public static void displayInvalidCreditHourMessage(int creditHour) {
         if (creditHour > 20) {
-            printFormattedText("Your input credit hour is more than the range\n", ConsoleColor.YELLOW);
+            printFormattedText("Your input credit hour is more than the range\n", ConsoleColor.RED);
         } else if (creditHour < 0) {
-            printFormattedText("Your input credit hour is less than the range\n", ConsoleColor.YELLOW);
+            printFormattedText("Your input credit hour is less than the range\n", ConsoleColor.RED);
         }
     }
 
@@ -32,7 +32,7 @@ public class MessageUI {
     }
 
     public static void displayInvalidFormat() {
-        printFormattedText("Your input is not in correct format: ", ConsoleColor.YELLOW);
+        printFormattedText("Your input is not in correct format: ", ConsoleColor.RED);
     }
 
     public static void printFormattedText(String text, ConsoleColor color) {
