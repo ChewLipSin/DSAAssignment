@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templat1es/Classes/Class.java to edit this template
  */
 package dao;
 
@@ -8,8 +8,6 @@ import adt.*;
 import boundary.CourseMaintenanceUI;
 import control.CourseMaintenance;
 import entity.Course;
-import java.util.Collections;
-import java.io.IOException;
 import utility.Sort;
 
 /**
@@ -37,7 +35,6 @@ public class CourseInitializer {
         cList.add(new Course("BBMF3203", "Research Method", 3, Course.Sem.ALL));
         cList.add(new Course("MPU-2312", "Civic Consciousness and Volunteerism", 2, Course.Sem.ALL));
         cList.add(new Course("MPU-2212", "Bahasa Kebangsaan A", 2, Course.Sem.ALL));
-        
 
         return cList;
     }
@@ -52,14 +49,19 @@ public class CourseInitializer {
         CourseDAO d = new CourseDAO();
         d.saveToFile(courseList);
         ListInterface<Course> courseList2 = d.retrieveFromFile();
-        System.out.println("\nCourse:\n" + courseList);
-        System.out.println("\nCourse:\n" + courseList2);
-        courseUI.listAllCourses(courseMain.getAllCourses(courseList));
-        CourseMaintenance cm = new CourseMaintenance(courseList); 
-//        s.insertionSort(courseList,"courseCode");
-        Sort.quickSort(courseList, 1, courseList.size(), "title");
-        System.out.println("\nCourse:\n" + courseList);
+//        System.out.println("\nCourse:\n" + courseList);
+//        System.out.println("\nCourse:\n" + courseList2);
 
+//        courseMain.listedCourse(courseList);
+        CourseMaintenance cm = new CourseMaintenance(courseList);
+//        s.insertionSort(courseList,"courseCode");
+        Sort.quickSort(courseList, 1, courseList.size(), "updatedAt");
+        System.out.println(courseList);
+        Sort.quickSort(courseList, 1, courseList.size(), "createdAt");
+        System.out.println(courseList);
+        s.insertionSortDes(courseList, "courseCode");
+        System.out.println(courseList);
+//        System.out.println("\nCourse:\n" + courseList);
         cm.runCourseMaintenance(courseList);
 
     }

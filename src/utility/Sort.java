@@ -98,7 +98,7 @@ public class Sort {
         }
         if (val == "semester") {
             for (int j = low; j < high; j++) {
-                if (arr.getEntry(j).getSemester().getString(arr.getEntry(j).getSemester()).compareTo(pivot.getSemester().getString(pivot.getSemester())) < 0)  {
+                if (arr.getEntry(j).getSemester().getString(arr.getEntry(j).getSemester()).compareTo(pivot.getSemester().getString(pivot.getSemester())) < 0) {
                     i++;
                     swap(arr, i, j);
                 }
@@ -129,5 +129,52 @@ public class Sort {
         Course temp = arr.getEntry(i);
         arr.replace(i, arr.getEntry(j));
         arr.replace(j, temp);
+    }
+
+    public void insertionSortDes(ListInterface<Course> arr, String val) {
+        int n = arr.size();
+        for (int i = 1; i < n; i++) {
+            Course key = arr.getEntry(i + 1);
+
+            int j = i - 1;
+            if (val == "courseCode") {
+                while (j >= 0 && arr.getEntry(j + 1).getCourseCode().compareTo(key.getCourseCode()) < 0) {
+                    arr.replace(j + 2, arr.getEntry(j + 1));
+                    j--;
+                }
+            }
+            if (val == "title") {
+                while (j >= 0 && arr.getEntry(j + 1).getTitle().compareTo(key.getTitle()) < 0) {
+                    arr.replace(j + 2, arr.getEntry(j + 1));
+                    j--;
+                }
+            }
+            if (val == "semester") {
+                while (j >= 0 && arr.getEntry(j + 1).getSemester().getString(arr.getEntry(j + 1).getSemester()).compareTo(key.getSemester().getString(key.getSemester())) < 0) {
+                    arr.replace(j + 2, arr.getEntry(j + 1));
+                    j--;
+                }
+            }
+            if (val == "creditHours") {
+                while (j >= 0 && arr.getEntry(j + 1).getCreditHours() < key.getCreditHours()) {
+                    arr.replace(j + 2, arr.getEntry(j + 1));
+                    j--;
+                }
+            }
+            if (val == "updatedAt") {
+                while (j >= 0 && arr.getEntry(j + 1).getUpdatedAt().compareTo(key.getUpdatedAt()) < 0) {
+                    arr.replace(j + 2, arr.getEntry(j + 1));
+                    j--;
+                }
+            }
+            if (val == "createdAt") {
+                while (j >= 0 && arr.getEntry(j + 1).getCreatedAt().compareTo(key.getCreatedAt()) < 0) {
+                    arr.replace(j + 2, arr.getEntry(j + 1));
+                    j--;
+                }
+            }
+            arr.replace(j + 2, key);
+
+        }
     }
 }

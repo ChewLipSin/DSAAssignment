@@ -7,7 +7,7 @@ package utility;
 public class MessageUI {
 
     public static void displayInvalidChoiceMessage() {
-        printFormattedText("\nInvalid choice\n", ConsoleColor.RED);
+        printFormattedText("Invalid choice\n", ConsoleColor.RED);
     }
 
     public static void displayExitMessage() {
@@ -38,4 +38,17 @@ public class MessageUI {
     public static void printFormattedText(String text, ConsoleColor color) {
         System.out.print(color + text + ConsoleColor.RESET);
     }
+
+    public static void displayNotFoundMessage() {
+        printFormattedText("The result has not found!\n", ConsoleColor.YELLOW);
+    }
+
+    public static void displayFoundMessage(String val) {
+        printFormattedText("The result " + val + " has found!\n", ConsoleColor.GREEN);
+    }
+
+    public static void displayAskAgainMessage(String val) {
+        printFormattedText("Do you want to " + val + " again?(1 is Yes and 0 is No): ",ConsoleColor.BRIGHTBLUE);
+    }
+    
 }
