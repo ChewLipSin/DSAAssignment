@@ -1,6 +1,9 @@
 package entity;
 
 import java.io.Serializable;
+import adt.ListInterface;
+import adt.ArrList;
+import java.lang.Comparable;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -8,7 +11,7 @@ import java.util.Objects;
  *
  * @author Chew Lip Sin
  */
-public class Course implements Serializable {
+public class Course <T>implements Serializable {
 
     private String courseCode;
     private String title;
@@ -16,6 +19,8 @@ public class Course implements Serializable {
     private Sem semester;
     private LocalDate createdAt;
     private LocalDate updatedAt;
+    
+    ListInterface<T> course = new ArrList();
 
 //    private static final String[] SEM = {"JAN", "JULY"};
     public enum Sem {

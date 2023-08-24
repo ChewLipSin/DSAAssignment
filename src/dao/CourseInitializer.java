@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templat1es/Classes/Class.java to edit this template
  */
 package dao;
 
@@ -8,8 +8,6 @@ import adt.*;
 import boundary.CourseMaintenanceUI;
 import control.CourseMaintenance;
 import entity.Course;
-import java.util.Collections;
-import java.io.IOException;
 import utility.Sort;
 
 /**
@@ -52,8 +50,9 @@ public class CourseInitializer {
         CourseDAO d = new CourseDAO();
         d.saveToFile(courseList);
         ListInterface<Course> courseList2 = d.retrieveFromFile();
-        System.out.println("\nCourse:\n" + courseList);
-        System.out.println("\nCourse:\n" + courseList2);
+//        System.out.println("\nCourse:\n" + courseList);
+//        System.out.println("\nCourse:\n" + courseList2);
+                
         courseUI.listAllCourses(courseMain.getAllCourses(courseList));
         CourseMaintenance cm = new CourseMaintenance(courseList); 
 //        s.insertionSort(courseList,"courseCode");

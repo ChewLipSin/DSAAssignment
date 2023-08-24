@@ -34,6 +34,7 @@ public class InputValue {
 
     public String readString() {
         String input = sc.nextLine();
+        input = input.trim();
         return input;
     }
 
@@ -55,19 +56,23 @@ public class InputValue {
         return input;
     }
 
-    public String readCharInt() {
-        String input;
-        boolean match = false;
-        do {
-            input = sc.nextLine();
-            if (input == "0") {
-                return input;
-            }
-            match = input.matches("^[a-zA-Z0-9\\s]$");
-            if (!match) {
-                MessageUI.displayInvalidFormat();
-            }
-        } while (!match);
-        return input;
-    }
+//    public String readAlphaInt() {
+//        String input;
+//        boolean matchs;
+//        String regex = "\\dA-Za-z\\s-]+";
+//        do {
+//        input = sc.nextLine();
+//        matchs = input.matches(regex);
+//
+//        if ("0".equals(input)) {
+//            matchs = true;
+//            return input;
+//        }
+//
+//            if (!matchs) {
+//                MessageUI.displayInvalidFormat();
+//            }
+//        } while (!matchs);
+//        return input;
+//    }
 }
