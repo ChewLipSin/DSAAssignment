@@ -45,7 +45,7 @@ public class CourseMaintenance {
                     break;
                 case 2:
                     removeCourse(courseList);
-bv                    break;
+                    break;
                 case 3:
                     searchCourse(courseList, "search");
                     break;
