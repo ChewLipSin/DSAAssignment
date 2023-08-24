@@ -161,81 +161,86 @@ public class CourseMaintenance {
     }
 
     private void searchCourseTitle(ListInterface<Course> courseList, String val) {
-        boolean loop;
+        boolean loop = true;
         ListInterface<Course> courseList2 = new ArrList();
         do {
             int found = courseUI.getSearchCourseTitle(courseList, courseList2);
-            loop = false;
             if (found != 0) {
                 if (found == -1) {
                     MessageUI.displayNotFoundMessage();
                 } else if (found == 1) {
-                    courseUI.displayCourseFounded(courseList2);
+                    if (val == "ammend") {
+                        int index = courseUI.getCourseAmmend(courseList, courseList2);
+                        ammendCourse(courseList, index);
+                    } else {
+                        courseUI.displayCourseFounded(courseList2);
+                    }
                 }
                 courseList2.clear();
-
                 loop = courseUI.getConfirmationChoice(val, 0);
+            }else if(found == 0){
+                loop = false;
             }
         } while (loop);
     }
 
     private void ammendCourse(ListInterface<Course> courseList, int found) {
         int choice = 0;
-        Course tempCourse = courseList.getEntry(found+1);
+        Course tempCourse = courseList.getEntry(found + 1);
         String newCourseCode = tempCourse.getCourseCode();
         String newTitle = tempCourse.getTitle();
         Sem newSem = tempCourse.getSemester();
         int newCreditHours = tempCourse.getCreditHours();
 //        do {
-            do {
-                choice = courseUI.getAmmendMenuChoices();
+        do {
+            choice = courseUI.getAmmendMenuChoices();
 
-                switch (choice) {
-                    case 0:
-                        break;
-                    case 1:
-                        newCourseCode = courseUI.inputCourseCode(courseList);
-                        if (newCourseCode.equals("0")) {
-                            newCourseCode = tempCourse.getCourseCode();
-                        }
-                        break;
-                    case 2:
-                        newTitle = courseUI.inputTitle();
-                        if (newTitle.equals("0")) {
-                            newTitle = tempCourse.getTitle();
-                        }
-                        break;
-                    case 3:
-                        newCreditHours = courseUI.inputCreditHour();
-                        if(newCreditHours == 0){
-                            newCreditHours = tempCourse.getCreditHours();
-                        }
-                        break;
-                    case 4:
-                        newSem = courseUI.inputSemester();
-                        if(newSem == null){
-                            newSem = tempCourse.getSemester();
-                        }
-                        break;
-                    default:
-                        MessageUI.displayInvalidChoiceMessage();
-                }
-            } while (choice != 0);
-            tempCourse = new Course(newCourseCode, newTitle, newCreditHours, newSem);
-            boolean match = courseList.contains(tempCourse);
-            if (!match) {
-                boolean confirm = askConfirmation(tempCourse, "Ammend", "ammend");
-                if (confirm == true) {
-                    courseList.replace(found+1, tempCourse);
-                    courseDAO.saveToFile(courseList);
-                    MessageUI.displaySuccessConfirmationMessage("Ammend");
-                    System.out.println(courseList);
-                    Command.pressEnterToContinue();
-//                    loop = courseUI.getConfirmationChoice("ammend", 0);
-                }
-            } else {
-                MessageUI.printFormattedText("No changing\n", ConsoleColor.YELLOW);
+            switch (choice) {
+                case 0:
+                    break;
+                case 1:
+                    newCourseCode = courseUI.inputCourseCode(courseList);
+                    if (newCourseCode.equals("0")) {
+                        newCourseCode = tempCourse.getCourseCode();
+                    }
+                    break;
+                case 2:
+                    newTitle = courseUI.inputTitle();
+                    if (newTitle.equals("0")) {
+                        newTitle = tempCourse.getTitle();
+                    }
+                    break;
+                case 3:
+                    newCreditHours = courseUI.inputCreditHour();
+                    if (newCreditHours == 0) {
+                        newCreditHours = tempCourse.getCreditHours();
+                    }
+                    break;
+                case 4:
+                    newSem = courseUI.inputSemester();
+                    if (newSem == null) {
+                        newSem = tempCourse.getSemester();
+                    }
+                    break;
+                default:
+                    MessageUI.displayInvalidChoiceMessage();
             }
+        } while (choice != 0);
+        tempCourse = new Course(newCourseCode, newTitle, newCreditHours, newSem);
+        boolean match = courseList.contains(tempCourse);
+        if (!match) {
+            boolean confirm = askConfirmation(tempCourse, "Ammend", "ammend");
+            if (confirm == true) {
+                courseList.replace(found + 1, tempCourse);
+                courseDAO.saveToFile(courseList);
+                MessageUI.displaySuccessConfirmationMessage("Ammend");
+                System.out.println(courseList);
+                Command.pressEnterToContinue();
+//                    loop = courseUI.getConfirmationChoice("ammend", 0);
+            }
+        } else {
+            MessageUI.printFormattedText("No changing\n", ConsoleColor.YELLOW);
+        }
 //        } while (loop);
 
     }
