@@ -1,22 +1,25 @@
 package entity;
 
+import adt.ArrList;
+import adt.ListInterface;
+import java.io.Serializable;
 import java.time.LocalDateTime;
+
 /**
- *
  * @author Lim Yi Leong
  */
-public class Program {
+public class Program implements Serializable {
+
     private String code;
     private String level;
     private String name;
     private String faculty;
     private String description;
     private LocalDateTime updateTime;
-
+    private ListInterface<Course> courses = new ArrList();
     public Program() {
     }
 
-    
     public Program(String code, String name) {
         this.code = code;
         this.name = name;
@@ -79,6 +82,18 @@ public class Program {
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
     }
+
+    public ListInterface<Course> getCourses() {
+        return courses;
+    }
     
-  
+    public void addCourse(Course course){
+        courses.add(course);
+        course.getPrograms().add(this);
+    }
+    
+    public void removeCourse(Course course){
+        courses.remove(course);
+        course.getPrograms().remove(this);
+    }
 }

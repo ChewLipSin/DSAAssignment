@@ -38,7 +38,7 @@ public class CourseInitializer {
 
         return cList;
     }
-
+ 
     public static void main(String[] args) {
         CourseInitializer c = new CourseInitializer();
         ListInterface<Course> courseList = c.initializeCourse();

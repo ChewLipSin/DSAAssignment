@@ -11,7 +11,7 @@ import java.util.Objects;
  *
  * @author Chew Lip Sin
  */
-public class Course <T>implements Serializable {
+public class Course<T> implements Serializable {
 
     private String courseCode;
     private String title;
@@ -19,8 +19,9 @@ public class Course <T>implements Serializable {
     private Sem semester;
     private LocalDate createdAt;
     private LocalDate updatedAt;
-    
+
     ListInterface<T> course = new ArrList();
+    private ListInterface<Program> programs = new ArrList();
 
 //    private static final String[] SEM = {"JAN", "JULY"};
     public enum Sem {
@@ -161,9 +162,23 @@ public class Course <T>implements Serializable {
         } else {
             sems = "ALL";
         }
-        return String.format("|%-12s|%-52s|  %-2d          |  %-8s|%-12s|%-12s", courseCode,title,creditHours,sems,createdAt,updatedAt);
+        return String.format("|%-12s|%-52s|  %-2d          |  %-8s|%-12s|%-12s", courseCode, title, creditHours, sems, createdAt, updatedAt);
     }
 
+    public ListInterface<Program> getPrograms() {
+        return programs;
+    }
+
+
+    public void addProgram(Program program){
+        programs.add(program);
+        program.getCourses().add(this);
+    }
+    
+    public void removeProgram(Program program){
+        programs.remove(program);
+        program.getCourses().remove(this);
+    }
 //    class SortbyCourseCode implements Comparator<Course> {
 //
 //        @Override
