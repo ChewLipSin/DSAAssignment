@@ -165,7 +165,7 @@ public class CourseMaintenanceUI {
         System.out.println("=======================================================================================================================");
         System.out.println("No |Course Code |Course Title                                        |Credit Hours  |Semester  |Created At  |Updated At");
         System.out.println("=======================================================================================================================");
-        System.out.println(getAllCourses(courseList));
+        System.out.print(getAllCourses(courseList));
         System.out.println("=======================================================================================================================");
 
     }
@@ -181,7 +181,7 @@ public class CourseMaintenanceUI {
 
         while (it.hasNext()) {
 //            System.out.println(it.next());
-            outputStr += String.format("%-3d", i) + it.next();
+            outputStr += String.format("%-3d", i) + it.next() + "\n";
             i++;
         }
         return outputStr;
