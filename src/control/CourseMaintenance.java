@@ -6,9 +6,12 @@ package control;
 
 import adt.*;
 import boundary.CourseMaintenanceUI;
-import dao.CourseDAO;
+import boundary.CourseProgramMaintenanceUI;
+import dao.DAO;
 import entity.Course;
 import entity.Course.Sem;
+import entity.CourseProgram;
+import entity.Program;
 import java.time.LocalDate;
 import java.util.Iterator;
 import utility.*;
@@ -20,19 +23,24 @@ import utility.*;
 public class CourseMaintenance {
 
 //    private ListInterface<Course> courseList = new ArrList<>();
-    private CourseDAO courseDAO = new CourseDAO();
     private CourseMaintenanceUI courseUI = new CourseMaintenanceUI();
     private Sort s = new Sort();
+    private DAO dAO = new DAO();
+    private CourseProgramMaintenanceUI coursePUI = new CourseProgramMaintenanceUI();
 
     public CourseMaintenance(ListInterface<Course> courseList) {
-        courseList = courseDAO.retrieveFromFile();
+        courseList = dAO.retrieveFromFile("course.dat");
     }
 
     public CourseMaintenance() {
     }
 
     public void runCourseMaintenance(ListInterface<Course> courseList) {
+        MapInterface<String, ListInterface<Program>> courseProgramList = dAO.mapRetrieveFromFile("courseProgram.dat");
+        ListInterface<Program> programList = dAO.retrieveFromFile("program.dat");
         int choice;
+        CourseProgramMaintenance coursePM = new CourseProgramMaintenance(courseProgramList,courseList,programList);
+
         do {
             choice = courseUI.getMenuChoices();
             switch (choice) {
@@ -55,11 +63,14 @@ public class CourseMaintenance {
                 case 5:
                     listedCourse(courseList);
                     break;
+                case 6:
+                    coursePM.runCourseProgramMaintenance(courseProgramList, courseList, programList);
                 default:
                     MessageUI.displayInvalidChoiceMessage();
 
             }
-        } while (choice != 0);
+        } while (choice
+                != 0);
 
     }
 
@@ -73,7 +84,7 @@ public class CourseMaintenance {
                 confirm = askConfirmation(newCourse, "New", "add");
                 if (confirm == true) {
                     courseList.add(newCourse);
-                    courseDAO.saveToFile(courseList);
+                    dAO.saveToFile(courseList, "course.dat");
                     MessageUI.displaySuccessConfirmationMessage("Added");
                     loop = courseUI.getConfirmationChoice("add", 0);
                 }
@@ -96,7 +107,7 @@ public class CourseMaintenance {
                 confirm = askConfirmation(courseList.getEntry(courseSelected), "Remove", "remove");
                 if (confirm == true) {
                     courseList.remove(courseSelected);
-                    courseDAO.saveToFile(courseList);
+                    dAO.saveToFile(courseList, "course.dat");
                     MessageUI.displaySuccessConfirmationMessage("Removed");
                     Command.pressEnterToContinue();
                     loop = courseUI.getConfirmationChoice("remove", 0);
@@ -216,7 +227,7 @@ public class CourseMaintenance {
             if (confirm == true) {
                 tempCourse.setUpdatedAt(LocalDate.now());
                 courseList.replace(found + 1, tempCourse);
-                courseDAO.saveToFile(courseList);
+                dAO.saveToFile(courseList, "course.dat");
                 MessageUI.displaySuccessConfirmationMessage("Ammend");
                 System.out.println(courseList);
                 Command.pressEnterToContinue();

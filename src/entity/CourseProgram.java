@@ -6,6 +6,8 @@ package entity;
 
 import adt.ArrList;
 import adt.ListInterface;
+import adt.Map;
+import adt.MapInterface;
 
 /**
  *
@@ -13,8 +15,10 @@ import adt.ListInterface;
  */
 public class CourseProgram {
 
+    private String courseCode;
     private ListInterface<Course> courses = new ArrList();
     private ListInterface<Program> programs = new ArrList();
+    private MapInterface<String, Program> coursePs = new Map();
 
     public void addCourseProgram(Course course, Program program) {
         if (!programs.contains(program)) {
@@ -24,7 +28,7 @@ public class CourseProgram {
         if (!courses.contains(course)) {
             courses.add(course);
         }
-        
+
         course.addProgram(program);
         program.addCourse(course);
     }

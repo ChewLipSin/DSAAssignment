@@ -8,13 +8,14 @@ import adt.*;
 import boundary.CourseMaintenanceUI;
 import control.CourseMaintenance;
 import entity.Course;
+import entity.Program;
 import utility.Sort;
 
 /**
  *
  * @author Chew Lip Sin
  */
-public class CourseInitializer {
+public class Initializer {
 
     //  Method to return a collection of with hard-coded entity values
     public ListInterface<Course> initializeCourse() {
@@ -38,20 +39,35 @@ public class CourseInitializer {
 
         return cList;
     }
- 
+
+    public ListInterface<Program> ProgramInitializer() {
+        ListInterface<Program> pList = new ArrList<>();
+        pList.add(new Program("RSD", "Bachelor Degree", "Bachelor of Information Technology (Honours) in Software Systems Development", "FOCS - Faculty of Computing and Information Technology", "This programme produces and equips graduates with in-depth knowledge and skills that are essential to work as professionals in the software systems development and computer networking sectors."));
+        pList.add(new Program("RBA", "Bachelor Degree", "Bachelor of Business Administration (Honours)", "FAFB - Faculty of Accountancy, Finance & Business", "This programme provides students with a well-rounded business education through a core curriculum of management, marketing, finance, accounting, economics and law courses."));
+        pList.add(new Program("RAC", "Bachelor Degree", "Bachelor of Accounting (Honours)", "FAFB - Faculty of Accountancy, Finance & Business", "This programme provides a wide spectrum of knowledge and skills required for a career in the accountancy and finance profession."));
+        pList.add(new Program("RBF", "Bachelor Degree", "Bachelor of Banking and Finance (Honours)", "FAFB - Faculty of Accountancy, Finance & Business", "This programme aims to produce graduates who are equipped with the knowledge and core competencies and dispositions necessary for pursuing a demanding career in the highly competitive domestic and international banking and finance industry."));
+        pList.add(new Program("RME", "Bachelor Degree", "Bachelor of Mechanical Engineering with Honours", "FOET - Faculty of Engineering and Technology", "Mechanical engineering is the broadest among all engineering disciplines. Thus, most of the modern-day inventions are due to knowledge and application of mechanical engineering. "));
+        return pList;
+    }
+
     public static void main(String[] args) {
-        CourseInitializer c = new CourseInitializer();
+        Initializer c = new Initializer();
         ListInterface<Course> courseList = c.initializeCourse();
+        ListInterface<Program> programs = c.ProgramInitializer();
+
         CourseMaintenanceUI courseUI = new CourseMaintenanceUI();
         CourseMaintenance courseMain = new CourseMaintenance(courseList);
         Sort s = new Sort();
         // To illustrate how to use the initializeProducts() method
-        CourseDAO d = new CourseDAO();
-        d.saveToFile(courseList);
-        ListInterface<Course> courseList2 = d.retrieveFromFile();
+        DAO d = new DAO();
+        d.saveToFile(courseList, "course.dat");
+        d.saveToFile(courseList, "courseProgram.dat");
+        d.saveToFile(programs, "Program.dat");
+        ListInterface<Course> courseList2 = d.retrieveFromFile("course.dat");
+        ListInterface<Course> programs2 = d.retrieveFromFile("program.dat");
+
 //        System.out.println("\nCourse:\n" + courseList);
 //        System.out.println("\nCourse:\n" + courseList2);
-
 //        courseMain.listedCourse(courseList);
         CourseMaintenance cm = new CourseMaintenance(courseList);
 //        s.insertionSort(courseList,"courseCode");
@@ -61,6 +77,7 @@ public class CourseInitializer {
         System.out.println(courseList);
         s.insertionSortDes(courseList, "courseCode");
         System.out.println(courseList);
+        System.out.println(programs2);
 //        System.out.println("\nCourse:\n" + courseList);
         cm.runCourseMaintenance(courseList);
 

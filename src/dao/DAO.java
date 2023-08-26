@@ -13,11 +13,12 @@ import java.io.File;
  *
  * @author Chew Lip Sin
  */
-public class CourseDAO<T> {
+public class DAO<T,K,V> {
 
-    private String fileName = "course.dat"; // For security and maintainability, should not have filename hardcoded here.
-
-    public void saveToFile(ListInterface<T> list){
+//course = course.dat
+//program = program.dat
+//courseProgram = courseProgram.dat
+    public void saveToFile(ListInterface<T> list, String fileName) {
         File file = new File(fileName);
 //        if (file.createNewFile()) {
 //            System.out.println(fileName + " File Created");
@@ -35,12 +36,12 @@ public class CourseDAO<T> {
         }
     }
 
-    public ListInterface<Course> retrieveFromFile() {
+    public ListInterface<T> retrieveFromFile(String fileName) {
         File file = new File(fileName);
-        ListInterface<Course> courseList = new ArrList<>();
+        ListInterface<T> list = new ArrList<>();
         try {
             ObjectInputStream oiStream = new ObjectInputStream(new FileInputStream(file));
-            courseList = (ArrList<Course>) (oiStream.readObject());
+            list = (ArrList<T>) (oiStream.readObject());
             oiStream.close();
         } catch (FileNotFoundException ex) {
             System.out.println("\nNo such file.");
@@ -49,7 +50,25 @@ public class CourseDAO<T> {
         } catch (ClassNotFoundException ex) {
             System.out.println("\nClass not found.");
         } finally {
-            return courseList;
+            return list;
+        }
+    }
+
+    public MapInterface<K,V> mapRetrieveFromFile(String fileName) {
+        File file = new File(fileName);
+        MapInterface<K,V> list = new Map();
+        try {
+            ObjectInputStream oiStream = new ObjectInputStream(new FileInputStream(file));
+            list = (MapInterface<K,V>) (Map<K,V>) (oiStream.readObject());
+            oiStream.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println("\nNo such file.");
+        } catch (IOException ex) {
+            System.out.println("\nCannot read from file.");
+        } catch (ClassNotFoundException ex) {
+            System.out.println("\nClass not found.");
+        } finally {
+            return list;
         }
     }
 }

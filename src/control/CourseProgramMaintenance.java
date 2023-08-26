@@ -5,11 +5,13 @@
 package control;
 
 import adt.ListInterface;
+import adt.MapInterface;
 import boundary.CourseMaintenanceUI;
 import boundary.CourseProgramMaintenanceUI;
-import dao.CourseDAO;
+import dao.DAO;
 import entity.Course;
 import entity.CourseProgram;
+import entity.Program;
 import utility.MessageUI;
 import utility.Sort;
 
@@ -18,27 +20,36 @@ import utility.Sort;
  * @author Chew Lip Sin
  */
 public class CourseProgramMaintenance {
-    private CourseDAO courseDAO = new CourseDAO();
+
+    private DAO dAO = new DAO();
     private CourseProgramMaintenanceUI coursePUI = new CourseProgramMaintenanceUI();
     private Sort s = new Sort();
+    private CourseMaintenanceUI courseUI = new CourseMaintenanceUI();
 
-    public CourseProgramMaintenance(ListInterface<CourseProgram> courseProgramList) {
-        courseProgramList = courseDAO.retrieveFromFile();
+    public CourseProgramMaintenance(MapInterface<String, ListInterface<Program>> courseProgramList,
+            ListInterface<Course> courseList, ListInterface<Program> programList) {
+        courseProgramList = dAO.mapRetrieveFromFile("courseProgram.dat");
+        courseList = dAO.retrieveFromFile("course.dat");
+        programList = dAO.retrieveFromFile("program.dat");
+
     }
-    public void runCourseProgramMaintenance(ListInterface<CourseProgram> courseProgramList) {
+
+    public void runCourseProgramMaintenance(
+            MapInterface<String, ListInterface<Program>> courseProgramList,
+            ListInterface<Course> courseList,
+            ListInterface<Program> programList) {
         int choice = 0;
         do {
             choice = coursePUI.getMenuChoices();
             switch (choice) {
-
                 case 0:
                     MessageUI.displayExitMessage();
                     break;
                 case 1:
-                    addNewCourseProgram(courseProgramList);
+                    addCourseProgram(courseProgramList, courseList, programList, "add");
                     break;
                 case 2:
-                    removeCourseProgram(courseProgramList);
+                    removeCourseProgram(courseProgramList, courseList, programList, "delete");
                     break;
                 default:
                     MessageUI.displayInvalidChoiceMessage();
@@ -48,12 +59,14 @@ public class CourseProgramMaintenance {
 
     }
 
-    private void addNewCourseProgram(ListInterface<CourseProgram> courseProgramList) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private void addCourseProgram(MapInterface<String, ListInterface<Program>> courseProgramList, ListInterface<Course> courseList, ListInterface<Program> programList, String add) {
+        s.insertionSort(courseList, "courseCode");
+        courseUI.listAllCourses(courseList);
     }
 
-    private void removeCourseProgram(ListInterface<CourseProgram> courseProgramList) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private void removeCourseProgram(MapInterface<String, ListInterface<Program>> courseProgramList, ListInterface<Course> courseList, ListInterface<Program> programList, String delete) {
+        s.insertionSort(courseList, "courseCode");
+        courseUI.listAllCourses(courseList);
     }
 
 }
