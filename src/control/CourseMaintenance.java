@@ -40,6 +40,7 @@ public class CourseMaintenance {
         ListInterface<Program> programList = dAO.retrieveFromFile("program.dat");
         int choice;
         CourseProgramMaintenance coursePM = new CourseProgramMaintenance(courseProgramList,courseList,programList);
+        courseUI.listAllCourses(courseList);
 
         do {
             choice = courseUI.getMenuChoices();
