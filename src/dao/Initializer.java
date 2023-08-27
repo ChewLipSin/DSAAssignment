@@ -8,7 +8,9 @@ import adt.*;
 import boundary.CourseMaintenanceUI;
 import control.CourseMaintenance;
 import entity.Course;
+import entity.CourseProgram;
 import entity.Program;
+import java.io.IOException;
 import utility.Sort;
 
 /**
@@ -50,36 +52,55 @@ public class Initializer {
         return pList;
     }
 
+    public LinkedListInterface<CourseProgram> CourseProgramInitializer() {
+        LinkedListInterface<CourseProgram> cP = new DoublyLinkedList<>();
+        cP.add(new CourseProgram("BMIT1713", "RSD", false));
+        cP.add(new CourseProgram("BBMF3203", "RSD", false));
+        cP.add(new CourseProgram("BBMF3203", "RME", false));
+        cP.add(new CourseProgram("BAIT1013", "RSD", false));
+
+        return cP;
+    }
+
     public static void main(String[] args) {
+        DAO<Course> cDAO = new DAO<>();
+        DAO<Program> pDAO = new DAO<>();
+        DAO<CourseProgram> cpDAO = new DAO<>();
+
         Initializer c = new Initializer();
         ListInterface<Course> courseList = c.initializeCourse();
         ListInterface<Program> programs = c.ProgramInitializer();
+        LinkedListInterface<CourseProgram> coursePrograms = new DoublyLinkedList<>();
+
+//        coursePrograms = c.CourseProgramInitializer();
+        coursePrograms = cpDAO.dLLRetrieveFromFile("courseProgram.dat");
+        System.out.println(coursePrograms);
+//        d.saveToFile(coursePrograms, "courseProgram.dat");
 
         CourseMaintenanceUI courseUI = new CourseMaintenanceUI();
         CourseMaintenance courseMain = new CourseMaintenance(courseList);
-        Sort s = new Sort();
-        // To illustrate how to use the initializeProducts() method
-        DAO d = new DAO();
-        d.saveToFile(courseList, "course.dat");
-        d.saveToFile(courseList, "courseProgram.dat");
-        d.saveToFile(programs, "Program.dat");
-        ListInterface<Course> courseList2 = d.retrieveFromFile("course.dat");
-        ListInterface<Course> programs2 = d.retrieveFromFile("program.dat");
+//        Sort s = new Sort();
+//        // To illustrate how to use the initializeProducts() method
+        cDAO.saveToFile(courseList, "course.dat");
+//        d.saveToFile(programs, "Program.dat");
+        ListInterface<Course> courseList2 = cDAO.retrieveFromFile("course.dat");
+        ListInterface<Program> programs2 = pDAO.retrieveFromFile("program.dat");
 
-//        System.out.println("\nCourse:\n" + courseList);
-//        System.out.println("\nCourse:\n" + courseList2);
-//        courseMain.listedCourse(courseList);
-        CourseMaintenance cm = new CourseMaintenance(courseList);
-//        s.insertionSort(courseList,"courseCode");
-        Sort.quickSort(courseList, 1, courseList.size(), "updatedAt");
-        System.out.println(courseList);
-        Sort.quickSort(courseList, 1, courseList.size(), "createdAt");
-        System.out.println(courseList);
-        s.insertionSortDes(courseList, "courseCode");
-        System.out.println(courseList);
-        System.out.println(programs2);
-//        System.out.println("\nCourse:\n" + courseList);
-        cm.runCourseMaintenance(courseList);
+//
+////        System.out.println("\nCourse:\n" + courseList);
+////        System.out.println("\nCourse:\n" + courseList2);
+////        courseMain.listedCourse(courseList);
+//        CourseMaintenance cm = new CourseMaintenance(courseList);
+////        s.insertionSort(courseList,"courseCode");
+//        Sort.quickSort(courseList, 1, courseList.size(), "updatedAt");
+//        System.out.println(courseList);
+//        Sort.quickSort(courseList, 1, courseList.size(), "createdAt");
+//        System.out.println(courseList);
+//        s.insertionSortDes(courseList, "courseCode");
+//        System.out.println(courseList);
+//        System.out.println(programs2);
+////        System.out.println("\nCourse:\n" + courseList);
+//        cm.runCourseMaintenance(courseList);
 
     }
 

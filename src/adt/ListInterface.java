@@ -28,10 +28,14 @@ public interface ListInterface<T> {
 
     public T remove(int givenPosition);
 
+    public boolean removeAll(T... elements);
+
+    public boolean addAll(T... newElements);
+
     public boolean remove(T anEntry);
 
     public boolean replace(int givenPosition, T newEntry);
 
     public boolean isFull();
-
+    
 }

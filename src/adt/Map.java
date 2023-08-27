@@ -18,6 +18,7 @@ public class Map<K, V> implements MapInterface<K, ArrList<V>> {
     public Map() {
         this(DEFAULT_CAPACITY);
     }
+
     public Map(int initialCapacity) {
         keys = new Object[initialCapacity];
         values = new Object[initialCapacity];
@@ -69,6 +70,7 @@ public class Map<K, V> implements MapInterface<K, ArrList<V>> {
         return size;
     }
 
+
     private int indexOf(K key) {
         for (int i = 0; i < size; i++) {
             if (keys[i].equals(key)) {
@@ -103,4 +105,16 @@ public class Map<K, V> implements MapInterface<K, ArrList<V>> {
             put(newKey, value);
         }
     }
+
+    @Override
+    public ListInterface<K> getKeys() {
+        ListInterface<K> keyList = new ArrList<>();
+        for (int i = 0; i < size; i++) {
+            if (keys[i] != null) {
+                keyList.add((K) keys[i]);
+            }
+        }
+        return keyList;
+    }
+
 }

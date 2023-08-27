@@ -4,40 +4,49 @@
  */
 package entity;
 
-import adt.ArrList;
-import adt.ListInterface;
-import adt.Map;
-import adt.MapInterface;
+import java.io.Serializable;
 
 /**
  *
- * @author chewr
+ * @author Chew Lip Sin
  */
-public class CourseProgram {
+public class CourseProgram implements Serializable {
 
     private String courseCode;
-    private ListInterface<Course> courses = new ArrList();
-    private ListInterface<Program> programs = new ArrList();
-    private MapInterface<String, Program> coursePs = new Map();
+    private String programCode;
+    private boolean isElective;
 
-    public void addCourseProgram(Course course, Program program) {
-        if (!programs.contains(program)) {
-            programs.add(program);
-        }
-
-        if (!courses.contains(course)) {
-            courses.add(course);
-        }
-
-        course.addProgram(program);
-        program.addCourse(course);
+    public CourseProgram(String courseCode, String programCode, boolean isElective) {
+        this.courseCode = courseCode;
+        this.programCode = programCode;
+        this.isElective = isElective;
     }
 
-    public ListInterface<Course> getCoursesForProgram(Program program) {
-        return program.getCourses();
+    public CourseProgram() {
     }
 
-    public ListInterface<Program> getProgramsForCourse(Course course) {
-        return course.getPrograms();
+    public String getCourseCode() {
+        return courseCode;
     }
+
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
+    }
+
+    public String getProgramCode() {
+        return programCode;
+    }
+
+    public void setProgramCode(String programCode) {
+        this.programCode = programCode;
+    }
+
+    public boolean isIsElective() {
+        return isElective;
+    }
+
+    public void setIsElective(boolean isElective) {
+        this.isElective = isElective;
+    }
+
 }

@@ -19,4 +19,6 @@ public interface MapInterface<K , V> {
     public V get(K key);
     
     public int size();
+    
+    public ListInterface<K> getKeys();
 }

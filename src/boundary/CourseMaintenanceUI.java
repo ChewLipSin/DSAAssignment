@@ -167,6 +167,7 @@ public class CourseMaintenanceUI {
         System.out.println("=======================================================================================================================");
         System.out.print(getAllCourses(courseList));
         System.out.println("=======================================================================================================================");
+        
 
     }
 
@@ -294,9 +295,11 @@ public class CourseMaintenanceUI {
         if ("0".equals(key)) {
             return 0;
         }
+        key = key.toLowerCase();
         while (it.hasNext()) {
             it.next();
-            find = courseList.getEntry(i).getTitle().contains(key);
+            find = courseList.getEntry(i).getTitle().toLowerCase().contains(key);
+            
             if (find) {
                 courseList2.add(courseList.getEntry(i));
                 find2 = true;

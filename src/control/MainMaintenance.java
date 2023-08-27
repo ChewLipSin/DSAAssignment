@@ -16,9 +16,9 @@ import utility.MessageUI;
  */
 public class MainMaintenance {
 
-    private MainMaintenanceUI mainUI = new MainMaintenanceUI();
-    private CourseMaintenance courseMain = new CourseMaintenance();
-    private Initializer in = new Initializer();
+    private final MainMaintenanceUI mainUI = new MainMaintenanceUI();
+    private final CourseMaintenance courseMain = new CourseMaintenance();
+    private final Initializer in = new Initializer();
 
     public static void main(String[] args) {
         MainMaintenance mainMain = new MainMaintenance();
@@ -27,7 +27,7 @@ public class MainMaintenance {
 
     public void runMainMaintenance() {
         ListInterface<Course> courseList = in.initializeCourse();
-        int choice = 0;
+        int choice;
         do {
             choice = mainUI.getMenuChoices();
             switch (choice) {

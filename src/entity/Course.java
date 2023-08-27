@@ -11,7 +11,7 @@ import java.util.Objects;
  *
  * @author Chew Lip Sin
  */
-public class Course<T> implements Serializable {
+public class Course implements Serializable {
 
     private String courseCode;
     private String title;
@@ -19,8 +19,6 @@ public class Course<T> implements Serializable {
     private Sem semester;
     private LocalDate createdAt;
     private LocalDate updatedAt;
-
-    ListInterface<T> course = new ArrList();
     private ListInterface<Program> programs = new ArrList();
 
 //    private static final String[] SEM = {"JAN", "JULY"};
