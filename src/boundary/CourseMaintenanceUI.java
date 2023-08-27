@@ -23,8 +23,13 @@ import utility.Sort;
 public class CourseMaintenanceUI {
 
     InputValue iv = new InputValue();
+    CourseProgramMaintenanceUI cu = new CourseProgramMaintenanceUI();
     Sort sort = new Sort();
 
+    public CourseMaintenanceUI() {
+    }
+    
+    
     public int getMenuChoices() {
         int choice = 0;
         System.out.println("====================================");
@@ -35,17 +40,16 @@ public class CourseMaintenanceUI {
         System.out.println("3. Search course");
         System.out.println("4. Amend course details");
         System.out.println("5. List all course");
-        System.out.println("6. Add programme to a course");
-        System.out.println("7. Remove programme from a course");
-        System.out.println("8. Generate Report");
+        System.out.println("6. Course and Program subsystem menu");
+        System.out.println("7. Generate Report");
         System.out.println("0. Exit");
         do {
             System.out.print("Enter choice: ");
             choice = iv.readInteger();
-            if (choice > 9 || choice < 0) {
+            if (choice > 7 || choice < 0) {
                 MessageUI.displayInvalidChoiceMessage();
             }
-        } while (choice > 9 || choice < 0);
+        } while (choice > 7 || choice < 0);
 
         return choice;
     }

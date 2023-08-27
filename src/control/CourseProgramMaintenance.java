@@ -4,11 +4,13 @@
  */
 package control;
 
+import adt.DoublyLinkedList;
 import adt.LinkedListInterface;
 import adt.ListInterface;
 import boundary.CourseMaintenanceUI;
 import boundary.CourseProgramMaintenanceUI;
 import dao.DAO;
+import dao.Initializer;
 import entity.Course;
 import entity.CourseProgram;
 import entity.Program;
@@ -28,24 +30,14 @@ public class CourseProgramMaintenance {
     private final CourseProgramMaintenanceUI coursePUI = new CourseProgramMaintenanceUI();
     private final Sort s = new Sort();
     private final Search search = new Search();
-    private final CourseMaintenanceUI courseUI;
+    private final CourseMaintenanceUI courseUI = new CourseMaintenanceUI();
+    private final Initializer in = new Initializer();
 
-    public CourseProgramMaintenance(LinkedListInterface<CourseProgram> courseProgramList,
-            ListInterface<Course> courseList, ListInterface<Program> programList) {
-        this.courseUI = new CourseMaintenanceUI();
-        courseProgramList = cpDAO.dLLRetrieveFromFile("courseProgram.dat");
-        courseList = cDAO.retrieveFromFile("course.dat");
-        programList = pDAO.retrieveFromFile("program.dat");
-
-    }
-
-    public void runCourseProgramMaintenance(
-            LinkedListInterface<CourseProgram> courseProgramList,
-            ListInterface<Course> courseList,
-            ListInterface<Program> programList) {
+    public void runCourseProgramMaintenance(ListInterface<Course> courseList, ListInterface<Program> programList) {
+        LinkedListInterface<CourseProgram> courseProgramList = cpDAO.dLLRetrieveFromFile("courseProgram.dat");
         int choice;
         do {
-            choice = coursePUI.getMenuChoices();
+            choice = coursePUI.getMenuChoice();
             switch (choice) {
                 case 0:
                     break;
@@ -91,15 +83,16 @@ public class CourseProgramMaintenance {
         } while (choice != 0);
     }
 
-    public static void main(String[] args) {
-        LinkedListInterface<CourseProgram> courseProgramList = cpDAO.dLLRetrieveFromFile("courseProgram.dat");
+    public void deleteCourse(Course course, LinkedListInterface<CourseProgram> courseProgramList) {
+        LinkedListInterface<CourseProgram> cp1 = new DoublyLinkedList<>();
         for (int i = 0; i < courseProgramList.sizeOf(); i++) {
-            System.out.println(String.format("%s  %s  %s", courseProgramList.get(i).getCourseCode(), courseProgramList.get(i).getProgramCode(), courseProgramList.get(i).isIsElective()));
-
+            if (courseProgramList.get(i).getCourseCode().equals(course)) {
+                cp1.add(courseProgramList.get(i));
+            }
         }
-        ListInterface<Course> courseList = cDAO.retrieveFromFile("course.dat");
-        ListInterface<Program> programList = pDAO.retrieveFromFile("program.dat");
-        CourseProgramMaintenance cpm = new CourseProgramMaintenance(courseProgramList, courseList, programList);
-        cpm.runCourseProgramMaintenance(courseProgramList, courseList, programList);
+        for (int i = 0; i < cp1.sizeOf(); i++) {
+            courseProgramList.remove(cp1.get(i));
+        }
+        cpDAO.saveToFile(courseProgramList, "courseProgram.dat");
     }
 }

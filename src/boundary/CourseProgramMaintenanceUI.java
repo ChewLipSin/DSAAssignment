@@ -27,7 +27,10 @@ public class CourseProgramMaintenanceUI {
     private InputValue iv = new InputValue();
     private DAO<CourseProgram> cpDAO = new DAO();
 
-    public int getMenuChoices() {
+    public CourseProgramMaintenanceUI() {
+    }
+
+    public int getMenuChoice() {
         int choice = 0;
         System.out.println("================================================");
         System.out.println("||Course and Program Management Subsystem Menu||");
@@ -138,7 +141,7 @@ public class CourseProgramMaintenanceUI {
             LinkedListInterface<CourseProgram> courseProgramList, int index) {
         int choice;
         do {
-            System.out.print("Are you sure to add it?(1 is yes, 0 is no): ");
+            MessageUI.printFormattedText("Are you sure to add it?(1 is yes, 0 is no): ", ConsoleColor.BRIGHTBLUE);
             choice = iv.readInteger();
             if (choice == 1) {
                 for (int i = 1; i <= tempProgram.size(); i++) {
@@ -222,7 +225,9 @@ public class CourseProgramMaintenanceUI {
         for (int i = 1; i <= tempProgram2.size(); i++) {
             tempProgram3.add(tempProgram2.getEntry(i));
         }
-        tempProgram4 = tempProgram2;
+        for (int i = 1; i <= tempProgram2.size(); i++) {
+            tempProgram4.add(tempProgram2.getEntry(i));
+        }
         do {
             int no = 1;
             if (tempProgram2.size() > 0) {
@@ -288,7 +293,7 @@ public class CourseProgramMaintenanceUI {
             LinkedListInterface<CourseProgram> cp1) {
         int choice;
         do {
-            System.out.print("Are you sure to delete it?(1 is yes, 0 is no): ");
+            MessageUI.printFormattedText("Are you sure to delete it?(1 is yes, 0 is no): ", ConsoleColor.BRIGHTBLUE);
             choice = iv.readInteger();
             if (choice == 1) {
                 for (int i = 0; i < cp1.sizeOf(); i++) {

@@ -16,7 +16,6 @@ public class Program implements Serializable {
     private String faculty;
     private String description;
     private LocalDateTime updateTime;
-    private ListInterface<Course> courses = new ArrList();
     public Program() {
     }
 
@@ -83,17 +82,4 @@ public class Program implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public ListInterface<Course> getCourses() {
-        return courses;
-    }
-    
-    public void addCourse(Course course){
-        courses.add(course);
-        course.getPrograms().add(this);
-    }
-    
-    public void removeCourse(Course course){
-        courses.remove(course);
-        course.getPrograms().remove(this);
-    }
 }

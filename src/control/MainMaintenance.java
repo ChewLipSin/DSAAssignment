@@ -26,7 +26,6 @@ public class MainMaintenance {
     }
 
     public void runMainMaintenance() {
-        ListInterface<Course> courseList = in.initializeCourse();
         int choice;
         do {
             choice = mainUI.getMenuChoices();
@@ -45,7 +44,7 @@ public class MainMaintenance {
 //                   runTutorialGroupMaintenance(courseList, "search");
                     break;
                 case 4:
-                    courseMain.runCourseMaintenance(courseList);
+                    courseMain.runCourseMaintenance();
                     break;
                 default:
                     MessageUI.displayInvalidChoiceMessage();

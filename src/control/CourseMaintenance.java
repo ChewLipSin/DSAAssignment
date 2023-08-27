@@ -25,32 +25,25 @@ public class CourseMaintenance {
 //    private ListInterface<Course> courseList = new ArrList<>();
     private final CourseMaintenanceUI courseUI = new CourseMaintenanceUI();
     private final Sort s = new Sort();
-    private final DAO<Course> cDAO = new DAO<>();
-    private final DAO<Program> pDAO = new DAO<>();
+    private static final DAO<Course> cDAO = new DAO<>();
+    private static final DAO<Program> pDAO = new DAO<>();
     private final DAO<CourseProgram> cpDAO = new DAO<>();
-    private final CourseProgramMaintenanceUI coursePUI = new CourseProgramMaintenanceUI();
-
-    public CourseMaintenance(ListInterface<Course> courseList) {
-        courseList = cDAO.retrieveFromFile("course.dat");
-    }
+    private  static final CourseProgramMaintenance cpm = new CourseProgramMaintenance();
+    private  final CourseProgramMaintenanceUI coursePUI = new CourseProgramMaintenanceUI();
+    private final Initializer in = new Initializer();
 
     public CourseMaintenance() {
     }
 
-    public void runCourseMaintenance(ListInterface<Course> courseList) {
-        Initializer in = new Initializer();
-        LinkedListInterface<CourseProgram> courseProgramList = cpDAO.dLLRetrieveFromFile("courseProgram.dat");
-        System.out.println(courseProgramList);
-        courseProgramList = in.CourseProgramInitializer();
+    public void runCourseMaintenance() {
+        ListInterface<Course> courseList = cDAO.retrieveFromFile("course.dat");
         ListInterface<Program> programList = pDAO.retrieveFromFile("program.dat");
-        System.out.println(programList);
-        cpDAO.saveToFile(courseProgramList, "courseProgram.dat");
-
+//        ListInterface<Program> programList = in.ProgramInitializer();
+//        pDAO.saveToFile(programList, "program.dat");
         int choice;
         do {
             choice = courseUI.getMenuChoices();
             switch (choice) {
-
                 case 0:
                     break;
                 case 1:
@@ -69,8 +62,9 @@ public class CourseMaintenance {
                     listedCourse(courseList);
                     break;
                 case 6:
-                    CourseProgramMaintenance coursePM = new CourseProgramMaintenance(courseProgramList, courseList, programList);
-                    coursePM.runCourseProgramMaintenance(courseProgramList, courseList, programList);
+                    CourseProgramMaintenance coursePM = new CourseProgramMaintenance();
+                    coursePM.runCourseProgramMaintenance(courseList, programList);
+                    break;
                 default:
                     MessageUI.displayInvalidChoiceMessage();
 
@@ -111,6 +105,8 @@ public class CourseMaintenance {
             if (deleteCourse == true) {
                 confirm = askConfirmation(courseList.getEntry(courseSelected), "Remove", "remove");
                 if (confirm == true) {
+                    LinkedListInterface<CourseProgram> courseProgramList = cpDAO.dLLRetrieveFromFile("courseProgram.dat");
+                    cpm.deleteCourse(courseList.getEntry(courseSelected), courseProgramList);
                     courseList.remove(courseSelected);
                     cDAO.saveToFile(courseList, "course.dat");
                     MessageUI.displaySuccessConfirmationMessage("Removed");

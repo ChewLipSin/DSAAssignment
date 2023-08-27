@@ -75,10 +75,10 @@ public class Initializer {
 //        coursePrograms = c.CourseProgramInitializer();
         coursePrograms = cpDAO.dLLRetrieveFromFile("courseProgram.dat");
         System.out.println(coursePrograms);
-//        d.saveToFile(coursePrograms, "courseProgram.dat");
+        cpDAO.saveToFile(coursePrograms, "courseProgram.dat");
 
         CourseMaintenanceUI courseUI = new CourseMaintenanceUI();
-        CourseMaintenance courseMain = new CourseMaintenance(courseList);
+        CourseMaintenance courseMain = new CourseMaintenance();
 //        Sort s = new Sort();
 //        // To illustrate how to use the initializeProducts() method
         cDAO.saveToFile(courseList, "course.dat");
