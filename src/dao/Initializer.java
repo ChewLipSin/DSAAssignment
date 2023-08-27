@@ -62,46 +62,4 @@ public class Initializer {
         return cP;
     }
 
-    public static void main(String[] args) {
-        DAO<Course> cDAO = new DAO<>();
-        DAO<Program> pDAO = new DAO<>();
-        DAO<CourseProgram> cpDAO = new DAO<>();
-
-        Initializer c = new Initializer();
-        ListInterface<Course> courseList = c.initializeCourse();
-        ListInterface<Program> programs = c.ProgramInitializer();
-        LinkedListInterface<CourseProgram> coursePrograms = new DoublyLinkedList<>();
-
-//        coursePrograms = c.CourseProgramInitializer();
-        coursePrograms = cpDAO.dLLRetrieveFromFile("courseProgram.dat");
-        System.out.println(coursePrograms);
-        cpDAO.saveToFile(coursePrograms, "courseProgram.dat");
-
-        CourseMaintenanceUI courseUI = new CourseMaintenanceUI();
-        CourseMaintenance courseMain = new CourseMaintenance();
-//        Sort s = new Sort();
-//        // To illustrate how to use the initializeProducts() method
-        cDAO.saveToFile(courseList, "course.dat");
-//        d.saveToFile(programs, "Program.dat");
-        ListInterface<Course> courseList2 = cDAO.retrieveFromFile("course.dat");
-        ListInterface<Program> programs2 = pDAO.retrieveFromFile("program.dat");
-
-//
-////        System.out.println("\nCourse:\n" + courseList);
-////        System.out.println("\nCourse:\n" + courseList2);
-////        courseMain.listedCourse(courseList);
-//        CourseMaintenance cm = new CourseMaintenance(courseList);
-////        s.insertionSort(courseList,"courseCode");
-//        Sort.quickSort(courseList, 1, courseList.size(), "updatedAt");
-//        System.out.println(courseList);
-//        Sort.quickSort(courseList, 1, courseList.size(), "createdAt");
-//        System.out.println(courseList);
-//        s.insertionSortDes(courseList, "courseCode");
-//        System.out.println(courseList);
-//        System.out.println(programs2);
-////        System.out.println("\nCourse:\n" + courseList);
-//        cm.runCourseMaintenance(courseList);
-
-    }
-
 }
