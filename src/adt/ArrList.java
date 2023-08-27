@@ -13,7 +13,7 @@ public class ArrList<T> implements ListInterface<T>, Serializable {
 
     private T[] arr;
     private int numberOfEntries;
-    private static final int DEFAULT_CAPACITY = 10;
+    private static final int DEFAULT_CAPACITY = 20;
 
     public ArrList() {
         this(DEFAULT_CAPACITY);
@@ -52,6 +52,19 @@ public class ArrList<T> implements ListInterface<T>, Serializable {
         }
 
         return isSuccessful;
+    }
+
+    @Override
+    public boolean addAll(T... newElements) {
+        if (newElements != null) {
+            if (isElementsValid(newElements)) {
+                for (T element : newElements) {
+                    add(element);
+                }
+                return true;
+            }
+        }
+        return false;
     }
 
     //Clear all the array elements
@@ -113,6 +126,18 @@ public class ArrList<T> implements ListInterface<T>, Serializable {
     }
 
     @Override
+    public boolean removeAll(T... elements) {
+        if (isEmpty() || !isElementsValid(elements)) {
+            return false;
+        } else {
+            for (T element : elements) {
+                remove(element);
+            }
+            return true;
+        }
+    }
+
+    @Override
     public boolean replace(int givenPosition, T newEntry) {
         boolean isSuccessful = true;
 
@@ -139,7 +164,7 @@ public class ArrList<T> implements ListInterface<T>, Serializable {
             for (int i = 0; i < numberOfEntries; i++) {
                 if (arr[i].equals(anEntry)) { //compare the given entry and every entry in the array list,
                     // if true then go in and remove the given entry                       
-                    removeGap(i);
+                    removeGap(i+1);
                     isSuccessful = true;
                     numberOfEntries--;
                 }
@@ -190,6 +215,16 @@ public class ArrList<T> implements ListInterface<T>, Serializable {
         for (int index = removedIndex; index < lastIndex; index++) {
             arr[index] = arr[index + 1];
         }
+    }
+
+    private boolean isElementsValid(T... newElements) {
+        boolean valid = true;
+        for (int i = 0; i < newElements.length && valid; i++) {
+            if (newElements[i] == null) {
+                valid = false;
+            }
+        }
+        return valid;
     }
 
     @Override

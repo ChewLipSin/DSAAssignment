@@ -23,8 +23,13 @@ import utility.Sort;
 public class CourseMaintenanceUI {
 
     InputValue iv = new InputValue();
+    CourseProgramMaintenanceUI cu = new CourseProgramMaintenanceUI();
     Sort sort = new Sort();
 
+    public CourseMaintenanceUI() {
+    }
+    
+    
     public int getMenuChoices() {
         int choice = 0;
         System.out.println("====================================");
@@ -35,17 +40,16 @@ public class CourseMaintenanceUI {
         System.out.println("3. Search course");
         System.out.println("4. Amend course details");
         System.out.println("5. List all course");
-        System.out.println("6. Add programme to a course");
-        System.out.println("7. Remove programme from a course");
-        System.out.println("8. Generate Report");
+        System.out.println("6. Course and Program subsystem menu");
+        System.out.println("7. Generate Report");
         System.out.println("0. Exit");
         do {
             System.out.print("Enter choice: ");
             choice = iv.readInteger();
-            if (choice > 9 || choice < 0) {
+            if (choice > 7 || choice < 0) {
                 MessageUI.displayInvalidChoiceMessage();
             }
-        } while (choice > 9 || choice < 0);
+        } while (choice > 7 || choice < 0);
 
         return choice;
     }
@@ -108,6 +112,9 @@ public class CourseMaintenanceUI {
     public String inputTitle() {
         System.out.print("Enter the title(Enter '0' to exit): ");
         String title = iv.readString();
+        if ("0".equals("0")) {
+            return title;
+        }
         title = title.substring(0, 51);
         return title;
 
@@ -162,8 +169,9 @@ public class CourseMaintenanceUI {
         System.out.println("=======================================================================================================================");
         System.out.println("No |Course Code |Course Title                                        |Credit Hours  |Semester  |Created At  |Updated At");
         System.out.println("=======================================================================================================================");
-        System.out.println(getAllCourses(courseList));
+        System.out.print(getAllCourses(courseList));
         System.out.println("=======================================================================================================================");
+        
 
     }
 
@@ -291,9 +299,11 @@ public class CourseMaintenanceUI {
         if ("0".equals(key)) {
             return 0;
         }
+        key = key.toLowerCase();
         while (it.hasNext()) {
             it.next();
-            find = courseList.getEntry(i).getTitle().contains(key);
+            find = courseList.getEntry(i).getTitle().toLowerCase().contains(key);
+            
             if (find) {
                 courseList2.add(courseList.getEntry(i));
                 find2 = true;
