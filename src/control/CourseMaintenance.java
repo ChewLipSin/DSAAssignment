@@ -28,8 +28,8 @@ public class CourseMaintenance {
     private static final DAO<Course> cDAO = new DAO<>();
     private static final DAO<Program> pDAO = new DAO<>();
     private final DAO<CourseProgram> cpDAO = new DAO<>();
-    private  static final CourseProgramMaintenance cpm = new CourseProgramMaintenance();
-    private  final CourseProgramMaintenanceUI coursePUI = new CourseProgramMaintenanceUI();
+    private static final CourseProgramMaintenance cpm = new CourseProgramMaintenance();
+    private final CourseProgramMaintenanceUI coursePUI = new CourseProgramMaintenanceUI();
     private final Initializer in = new Initializer();
 
     public CourseMaintenance() {
@@ -182,6 +182,7 @@ public class CourseMaintenance {
     private void ammendCourse(ListInterface<Course> courseList, int found) {
         int choice = 0;
         Course tempCourse = courseList.getEntry(found + 1);
+        Course tempCourse2 = tempCourse;
         String newCourseCode = tempCourse.getCourseCode();
         String newTitle = tempCourse.getTitle();
         Sem newSem = tempCourse.getSemester();
@@ -226,6 +227,10 @@ public class CourseMaintenance {
         if (!match) {
             boolean confirm = askConfirmation(tempCourse, "Ammend", "ammend");
             if (confirm == true) {
+                LinkedListInterface<CourseProgram> cp = new DoublyLinkedList<>();
+                cp = cpDAO.dLLRetrieveFromFile("courseProgram.dat");
+
+                cpm.modifyCourse(tempCourse, tempCourse2, cp);
                 tempCourse.setUpdatedAt(LocalDate.now());
                 courseList.replace(found + 1, tempCourse);
                 cDAO.saveToFile(courseList, "course.dat");

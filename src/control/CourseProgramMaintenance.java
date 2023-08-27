@@ -86,13 +86,28 @@ public class CourseProgramMaintenance {
     public void deleteCourse(Course course, LinkedListInterface<CourseProgram> courseProgramList) {
         LinkedListInterface<CourseProgram> cp1 = new DoublyLinkedList<>();
         for (int i = 0; i < courseProgramList.sizeOf(); i++) {
-            if (courseProgramList.get(i).getCourseCode().equals(course)) {
+            if (courseProgramList.get(i).getCourseCode().equals(course.getCourseCode())) {
                 cp1.add(courseProgramList.get(i));
             }
         }
         for (int i = 0; i < cp1.sizeOf(); i++) {
             courseProgramList.remove(cp1.get(i));
         }
+        cpDAO.saveToFile(courseProgramList, "courseProgram.dat");
+    }
+
+    public void modifyCourse(Course course, Course oldCourse, LinkedListInterface<CourseProgram> courseProgramList) {
+        LinkedListInterface<CourseProgram> cp1 = new DoublyLinkedList<>();
+        for (int i = 0; i < courseProgramList.sizeOf(); i++) {
+            if (courseProgramList.get(i).getCourseCode().equals(oldCourse.getCourseCode())) {
+                cp1.add(new CourseProgram(course.getCourseCode(), courseProgramList.get(i).getProgramCode(),
+                         courseProgramList.get(i).isIsElective()));
+                for (int j = 0; j < cp1.sizeOf(); j++) {
+                    courseProgramList.set(i,cp1.get(j));
+                }
+            }
+        }
+
         cpDAO.saveToFile(courseProgramList, "courseProgram.dat");
     }
 }
