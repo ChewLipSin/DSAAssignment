@@ -1,57 +1,152 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package client;
 
 import adt.ArrList;
-import adt.ArrListInterface;
+import adt.ListInterface;
+import dao.TutorialPrDAO;
 import entity.Program;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import entity.Tutorial;
+import entity.TutorialProgram;
+import java.util.Iterator;
+import utility.ConsoleColor;
+import static utility.MessageUI.printFormattedText;
+import utility.Sort;
+
 /**
- *
- * @author zyleo
+ * @author Lim Yi Leong
  */
 public class reportProgram {
-        private ArrListInterface<Program> programList = new ArrList<>();
-        
-    public reportProgram() {
-        
-//        //Task 1: Sum each program's students
-//        Map<String, Integer> programStudentCounts = new HashMap<>();
-//        for (TutorialProgram program : programs) {
-//            String programCode = program.getCode();
-//            int numStudents = program.getNumStudent();
-//            programStudentCounts.put(programCode, programStudentCounts.getOrDefault(programCode, 0) + numStudents);
-//        }
 
-//        // Task 2: List top 5 programs with more tutorial groups
-//        List<Map.Entry<String, Integer>> topProgramsByGroups = new ArrayList<>(programStudentCounts.entrySet());
-//        topProgramsByGroups.sort((a, b) -> b.getValue().compareTo(a.getValue())); // Sort in descending order
-//        System.out.println("Top 5 programs by tutorial groups:");
-//        for (int i = 0; i < Math.min(5, topProgramsByGroups.size()); i++) {
-//            System.out.println(topProgramsByGroups.get(i).getKey() + ": " + topProgramsByGroups.get(i).getValue() + " groups");
-//        }
-//
-//        // Task 3: List top 5 tutorials with more students
-//        Map<String, Integer> tutorialStudentCounts = new HashMap<>();
-//        for (TutorialProgram program : programs) {
-//            String tutorial = program.getProgramname() + " - " + program.getGroupname();
-//            int numStudents = program.getNumStudent();
-//            tutorialStudentCounts.put(tutorial, tutorialStudentCounts.getOrDefault(tutorial, 0) + numStudents);
-//        }
-//
-//        List<Map.Entry<String, Integer>> topTutorialsByStudents = new ArrayList<>(tutorialStudentCounts.entrySet());
-//        topTutorialsByStudents.sort((a, b) -> b.getValue().compareTo(a.getValue())); // Sort in descending order
-//        System.out.println("\nTop 5 tutorials by students:");
-//        for (int i = 0; i < Math.min(5, topTutorialsByStudents.size()); i++) {
-//            System.out.println(topTutorialsByStudents.get(i).getKey() + ": " + topTutorialsByStudents.get(i).getValue() + " students");
-//        }
+    private ListInterface<TutorialProgram> tpList = new ArrList<>();
+    private ListInterface<Program> pList = new ArrList<>();
+    private TutorialPrDAO tpDAO = new TutorialPrDAO();
+    private Sort sorter = new Sort();
+
+    public reportProgram() {
+        tpList = tpDAO.retrieveFromFile();
+        listTutorialsByProgramCode();
+        sumNStudents(tpList);
+        listProgramsAndGroups();
+
+    }
+    String hyphenLine = "--------------------------------------------------------------------------";
+    String starLine = hyphenLine.replace('-', '*');
+
+    //List tutorial every program
+    private void listTutorialsByProgramCode() {
+        printFormattedText("\n" + starLine + "\n", ConsoleColor.BRIGHTRED);
+        printFormattedText("+-----------------------------------------+\n", ConsoleColor.BRIGHTBLUE);
+        printFormattedText("+   List of tutorial group in Programme   +\n", ConsoleColor.CYAN);
+        printFormattedText("+-----------------------------------------+\n", ConsoleColor.BRIGHTBLUE);
+
+        try {
+            Sort.quickSort(tpList, 1, tpList.size() - 1, "code");
+            String tpcode = "";
+            Iterator<TutorialProgram> iterator = tpList.getIterator();
+            while (iterator.hasNext()) {
+                TutorialProgram program = iterator.next();
+
+                if (!program.getCode().equals(tpcode)) {
+                    if (!tpcode.isEmpty()) {
+                        printTutorialsByProgramCode(tpcode);
+                    }
+                    tpcode = program.getCode();
+                }
+            }
+
+            if (!tpcode.isEmpty()) {
+                printTutorialsByProgramCode(tpcode);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle exceptions here
+        }
+        
+        printFormattedText("\n" + hyphenLine + "\n", ConsoleColor.BRIGHTRED);
+    }
+        //Sum each program's students
+    private void sumNStudents(ListInterface<TutorialProgram> tpList) {
+        printFormattedText("\n" + starLine + "\n", ConsoleColor.BRIGHTRED);
+        printFormattedText("+-----------------------------+\n", ConsoleColor.BRIGHTYELLOW);
+        printFormattedText("+ Total Students in Programme +\n", ConsoleColor.YELLOW);
+        printFormattedText("+-----------------------------+\n", ConsoleColor.BRIGHTYELLOW);
+        sorter.quickSort(tpList, 1, tpList.size() - 1, "code");
+
+        int totalStudents = 0;
+        String tpcode = "";
+        Iterator<TutorialProgram> iterator = tpList.getIterator();
+        while (iterator.hasNext()) {
+            TutorialProgram tp = iterator.next();
+            if (!tp.getCode().equals(tpcode)) {
+                if (!tpcode.isEmpty()) {
+                    System.out.println("Total students in " + tpcode + ": " + totalStudents);
+                }
+                tpcode = tp.getCode();
+                totalStudents = tp.getNumStudent();
+            } else {
+                totalStudents += tp.getNumStudent();
+            }
+        }
+        if (!tpcode.isEmpty()) {
+            System.out.println("Total students in " + tpcode + ": " + totalStudents);
+        }
+        printFormattedText("\n" + hyphenLine + "\n", ConsoleColor.BRIGHTRED);
     }
 
+    //List each programs tutorial groups students
+    private void listProgramsAndGroups() {
+        printFormattedText("\n" + starLine + "\n", ConsoleColor.BRIGHTRED);
+        printFormattedText("+-----------------------------------------+\n", ConsoleColor.BRIGHTBLUE);
+        printFormattedText("+ Total Students of Tutorial in Programme +\n", ConsoleColor.CYAN);
+        printFormattedText("+-----------------------------------------+\n", ConsoleColor.BRIGHTBLUE);
+
+        try {
+            Sort.quickSort(tpList, 1, tpList.size() - 1, "code");
+
+            // Iterate through the list and print each program, group, and number of students
+            String tpcode = "";
+            String currentGroup = "";
+            int groupTotalStudents = 0;
+
+            Iterator<TutorialProgram> iterator = tpList.getIterator();
+            while (iterator.hasNext()) {
+                TutorialProgram tp = iterator.next();
+
+                if (!tp.getCode().equals(tpcode)) {
+                    // Print the tp header
+                    if (!tpcode.isEmpty()) {
+                        printFormattedText(tpcode + " :\n", ConsoleColor.GREEN);
+                        System.out.println("Total students in " + currentGroup + ": " + groupTotalStudents + "\n");
+                    }
+                    tpcode = tp.getCode();
+                    currentGroup = tp.getGroupname();
+                    groupTotalStudents = tp.getNumStudent();
+                } else if (!tp.getGroupname().equals(currentGroup)) {
+                    printFormattedText(tpcode + " :\n", ConsoleColor.GREEN);
+                    System.out.println("Total students in " + currentGroup + ": " + groupTotalStudents + "\n");
+                    currentGroup = tp.getGroupname();
+                    groupTotalStudents = tp.getNumStudent();
+                } else {
+                    groupTotalStudents += tp.getNumStudent();
+                }
+            }
+            printFormattedText(tpcode + " :\n", ConsoleColor.GREEN);
+            System.out.println("Total students in " + currentGroup + ": " + groupTotalStudents + "\n");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        printFormattedText("\n" + hyphenLine + "\n", ConsoleColor.BRIGHTRED);
+    }
+
+    private void printTutorialsByProgramCode(String programCode) {
+        System.out.println("\nTutorials for program " + programCode + ":");
+
+        Iterator<TutorialProgram> iterator = tpList.getIterator();
+        while (iterator.hasNext()) {
+            TutorialProgram program = iterator.next();
+            if (program.getCode().equals(programCode)) {
+                System.out.println(program.getGroupname()); // Print the group name or other relevant information
+            }
+        }
+
+    }
 }

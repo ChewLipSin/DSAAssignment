@@ -1,18 +1,18 @@
 package dao;
 
 import adt.*;
+import entity.Tutorial;
 import entity.TutorialProgram;
 import java.io.*;
-import java.io.File;
 /**
  * @author Lim Yi Leong
  */
-public class TutorialPrDAO {
-  private String fileName = "tutorialProgram.dat"; // For security and maintainability, should not have filename hardcoded here.
-  private ListInterface<TutorialProgram> tpList = new ArrList<>();
+public class TutorialDAO {
+  private String fileName = "tutorial.dat"; // For security and maintainability, should not have filename hardcoded here.
+  private ListInterface<Tutorial> tList = new ArrList<>();
   
-  public void saveToFile(ListInterface<TutorialProgram> tutorialGroupList) throws IOException {
-    this.tpList = tutorialGroupList;
+  public void saveToFile(ListInterface<Tutorial> tutorialList) throws IOException {
+    this.tList = tutorialList;
       File file = new File(fileName);
         if (file.createNewFile()) {
             System.out.println(fileName + " File Created");
@@ -21,7 +21,7 @@ public class TutorialPrDAO {
         }
         try {
             try (ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream(file))) {
-                ooStream.writeObject(tpList);
+                ooStream.writeObject(tList);
                 System.out.println("Data saved to file.");
             }
         } catch (FileNotFoundException ex) {
@@ -32,11 +32,11 @@ public class TutorialPrDAO {
         }
   }
 
-  public ListInterface<TutorialProgram> retrieveFromFile() {
+  public ListInterface<Tutorial> retrieveFromFile() {
     File file = new File(fileName);
     try {
       ObjectInputStream oiStream = new ObjectInputStream(new FileInputStream(file));
-      tpList = (ArrList<TutorialProgram>) (oiStream.readObject());
+      tList = (ArrList<Tutorial>) (oiStream.readObject());
       oiStream.close();
     } catch (FileNotFoundException ex) {
       System.out.println("\nNo such file.");
@@ -45,7 +45,7 @@ public class TutorialPrDAO {
     } catch (ClassNotFoundException ex) {
       System.out.println("\nClass not found.");
     } finally {
-      return tpList;
+      return tList;
     }
   }
 }

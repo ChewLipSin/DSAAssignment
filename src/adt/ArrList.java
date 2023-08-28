@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package adt;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
 /**
@@ -12,7 +9,7 @@ import java.util.Iterator;
  * @author Lim Yi Leong
  * @param <T>
  */
-public class ArrList<T> implements ArrListInterface<T> {
+public class ArrList<T> implements ListInterface<T>, Serializable {
 
     private T[] arr;
     private int numberOfEntries;
@@ -75,7 +72,7 @@ public class ArrList<T> implements ArrListInterface<T> {
         }
         return found;
     }
-
+    
     @Override
     public T getEntry(int givenPosition) {
         T result = null;

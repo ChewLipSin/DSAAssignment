@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package adt;
 
 import java.util.Iterator;
@@ -12,7 +8,7 @@ import java.util.Iterator;
  * @author Lim Yi Leong
  *
  */
-public interface ArrListInterface<T> {
+public interface ListInterface<T> {
 
     public Iterator<T> getIterator();
 

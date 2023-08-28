@@ -1,10 +1,10 @@
 package entity;
 
+import java.io.Serializable;
 /**
- *
  * @author zyleo
  */
-public class TutorialProgram {
+public class TutorialProgram implements Serializable{
     String code;
     String programname;
     String groupname;

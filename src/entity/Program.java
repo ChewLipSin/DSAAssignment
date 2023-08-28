@@ -1,11 +1,11 @@
 package entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 /**
- *
  * @author Lim Yi Leong
  */
-public class Program {
+public class Program implements Serializable{
     private String code;
     private String level;
     private String name;
