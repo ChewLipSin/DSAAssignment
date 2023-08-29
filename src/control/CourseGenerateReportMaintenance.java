@@ -49,7 +49,7 @@ public class CourseGenerateReportMaintenance {
                     generateCourseProgramReport();
                     break;
                 case 2:
-//                    runTutorMaintenance(courseList);
+                    generateCourseReport();
                     break;
                 default:
                     MessageUI.displayInvalidChoiceMessage();
@@ -58,7 +58,7 @@ public class CourseGenerateReportMaintenance {
         } while (choice != 0);
     }
 
-    private void generateCourseProgramReport() {
+    private void generateCourseProgramReport()  {
         LinkedListInterface<CourseProgram> cp = new DoublyLinkedList<>();
         ListInterface<Course> courses = new ArrList<>();
         cp = cpDAO.dLLRetrieveFromFile("courseProgram.dat");
@@ -68,7 +68,7 @@ public class CourseGenerateReportMaintenance {
         cReportUI.displayCPFirstPart();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         LinkedListInterface<CourseProgram> cp = new DoublyLinkedList<>();
         ListInterface<Course> courses = new ArrList<>();
         CourseGenerateReportMaintenance ca = new CourseGenerateReportMaintenance();
@@ -76,5 +76,9 @@ public class CourseGenerateReportMaintenance {
         courses = cDAO.retrieveFromFile("course.dat");
         CourseGenerateReportMaintenanceUI cReportUI = new CourseGenerateReportMaintenanceUI(cp, courses);
         ca.runCourseGenerateReportMaintenance();
+    }
+
+    private void generateCourseReport() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
