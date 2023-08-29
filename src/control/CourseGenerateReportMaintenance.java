@@ -28,10 +28,10 @@ public class CourseGenerateReportMaintenance {
     private final DAO<CourseProgram> cpDAO = new DAO<>();
     private final Sort s = new Sort();
 
-    public void runCourseMaintenance() {
+    public void runCourseGenerateReportMaintenance() {
         LinkedListInterface<CourseProgram> cp = new DoublyLinkedList<>();
         ListInterface<Course> courses = new ArrList<>();
-        cp = cpDAO.dLLRetrieveFromFile("courseDAO");
+        cp = cpDAO.dLLRetrieveFromFile("courseProgram.dat");
         courses = cDAO.retrieveFromFile("course.dat");
         CourseGenerateReportMaintenanceUI cReportUI = new CourseGenerateReportMaintenanceUI(cp, courses);
 
@@ -61,10 +61,20 @@ public class CourseGenerateReportMaintenance {
     private void generateCourseProgramReport() {
         LinkedListInterface<CourseProgram> cp = new DoublyLinkedList<>();
         ListInterface<Course> courses = new ArrList<>();
-        cp = cpDAO.dLLRetrieveFromFile("courseDAO");
+        cp = cpDAO.dLLRetrieveFromFile("courseProgram.dat");
         courses = cDAO.retrieveFromFile("course.dat");
         CourseGenerateReportMaintenanceUI cReportUI = new CourseGenerateReportMaintenanceUI(cp, courses);
         cReportUI.displayCoursePReportHeader();
         cReportUI.displayCPFirstPart();
+    }
+
+    public static void main(String[] args) {
+        LinkedListInterface<CourseProgram> cp = new DoublyLinkedList<>();
+        ListInterface<Course> courses = new ArrList<>();
+        CourseGenerateReportMaintenance ca = new CourseGenerateReportMaintenance();
+        cp = ca.cpDAO.dLLRetrieveFromFile("courseProgram.dat");
+        courses = cDAO.retrieveFromFile("course.dat");
+        CourseGenerateReportMaintenanceUI cReportUI = new CourseGenerateReportMaintenanceUI(cp, courses);
+        ca.runCourseGenerateReportMaintenance();
     }
 }

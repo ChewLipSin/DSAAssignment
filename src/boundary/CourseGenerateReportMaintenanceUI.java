@@ -14,6 +14,7 @@ import entity.CourseProgram;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
+import utility.Command;
 import utility.InputValue;
 import utility.MessageUI;
 
@@ -70,13 +71,34 @@ public class CourseGenerateReportMaintenanceUI {
         String line = "";
         sortByProgramID();
         sortById();
+        String oldCC = "";
         System.out.println("");
-        System.out.println(String.format("\t\t%-20s|%-20s|%-20s", "Course Code", "Program Code", "Main/Elective"));
+        System.out.println(String.format("\t%-20s|  %-20s|%-20s", "Course Code", "Program Code", "Main/Elective"));
         for (int i = 0; i < 65; i++) {
             line += "-";
         }
-        System.out.println("\t\t" + line);
         Iterator<CourseProgram> it = cp.getIterator();
+        while (it.hasNext()) {
+            CourseProgram cp2 = it.next();
+            if (oldCC.equals(cp2.getCourseCode())) {
+                System.out.print(String.format("\t%-20s|", ""));
+                String elective = strElective(cp2.isIsElective());
+                System.out.println(String.format("  %-20s|  %-20s", cp2.getProgramCode(), elective));
+
+            } else {
+                System.out.println("\t" + line);
+                System.out.print(String.format("\t%-20s|", cp2.getCourseCode()));
+                String elective = strElective(cp2.isIsElective());
+                System.out.println(String.format("  %-20s|  %-20s", cp2.getProgramCode(), elective));
+
+            }
+            oldCC = cp2.getCourseCode();
+
+        }
+
+        System.out.println("\t" + line);
+        System.out.println("\n\n");
+        Command.pressEnterToContinue();
     }
 
     public void sortById() {
@@ -89,5 +111,14 @@ public class CourseGenerateReportMaintenanceUI {
         cp.orderBy((c1, c2)
                 -> c1.getProgramCode().compareTo(c2.getProgramCode()) < 0
                 ? OrderClause.MOVE_FORWARD : OrderClause.MOVE_BACKWARD);
+    }
+
+    private String strElective(boolean isElective) {
+        if (isElective == true) {
+            return "Elective";
+        } else {
+            return "Main";
+        }
+
     }
 }

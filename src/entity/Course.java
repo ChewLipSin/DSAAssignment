@@ -64,6 +64,10 @@ public class Course implements Serializable {
         return creditHours;
     }
 
+    public void update() {
+        this.updatedAt = LocalDate.now();
+    }
+
     public void setCourseCode(String courseCode) {
         this.courseCode = courseCode;
     }
@@ -78,6 +82,10 @@ public class Course implements Serializable {
 
     public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
     }
 
     public void setTitle(String title) {
