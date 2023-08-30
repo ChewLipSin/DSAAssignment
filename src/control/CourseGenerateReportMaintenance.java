@@ -5,15 +5,18 @@
 package control;
 
 import adt.ArrList;
+import adt.ArrayStack;
 import adt.DoublyLinkedList;
 import adt.LinkedListInterface;
 import adt.ListInterface;
+import adt.StackInterface;
 import boundary.CourseGenerateReportMaintenanceUI;
 import boundary.CourseMaintenanceUI;
 import dao.DAO;
 import entity.Course;
 import entity.CourseProgram;
 import entity.Program;
+import utility.Command;
 import utility.MessageUI;
 import utility.Sort;
 
@@ -58,17 +61,17 @@ public class CourseGenerateReportMaintenance {
         } while (choice != 0);
     }
 
-    private void generateCourseProgramReport()  {
+    private void generateCourseProgramReport() {
         LinkedListInterface<CourseProgram> cp = new DoublyLinkedList<>();
         ListInterface<Course> courses = new ArrList<>();
         cp = cpDAO.dLLRetrieveFromFile("courseProgram.dat");
         courses = cDAO.retrieveFromFile("course.dat");
         CourseGenerateReportMaintenanceUI cReportUI = new CourseGenerateReportMaintenanceUI(cp, courses);
         cReportUI.displayCoursePReportHeader();
-        cReportUI.displayCPFirstPart();
+        cReportUI.displayCourseProgramReport();
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         LinkedListInterface<CourseProgram> cp = new DoublyLinkedList<>();
         ListInterface<Course> courses = new ArrList<>();
         CourseGenerateReportMaintenance ca = new CourseGenerateReportMaintenance();
@@ -79,6 +82,20 @@ public class CourseGenerateReportMaintenance {
     }
 
     private void generateCourseReport() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        LinkedListInterface<CourseProgram> cp = new DoublyLinkedList<>();
+        ListInterface<Course> courses = new ArrList<>();
+        StackInterface<String> choice = new ArrayStack<>();
+        cp = cpDAO.dLLRetrieveFromFile("courseProgram.dat");
+        courses = cDAO.retrieveFromFile("course.dat");
+        CourseGenerateReportMaintenanceUI cReportUI = new CourseGenerateReportMaintenanceUI(cp, courses);
+        choice = cReportUI.getCourseReportMenu(choice);
+        if (!choice.isEmpty()) {
+            cReportUI.displayCourseReportHeader();
+        }
+        while (!choice.isEmpty()) {
+            cReportUI.displayCourseReportHeader();
+            String choice2 = choice.pop();
+
+        }
     }
 }
