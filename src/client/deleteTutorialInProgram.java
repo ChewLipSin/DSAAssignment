@@ -17,9 +17,9 @@ import static utility.MessageUI.printFormattedText;
 public class deleteTutorialInProgram {
 
     private ListInterface<TutorialProgram> tpList = new ArrList<>();
-    private static TutorialProgramMaintenance tpM = new TutorialProgramMaintenance();
-    private static TutorialProgramUI tpU = new TutorialProgramUI();
-    private static TutorialPrDAO tpDAO = new TutorialPrDAO();
+    private static final TutorialProgramMaintenance tpM = new TutorialProgramMaintenance();
+    private static final TutorialProgramUI tpU = new TutorialProgramUI();
+    private static final TutorialPrDAO tpDAO = new TutorialPrDAO();
     private Scanner scanner;
 
     public deleteTutorialInProgram(ListInterface<TutorialProgram> tutorialGroupList) {
@@ -37,7 +37,7 @@ public class deleteTutorialInProgram {
                 try {
                     int tpNumber = Integer.parseInt(input);
                     if (tpNumber >= 1 && tpNumber <= tpList.size()) {
-                        deleteTutorial(tpNumber - 1);
+                        deleteTP(tpNumber - 1);
                         quit = true;
                     } else {
                         printFormattedText("\nInvalid tutorial program number.", ConsoleColor.RED);
@@ -49,19 +49,6 @@ public class deleteTutorialInProgram {
         }
     }
 
-    public void deleteTutorial(int index) {
-        if (index >= 0 && index < tpList.size()) {
-            TutorialProgram tutorialProgram = tpList.getEntry(index);
-            if (tpList.remove(tutorialProgram)) {
-                printFormattedText("\nTutorial program deleted successfully.", ConsoleColor.RED);
-            } else {
-                printFormattedText("\nAn error occurred while deleting the tutorial program.", ConsoleColor.RED);
-            }
-        } else {
-            printFormattedText("\nInvalid tutorial program index.", ConsoleColor.RED);
-        }
-    }
-
     public void deleteTP(int index) {
         boolean quit = false;
         while (!quit) {
@@ -69,7 +56,7 @@ public class deleteTutorialInProgram {
                 TutorialProgram tutorialProgram = tpList.getEntry(index);
 
                 // Ask for user confirmation
-                printFormattedText("\nAre you sure you want to delete the program? (y/n): ", ConsoleColor.BRIGHTBLUE);
+                printFormattedText("\nAre you sure you want to delete the tutorial group? (y/n): ", ConsoleColor.BRIGHTBLUE);
                 String confirmation = scanner.nextLine().toLowerCase();
 
                 if (confirmation.toLowerCase().equals("y")) {

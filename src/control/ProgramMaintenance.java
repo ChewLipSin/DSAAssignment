@@ -7,7 +7,6 @@ import client.modifyProgram;
 import client.reportProgram;
 import client.searchProgram;
 import dao.ProgramDAO;
-import dao.ProgramInitializer;
 import entity.*;
 import java.io.IOException;
 import java.util.Iterator;
@@ -32,10 +31,7 @@ public class ProgramMaintenance {
     }
 
     public void runProgramMaintenance() {
-        ProgramInitializer pi = new ProgramInitializer();
-
-//        pList = pDAO.retrieveFromFile();
-        pList = pi.ProgramInitializer();
+        pList = pDAO.retrieveFromFile();
         System.out.println(pList);
         int choice = 0;
         do {

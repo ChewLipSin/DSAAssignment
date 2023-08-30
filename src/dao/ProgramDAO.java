@@ -14,11 +14,11 @@ public class ProgramDAO {
 public void saveToFile(ListInterface<Program> programList) throws IOException {
         this.pList = programList;
         File file = new File(fileName);
-        if (file.createNewFile()) {
-            System.out.println(fileName + " File Created");
-        } else {
-            System.out.println("File " + fileName + " already exists");
-        }
+//        if (file.createNewFile()) {
+//            System.out.println(fileName + " File Created");
+//        } else {
+//            System.out.println("File " + fileName + " already exists");
+//        }
         try {
             try (ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream(file))) {
                 ooStream.writeObject(programList);

@@ -4,11 +4,16 @@ import adt.ArrList;
 import adt.ListInterface;
 import boundary.ProgramUI;
 import control.ProgramMaintenance;
+import control.TutorialProgramMaintenance;
 import dao.ProgramDAO;
+import dao.TutorialPrDAO;
 import entity.Program;
+import entity.TutorialProgram;
 import utility.MessageUI;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import utility.ConsoleColor;
 import static utility.MessageUI.printFormattedText;
 
@@ -18,10 +23,12 @@ import static utility.MessageUI.printFormattedText;
 public class deleteProgram {
 
     private ListInterface<Program> pList = new ArrList<>();
-    ;
-    private static ProgramDAO pDAO = new ProgramDAO();
-    private static ProgramUI pU = new ProgramUI();
-    private ProgramMaintenance pM = new ProgramMaintenance();
+    private ListInterface<TutorialProgram> tpList = new ArrList<>();
+    private static final ProgramDAO pDAO = new ProgramDAO();
+    private static final ProgramUI pU = new ProgramUI();
+    private static final TutorialPrDAO tpDAO = new TutorialPrDAO();
+    private static final TutorialProgramMaintenance tpM = new TutorialProgramMaintenance();
+    private static final ProgramMaintenance pM = new ProgramMaintenance();
     private Scanner scanner;
 
     public deleteProgram(ListInterface<Program> pList) {
@@ -53,6 +60,7 @@ public class deleteProgram {
     }
 
     public void deleteP(int index) {
+        tpList = tpDAO.retrieveFromFile();
         boolean quit = false;
         while (!quit) {
 
@@ -68,7 +76,7 @@ public class deleteProgram {
                     try {
                         pDAO.saveToFile(pList);
                         printFormattedText("Program deleted successfully.", ConsoleColor.GREEN);
-
+                        deleteTutorialProgram(program, tpList);
                         // Ask user if they want to print the updated list
                         System.out.print("Do you want to print the updated program list? (y/n): ");
                         String choice = scanner.nextLine().toLowerCase();
@@ -89,4 +97,20 @@ public class deleteProgram {
         }
     }
 
+    public void deleteTutorialProgram(Program p, ListInterface<TutorialProgram> tpList) {
+        ListInterface<TutorialProgram> temp = new ArrList<>();
+        for (int i = 0; i < tpList.size(); i++) {
+            if (tpList.getEntry(i).getCode().equals(p.getCode())) {
+                temp.add(tpList.getEntry(i));
+            }
+        }
+        for (int i = 0; i < temp.size(); i++) {
+            tpList.remove(temp.getEntry(i));
+        }
+        try {
+            tpDAO.saveToFile(tpList);
+        } catch (IOException ex) {
+            printFormattedText("\nFailed\n", ConsoleColor.RED);
+        }
+    }
 }

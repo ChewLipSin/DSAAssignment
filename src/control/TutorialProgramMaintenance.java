@@ -17,9 +17,9 @@ import utility.MessageUI;
 public class TutorialProgramMaintenance {
 
     private ListInterface<TutorialProgram> tpList = new ArrList<>();
-    private static TutorialPrDAO tpDAO = new TutorialPrDAO();
-    private static TutorialProgramUI tpU = new TutorialProgramUI();
-    private static ProgramMaintenance pM = new ProgramMaintenance();
+    private static final TutorialPrDAO tpDAO = new TutorialPrDAO();
+    private static final TutorialProgramUI tpU = new TutorialProgramUI();
+    private static final ProgramMaintenance pM = new ProgramMaintenance();
      private Scanner scanner = new Scanner(System.in);
 
     public TutorialProgramMaintenance() {
@@ -155,8 +155,4 @@ public class TutorialProgramMaintenance {
         tpU.listAllTutorialPrograms(outputStr);
     }
       
-    public static void main(String[] args) throws IOException {
-        TutorialProgramMaintenance tutorialProgramMaintenance = new TutorialProgramMaintenance();
-        tutorialProgramMaintenance.runTutorialProgramMaintenance();
-    }
 }

@@ -14,14 +14,14 @@ public class TutorialPrDAO {
   public void saveToFile(ListInterface<TutorialProgram> tutorialGroupList) throws IOException {
     this.tpList = tutorialGroupList;
       File file = new File(fileName);
-        if (file.createNewFile()) {
-            System.out.println(fileName + " File Created");
-        } else {
-            System.out.println("File " + fileName + " already exists");
-        }
+//        if (file.createNewFile()) {
+//            System.out.println(fileName + " File Created");
+//        } else {
+//            System.out.println("File " + fileName + " already exists");
+//        }
         try {
             try (ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream(file))) {
-                ooStream.writeObject(tpList);
+                ooStream.writeObject(tutorialGroupList);
                 System.out.println("Data saved to file.");
             }
         } catch (FileNotFoundException ex) {
