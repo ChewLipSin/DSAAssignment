@@ -14,6 +14,7 @@ import dao.Initializer;
 import entity.Course;
 import entity.CourseProgram;
 import entity.Program;
+import utility.Command;
 import utility.MessageUI;
 import utility.Search;
 import utility.Sort;
@@ -64,6 +65,7 @@ public class CourseProgramMaintenance {
             courseUI.listAllCourses(courseList);
             choice = coursePUI.getCourseChoices(courseList);
             if (choice != 0) {
+                Command.cls();
                 coursePUI.addCourseProgramUI(courseProgramList, courseList, programList, choice);
             }
         } while (choice != 0);
@@ -78,6 +80,7 @@ public class CourseProgramMaintenance {
             courseUI.listAllCourses(courseList);
             choice = coursePUI.getCourseChoices(courseList);
             if (choice != 0) {
+                Command.cls();
                 coursePUI.removeCourseProgramUI(courseProgramList, courseList, programList, choice);
             }
         } while (choice != 0);
@@ -101,9 +104,9 @@ public class CourseProgramMaintenance {
         for (int i = 0; i < courseProgramList.sizeOf(); i++) {
             if (courseProgramList.get(i).getCourseCode().equals(oldCourse.getCourseCode())) {
                 cp1.add(new CourseProgram(course.getCourseCode(), courseProgramList.get(i).getProgramCode(),
-                         courseProgramList.get(i).isIsElective()));
+                        courseProgramList.get(i).isIsElective()));
                 for (int j = 0; j < cp1.sizeOf(); j++) {
-                    courseProgramList.set(i,cp1.get(j));
+                    courseProgramList.set(i, cp1.get(j));
                 }
             }
         }

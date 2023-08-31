@@ -13,6 +13,7 @@ import entity.Course;
 import entity.Course.Sem;
 import entity.CourseProgram;
 import entity.Program;
+import java.io.IOException;
 import java.time.LocalDate;
 import utility.*;
 
@@ -35,7 +36,7 @@ public class CourseMaintenance {
     public CourseMaintenance() {
     }
 
-    public void runCourseMaintenance() {
+    public void runCourseMaintenance() throws IOException, InterruptedException {
         ListInterface<Course> courseList = cDAO.retrieveFromFile("course.dat");
 //        ListInterface<Course> courseList = in.initializeCourse();
 //        cDAO.saveToFile(courseList, "course.dat");
@@ -45,6 +46,7 @@ public class CourseMaintenance {
 //        pDAO.saveToFile(programList, "program.dat");
         int choice;
         do {
+            Command.cls();
             choice = courseUI.getMenuChoices();
             switch (choice) {
                 case 0:
@@ -83,6 +85,7 @@ public class CourseMaintenance {
     private void addNewCourse(ListInterface<Course> courseList) {
         boolean loop = false;
         do {
+            Command.cls();
             boolean newCourseFull, confirm = true;
             Course newCourse = courseUI.inputCourseDetails(courseList);
             newCourseFull = (!newCourse.equals(new Course(null, null, 0, null)));
@@ -106,6 +109,7 @@ public class CourseMaintenance {
     private void removeCourse(ListInterface<Course> courseList) {
         boolean loop = false;
         do {
+            Command.cls();
             boolean deleteCourse, confirm;
             int courseSelected = courseUI.inputRemoveCode(courseList);
             deleteCourse = (courseSelected > -1);
@@ -127,6 +131,7 @@ public class CourseMaintenance {
     private void searchCourse(ListInterface<Course> courseList, String val) {
         boolean loop = true;
         do {
+            Command.cls();
             int choice = courseUI.getSearchMenuChoices();
             switch (choice) {
                 case 0:
@@ -196,6 +201,7 @@ public class CourseMaintenance {
         int newCreditHours = tempCourse.getCreditHours();
 //        do {
         do {
+            Command.cls();
             choice = courseUI.getAmmendMenuChoices();
 
             switch (choice) {
@@ -230,7 +236,6 @@ public class CourseMaintenance {
             }
         } while (choice != 0);
         tempCourse = new Course(newCourseCode, newTitle, newCreditHours, newSem);
-        System.out.println("HI");
         tempCourse.setCreatedAt(tempCourse2.getCreatedAt());
         boolean match = courseList.contains(tempCourse);
         int match2 = tempCourse2.compareSem(tempCourse.getSemester());
@@ -262,6 +267,7 @@ public class CourseMaintenance {
         courseUI.listAllCourses(courseList);
         do {
             choice = courseUI.getSortMenu(courseList);
+            Command.cls();
             switch (choice) {
                 case 0:
                     break;

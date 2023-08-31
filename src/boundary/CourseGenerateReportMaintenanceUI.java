@@ -12,6 +12,7 @@ import adt.OrderClause;
 import adt.StackInterface;
 import adt.ArrayStack;
 import entity.Course;
+import entity.Course.Sem;
 import entity.CourseProgram;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -45,21 +46,22 @@ public class CourseGenerateReportMaintenanceUI {
     String formattedTime = myDateObj.format(myFormatObj2);
 
     public void displayHeader() {
-        System.out.println("\t\t==============================================");
-        System.out.println("\t\t||            Course Report Menu            ||");
-        System.out.println("\t\t==============================================");
+        Command.cls();
+        System.out.println("\t\t\t\t==============================================");
+        System.out.println("\t\t\t\t||            Course Report Menu            ||");
+        System.out.println("\t\t\t\t==============================================");
     }
 
     public void displayReportMenu() {
-        System.out.println("\t\t1. Generate Course and Program Report");
-        System.out.println("\t\t2. Generate Course Report");
-        System.out.println("\t\t0. Exit");
+        System.out.println("\t\t\t\t1. Generate Course and Program Report");
+        System.out.println("\t\t\t\t2. Generate Course Report");
+        System.out.println("\t\t\t\t0. Exit");
     }
 
     public int getChoices() {
         int choice;
         do {
-            System.out.print("Enter choice: ");
+            System.out.print("\t\t\t\tEnter choice: ");
             choice = iv.readInteger();
             if (choice > 2 || choice < 0) {
                 MessageUI.displayInvalidChoiceMessage();
@@ -69,15 +71,30 @@ public class CourseGenerateReportMaintenanceUI {
     }
 
     public void displayCoursePReportHeader() {
-        System.out.println("\t\t==============================================");
-        System.out.println("\t\t||           Course Program Report           ||");
-        System.out.println("\t\t==============================================");
+        Command.cls();
+        System.out.println("\t\t\t\t==============================================");
+        System.out.println("\t\t\t\t||           Course Program Report           ||");
+        System.out.println("\t\t\t\t==============================================");
     }
 
     public void displayCourseReportHeader() {
-        System.out.println("\t\t==============================================");
-        System.out.println("\t\t||              Course Report                ||");
-        System.out.println("\t\t==============================================");
+        Command.cls();
+        System.out.println("\t\t\t\t==============================================");
+        System.out.println("\t\t\t\t||              Course Report                ||");
+        System.out.println("\t\t\t\t==============================================");
+    }
+
+    public void progress() {
+        String anim = "|/-\\";
+        for (int i = 0; i <= 100; i = i + 50) {
+            Command.progressPercentage(i, 100);
+            try {
+                Thread.sleep(500);
+            } catch (Exception e) {
+            }
+        }
+        MessageUI.displaySuccessConfirmationMessage("Generating Report");
+        Command.pressEnterToContinue();
     }
 
     public void displayCourseProgramReport() {
@@ -86,7 +103,7 @@ public class CourseGenerateReportMaintenanceUI {
         sortById();
         String oldCC = "";
         System.out.println("");
-        System.out.println(String.format("\t%-20s|  %-20s|%-20s", "Course Code", "Program Code", "Main/Elective"));
+        System.out.println(String.format("\t\t\t%-20s|  %-20s|%-20s", "Course Code", "Program Code", "Main/Elective"));
         for (int i = 0; i < 65; i++) {
             line += "-";
         }
@@ -94,13 +111,13 @@ public class CourseGenerateReportMaintenanceUI {
         while (it.hasNext()) {
             CourseProgram cp2 = it.next();
             if (oldCC.equals(cp2.getCourseCode())) {
-                System.out.print(String.format("\t%-20s|", ""));
+                System.out.print(String.format("\t\t\t%-20s|", ""));
                 String elective = strElective(cp2.isIsElective());
                 System.out.println(String.format("  %-20s|  %-20s", cp2.getProgramCode(), elective));
 
             } else {
-                System.out.println("\t" + line);
-                System.out.print(String.format("\t%-20s|", cp2.getCourseCode()));
+                System.out.println("\t\t\t" + line);
+                System.out.print(String.format("\t\t\t%-20s|", cp2.getCourseCode()));
                 String elective = strElective(cp2.isIsElective());
                 System.out.println(String.format("  %-20s|  %-20s", cp2.getProgramCode(), elective));
 
@@ -109,9 +126,10 @@ public class CourseGenerateReportMaintenanceUI {
 
         }
 
-        System.out.println("\t" + line);
+        System.out.println("\t\t\t" + line);
         displayReportFooter();
         System.out.println("");
+        System.out.print("\t\t\t");
         Command.pressEnterToContinue();
     }
 
@@ -136,9 +154,9 @@ public class CourseGenerateReportMaintenanceUI {
 
     }
 
-    private void displayReportFooter() {
-        System.out.println("\n\tReport Generated by: University Education System");
-        System.out.println("\tReport Generated at: " + formattedDate + " " + formattedTime);
+    public void displayReportFooter() {
+        System.out.println("\n\t\t\tReport Generated by: University Education System");
+        System.out.println("\t\t\tReport Generated at: " + formattedDate + " " + formattedTime);
     }
 
     public StackInterface<String> getCourseReportMenu(StackInterface<String> choice) {
@@ -153,17 +171,17 @@ public class CourseGenerateReportMaintenanceUI {
 
         int choice2;
         do {
-
+            Command.cls();
             int no = 2;
-            System.out.println("\t\t==============================================");
-            System.out.println("\t\t||              Course Report Menu          ||");
-            System.out.println("\t\t==============================================");
-            System.out.println("\t\t1. Course Code Report");
-            System.out.println("\t\t2. Credit Hour Report");
-            System.out.println("\t\t3. Semester Report");
-            System.out.println("\t\t4. Undo");
-            System.out.println("\t\t0. Exit/Continue");
-            System.out.print("\t\tEnter your choice(One report only choose one time): ");
+            System.out.println("\t\t\t\t==============================================");
+            System.out.println("\t\t\t\t||              Course Report Menu          ||");
+            System.out.println("\t\t\t\t==============================================");
+            System.out.println("\t\t\t\t1. Course Code Report");
+            System.out.println("\t\t\t\t2. Credit Hour Report");
+            System.out.println("\t\t\t\t3. Semester Report");
+            System.out.println("\t\t\t\t4. Undo");
+            System.out.println("\t\t\t\t0. Exit/Continue");
+            System.out.print("\t\t\t\tEnter your choice(One report only choose one time): ");
             choice2 = iv.readInteger();
             if (choice2 < 0 || choice2 > 4) {
                 MessageUI.displayInvalidChoiceMessage();
@@ -187,13 +205,15 @@ public class CourseGenerateReportMaintenanceUI {
                         checkSem = false;
                     }
                 } else {
-                    MessageUI.printFormattedText("Nothing can Undo\n", ConsoleColor.YELLOW);
+                    MessageUI.printFormattedText("\t\t\t\tNothing can Undo\n", ConsoleColor.YELLOW);
                 }
             } else if (choice2 == 0) {
                 System.out.println("");
             } else {
-                MessageUI.printFormattedText("You have been assigned value into the stack!\n", ConsoleColor.YELLOW);
+                MessageUI.printFormattedText("\t\t\t\tYou have been assigned value into the stack!\n", ConsoleColor.YELLOW);
             }
+            System.out.print("\t\t\t\t");
+            Command.pressEnterToContinue();
         } while (choice2 != 0);
         return choice;
     }
@@ -205,54 +225,54 @@ public class CourseGenerateReportMaintenanceUI {
         Iterator<Course> itF = courses.getIterator();
         Iterator<Course> itM = courses.getIterator();
 
-        String line = "\t";
+        String line = "\t\t\t";
         for (int i = 0; i < 65; i++) {
             line += "-";
         }
         int countA = 1, countB = 1, countF = 1, countM = 1;
         System.out.println(line);
-        System.out.println("\tCourse Code Start with 'A'");
+        System.out.println("\t\t\tCourse Code Start with 'A'");
         while (itA.hasNext()) {
             Course course = itA.next();
             if (course.getCourseCode().charAt(0) == 'A') {
-                System.out.println(String.format("\t%2d. %8s %s", countA, course.getCourseCode(), course.getTitle()));
+                System.out.println(String.format("\t\t\t%2d. %8s %s", countA, course.getCourseCode(), course.getTitle()));
                 countA++;
             }
         }
 
-        System.out.println(String.format("\tTotal = %d", countA - 1));
+        System.out.println(String.format("\t\t\tTotal = %d", countA - 1));
         System.out.println(line);
-        System.out.println("\tCourse Code Start with 'B'");
+        System.out.println("\t\t\tCourse Code Start with 'B'");
         while (itB.hasNext()) {
             Course course = itB.next();
             if (course.getCourseCode().charAt(0) == 'B') {
-                System.out.println(String.format("\t%2d. %8s %s", countB, course.getCourseCode(), course.getTitle()));
+                System.out.println(String.format("\t\t\t%2d. %8s %s", countB, course.getCourseCode(), course.getTitle()));
                 countB++;
 
             }
         }
-        System.out.println(String.format("\tTotal = %d", countB - 1));
+        System.out.println(String.format("\t\t\tTotal = %d", countB - 1));
         System.out.println(line);
-        System.out.println("\tCourse Code Start with 'F'");
+        System.out.println("\t\t\tCourse Code Start with 'F'");
         while (itF.hasNext()) {
             Course course = itF.next();
             if (course.getCourseCode().charAt(0) == 'F') {
-                System.out.println(String.format("\t%2d. %8s %s", countF, course.getCourseCode(), course.getTitle()));
+                System.out.println(String.format("\t\t\t%2d. %8s %s", countF, course.getCourseCode(), course.getTitle()));
                 countF++;
             }
         }
-        System.out.println(String.format("\tTotal = %d", countF - 1));
+        System.out.println(String.format("\t\t\tTotal = %d", countF - 1));
         System.out.println(line);
-        System.out.println("\tCourse Code Start with 'M'");
+        System.out.println("\t\t\tCourse Code Start with 'M'");
         while (itM.hasNext()) {
             Course course = itM.next();
             if (course.getCourseCode().charAt(0) == 'M') {
-                System.out.println(String.format("\t%2d. %8s %s", countM, course.getCourseCode(), course.getTitle()));
+                System.out.println(String.format("\t\t\t%2d. %8s %s", countM, course.getCourseCode(), course.getTitle()));
                 countM++;
             }
         }
-        System.out.println(String.format("\tTotal = %d", countM - 1));
- 
+        System.out.println(String.format("\t\t\tTotal = %d", countM - 1));
+
     }
 
     public void displayCreditHoursReport() {
@@ -262,49 +282,94 @@ public class CourseGenerateReportMaintenanceUI {
         for (int i = 0; i < 65; i++) {
             line += "-";
         }
-        System.out.println("\t" + line);
-        System.out.println("\tCourse with 1 credit hour");
+        System.out.println("\t\t\t" + line);
+        System.out.println("\t\t\tCourse with 1 credit hour:");
         for (int i = 1; i <= courses.size(); i++) {
             if (courses.getEntry(i).getCreditHours() == 1) {
-                System.out.println(String.format("\t%2d. %s %s", count1, courses.getEntry(i), courses.getEntry(i).getTitle()));
+                System.out.println(String.format("\t\t\t%2d. %s %s", count1, courses.getEntry(i), courses.getEntry(i).getTitle()));
                 count1++;
             }
         }
-        System.out.println(String.format("\tTotal = %d", count1 - 1));
-        System.out.println("\tCourse with 2 credit hours");
+        System.out.println(String.format("\t\t\tTotal = %d", count1 - 1));
+        System.out.println("\t\t\t" + line);
+        System.out.println("\t\t\tCourse with 2 credit hours:");;
         for (int i = 1; i <= courses.size(); i++) {
             if (courses.getEntry(i).getCreditHours() == 2) {
-                System.out.println(String.format("\t%2d. %s %s", count2, courses.getEntry(i).getCourseCode(), courses.getEntry(i).getTitle()));
+                System.out.println(String.format("\t\t\t%2d. %s %s", count2, courses.getEntry(i).getCourseCode(), courses.getEntry(i).getTitle()));
                 count2++;
             }
         }
-        System.out.println(String.format("\tTotal = %d", count2 - 1));
-        System.out.println("\tCourse with 3 credit hours");
+        System.out.println(String.format("\t\t\tTotal = %d", count2 - 1));
+        System.out.println("\t\t\t" + line);
+        System.out.println("\t\t\tCourse with 3 credit hours:");;
 
         for (int i = 1; i <= courses.size(); i++) {
             if (courses.getEntry(i).getCreditHours() == 3) {
-                System.out.println(String.format("\t%2d. %s %s", count3, courses.getEntry(i).getCourseCode(), courses.getEntry(i).getTitle()));
+                System.out.println(String.format("\t\t\t%2d. %s %s", count3, courses.getEntry(i).getCourseCode(), courses.getEntry(i).getTitle()));
                 count3++;
             }
         }
-        System.out.println(String.format("\tTotal = %d", count3 - 1));
-        System.out.println("\tCourse with 4 credit hours");
+        System.out.println(String.format("\t\t\tTotal = %d", count3 - 1));
+        System.out.println("\t\t\t" + line);
+        System.out.println("\t\t\tCourse with 4 credit hours:");
 
         for (int i = 1; i <= courses.size(); i++) {
             if (courses.getEntry(i).getCreditHours() == 4) {
-                System.out.println(String.format("\t%2d. %s %s", count4, courses.getEntry(i).getCourseCode(), courses.getEntry(i).getTitle()));
+                System.out.println(String.format("\t\t\t%2d. %s %s", count4, courses.getEntry(i).getCourseCode(), courses.getEntry(i).getTitle()));
                 count4++;
             }
         }
-        System.out.println(String.format("\tTotal = %d", count4 - 1));
-        System.out.println("\tCourse with 5 credit hours");
+        System.out.println(String.format("\t\t\tTotal = %d", count4 - 1));
+        System.out.println("\t\t\t" + line);
+        System.out.println("\t\t\tCourse with 5 credit hours:");
 
         for (int i = 1; i <= courses.size(); i++) {
             if (courses.getEntry(i).getCreditHours() == 5) {
-                System.out.println(String.format("\t%2d. %s %s", count5, courses.getEntry(i).getCourseCode(), courses.getEntry(i).getTitle()));
+                System.out.println(String.format("\t\t\t%2d. %s %s", count5, courses.getEntry(i).getCourseCode(), courses.getEntry(i).getTitle()));
                 count5++;
             }
         }
-        System.out.println(String.format("\tTotal = %d", count5 - 1));
+        System.out.println(String.format("\t\t\tTotal = %d", count5 - 1));
+    }
+
+    public void displayCourseSemesterReport() {
+        Sem janu = Sem.JAN;
+        Sem july = Sem.JUL;
+
+        Sem alll = Sem.ALL;
+
+        sort.insertionSort(courses, "title");
+        sort.insertionSort(courses, "semester");
+        int countJan = 0, countJuly = 0;
+        Iterator<Course> itJan = courses.getIterator();
+        Iterator<Course> itJuly = courses.getIterator();
+        String line = "";
+        for (int i = 0; i < 65; i++) {
+            line += "-";
+        }
+        System.out.println("\t\t\t" + line);
+        System.out.println("\t\t\tCourse intake on January:");
+        while (itJan.hasNext()) {
+            Course course = itJan.next();
+            int all = course.compareSem(alll);
+            int jan = course.compareSem(janu);
+            if (all == 0 || jan == 0) {
+                countJan++;
+                System.out.println(String.format("\t\t\t%2d. %8s %s", countJan, course.getCourseCode(), course.getTitle()));
+            }
+        }
+        System.out.println("\t\t\tTotal = " + countJan);
+        System.out.println("\t\t\t" + line);
+        System.out.println("\t\t\tCourse intake on July:");
+        while (itJuly.hasNext()) {
+            Course course = itJuly.next();
+            int all = course.compareSem(alll);
+            int jul = course.compareSem(july);
+            if (all == 0 || jul == 0) {
+                countJuly++;
+                System.out.println(String.format("\t\t\t%2d. %8s %s", countJuly, course.getCourseCode(), course.getTitle()));
+            }
+        }
+        System.out.println("\t\t\tTotal = " + countJuly);
     }
 }

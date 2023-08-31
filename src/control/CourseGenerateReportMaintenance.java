@@ -16,6 +16,7 @@ import dao.DAO;
 import entity.Course;
 import entity.CourseProgram;
 import entity.Program;
+import java.io.IOException;
 import utility.Command;
 import utility.MessageUI;
 import utility.Sort;
@@ -31,7 +32,7 @@ public class CourseGenerateReportMaintenance {
     private final DAO<CourseProgram> cpDAO = new DAO<>();
     private final Sort s = new Sort();
 
-    public void runCourseGenerateReportMaintenance() {
+    public void runCourseGenerateReportMaintenance() throws IOException, InterruptedException {
         LinkedListInterface<CourseProgram> cp = new DoublyLinkedList<>();
         ListInterface<Course> courses = new ArrList<>();
         cp = cpDAO.dLLRetrieveFromFile("courseProgram.dat");
@@ -41,6 +42,7 @@ public class CourseGenerateReportMaintenance {
         int choice;
         System.out.println("\n\n");
         do {
+            Command.cls();
             cReportUI.displayHeader();
             cReportUI.displayReportMenu();
             choice = cReportUI.getChoices();
@@ -61,24 +63,16 @@ public class CourseGenerateReportMaintenance {
         } while (choice != 0);
     }
 
-    private void generateCourseProgramReport() {
+    private void generateCourseProgramReport() throws IOException, InterruptedException {
         LinkedListInterface<CourseProgram> cp = new DoublyLinkedList<>();
         ListInterface<Course> courses = new ArrList<>();
         cp = cpDAO.dLLRetrieveFromFile("courseProgram.dat");
         courses = cDAO.retrieveFromFile("course.dat");
         CourseGenerateReportMaintenanceUI cReportUI = new CourseGenerateReportMaintenanceUI(cp, courses);
+        cReportUI.progress();
         cReportUI.displayCoursePReportHeader();
-        cReportUI.displayCourseProgramReport();
-    }
 
-    public static void main(String[] args) {
-        LinkedListInterface<CourseProgram> cp = new DoublyLinkedList<>();
-        ListInterface<Course> courses = new ArrList<>();
-        CourseGenerateReportMaintenance ca = new CourseGenerateReportMaintenance();
-        cp = ca.cpDAO.dLLRetrieveFromFile("courseProgram.dat");
-        courses = cDAO.retrieveFromFile("course.dat");
-        CourseGenerateReportMaintenanceUI cReportUI = new CourseGenerateReportMaintenanceUI(cp, courses);
-        ca.runCourseGenerateReportMaintenance();
+        cReportUI.displayCourseProgramReport();
     }
 
     private void generateCourseReport() {
@@ -86,12 +80,17 @@ public class CourseGenerateReportMaintenance {
         ListInterface<Course> courses = new ArrList<>();
         StackInterface<String> choice = new ArrayStack<>();
         StackInterface<String> arrangeChoice = new ArrayStack<>();
-
+        String line = "";
+        boolean report = false;
         cp = cpDAO.dLLRetrieveFromFile("courseProgram.dat");
         courses = cDAO.retrieveFromFile("course.dat");
         CourseGenerateReportMaintenanceUI cReportUI = new CourseGenerateReportMaintenanceUI(cp, courses);
         choice = cReportUI.getCourseReportMenu(choice);
+        for (int i = 0; i < 65; i++) {
+            line += "-";
+        }
         if (!choice.isEmpty()) {
+            cReportUI.progress();
             cReportUI.displayCourseReportHeader();
         }
         while (!choice.isEmpty()) {
@@ -107,6 +106,18 @@ public class CourseGenerateReportMaintenance {
                 cReportUI.displayCreditHoursReport();
             }
 
+            if (choice2.equals("Semester Report")) {
+                cReportUI.displayCourseSemesterReport();
+            }
+            report = true;
+
+        }
+        if (report) {
+            System.out.println("\t\t\t" + line);
+            cReportUI.displayReportFooter();
+            System.out.println("");
+            System.out.print("\t\t\t");
+            Command.pressEnterToContinue();
         }
     }
 }
