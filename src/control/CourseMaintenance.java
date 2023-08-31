@@ -13,6 +13,7 @@ import entity.Course;
 import entity.Course.Sem;
 import entity.CourseProgram;
 import entity.Program;
+import java.io.IOException;
 import java.time.LocalDate;
 import utility.*;
 
@@ -35,13 +36,17 @@ public class CourseMaintenance {
     public CourseMaintenance() {
     }
 
-    public void runCourseMaintenance() {
+    public void runCourseMaintenance() throws IOException, InterruptedException {
         ListInterface<Course> courseList = cDAO.retrieveFromFile("course.dat");
+//        ListInterface<Course> courseList = in.initializeCourse();
+//        cDAO.saveToFile(courseList, "course.dat");
         ListInterface<Program> programList = pDAO.retrieveFromFile("program.dat");
+//        pDAO.saveToFile(programList, "program.dat");
 //        ListInterface<Program> programList = in.ProgramInitializer();
 //        pDAO.saveToFile(programList, "program.dat");
         int choice;
         do {
+            Command.cls();
             choice = courseUI.getMenuChoices();
             switch (choice) {
                 case 0:
@@ -65,6 +70,10 @@ public class CourseMaintenance {
                     CourseProgramMaintenance coursePM = new CourseProgramMaintenance();
                     coursePM.runCourseProgramMaintenance(courseList, programList);
                     break;
+                case 7:
+                    CourseGenerateReportMaintenance courseGRM = new CourseGenerateReportMaintenance();
+                    courseGRM.runCourseGenerateReportMaintenance();
+                    break;
                 default:
                     MessageUI.displayInvalidChoiceMessage();
 
@@ -76,6 +85,7 @@ public class CourseMaintenance {
     private void addNewCourse(ListInterface<Course> courseList) {
         boolean loop = false;
         do {
+            Command.cls();
             boolean newCourseFull, confirm = true;
             Course newCourse = courseUI.inputCourseDetails(courseList);
             newCourseFull = (!newCourse.equals(new Course(null, null, 0, null)));
@@ -99,6 +109,7 @@ public class CourseMaintenance {
     private void removeCourse(ListInterface<Course> courseList) {
         boolean loop = false;
         do {
+            Command.cls();
             boolean deleteCourse, confirm;
             int courseSelected = courseUI.inputRemoveCode(courseList);
             deleteCourse = (courseSelected > -1);
@@ -120,6 +131,7 @@ public class CourseMaintenance {
     private void searchCourse(ListInterface<Course> courseList, String val) {
         boolean loop = true;
         do {
+            Command.cls();
             int choice = courseUI.getSearchMenuChoices();
             switch (choice) {
                 case 0:
@@ -189,6 +201,7 @@ public class CourseMaintenance {
         int newCreditHours = tempCourse.getCreditHours();
 //        do {
         do {
+            Command.cls();
             choice = courseUI.getAmmendMenuChoices();
 
             switch (choice) {
@@ -223,15 +236,17 @@ public class CourseMaintenance {
             }
         } while (choice != 0);
         tempCourse = new Course(newCourseCode, newTitle, newCreditHours, newSem);
+        tempCourse.setCreatedAt(tempCourse2.getCreatedAt());
         boolean match = courseList.contains(tempCourse);
-        if (!match) {
+        int match2 = tempCourse2.compareSem(tempCourse.getSemester());
+        if (!match || match2 != 0) {
             boolean confirm = askConfirmation(tempCourse, "Ammend", "ammend");
             if (confirm == true) {
                 LinkedListInterface<CourseProgram> cp = new DoublyLinkedList<>();
                 cp = cpDAO.dLLRetrieveFromFile("courseProgram.dat");
 
                 cpm.modifyCourse(tempCourse, tempCourse2, cp);
-                tempCourse.setUpdatedAt(LocalDate.now());
+                tempCourse.update();
                 courseList.replace(found + 1, tempCourse);
                 cDAO.saveToFile(courseList, "course.dat");
                 MessageUI.displaySuccessConfirmationMessage("Ammend");
@@ -252,6 +267,7 @@ public class CourseMaintenance {
         courseUI.listAllCourses(courseList);
         do {
             choice = courseUI.getSortMenu(courseList);
+            Command.cls();
             switch (choice) {
                 case 0:
                     break;

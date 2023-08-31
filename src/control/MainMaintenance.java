@@ -8,6 +8,8 @@ import adt.ListInterface;
 import boundary.MainMaintenanceUI;
 import dao.Initializer;
 import entity.Course;
+import java.io.IOException;
+import utility.Command;
 import utility.MessageUI;
 
 /**
@@ -20,14 +22,15 @@ public class MainMaintenance {
     private final CourseMaintenance courseMain = new CourseMaintenance();
     private final Initializer in = new Initializer();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, InterruptedException {
         MainMaintenance mainMain = new MainMaintenance();
         mainMain.runMainMaintenance();
     }
 
-    public void runMainMaintenance() {
+    public void runMainMaintenance() throws IOException, InterruptedException {
         int choice;
         do {
+            Command.cls();
             choice = mainUI.getMenuChoices();
             switch (choice) {
 

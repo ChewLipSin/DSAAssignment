@@ -21,14 +21,13 @@ import utility.Sort;
  * @author Chew Lip Sin
  */
 public class CourseMaintenanceUI {
-
+    
     InputValue iv = new InputValue();
     CourseProgramMaintenanceUI cu = new CourseProgramMaintenanceUI();
     Sort sort = new Sort();
-
+    
     public CourseMaintenanceUI() {
     }
-    
     
     public int getMenuChoices() {
         int choice = 0;
@@ -50,10 +49,10 @@ public class CourseMaintenanceUI {
                 MessageUI.displayInvalidChoiceMessage();
             }
         } while (choice > 7 || choice < 0);
-
+        
         return choice;
     }
-
+    
     public Course inputCourseDetails(ListInterface<Course> courseList) {
         System.out.println("    ||==============||");
         System.out.println("    ||Add New Course||");
@@ -79,7 +78,7 @@ public class CourseMaintenanceUI {
         System.out.println();
         return newCourse;
     }
-
+    
     public String inputCourseCode(ListInterface<Course> courseList) {
         Iterator it = courseList.getIterator();
         int i = 1;
@@ -108,7 +107,7 @@ public class CourseMaintenanceUI {
         courseCode = courseCode.toUpperCase();
         return courseCode;
     }
-
+    
     public String inputTitle() {
         System.out.print("Enter the title(Enter '0' to exit): ");
         String title = iv.readString();
@@ -117,9 +116,9 @@ public class CourseMaintenanceUI {
         }
         title = title.substring(0, 51);
         return title;
-
+        
     }
-
+    
     public int inputCreditHour() {
         int creditHour = 0;
         do {
@@ -129,11 +128,11 @@ public class CourseMaintenanceUI {
         } while (creditHour < 0 || creditHour > 20);
         return creditHour;
     }
-
+    
     public Sem inputSemester() {
         Sem semester = null;
         int choice = 0;
-
+        
         do {
             System.out.println("SEMESTER");
             System.out.println("1. JAN");
@@ -163,8 +162,9 @@ public class CourseMaintenanceUI {
         } while (choice < 0 || choice > 3);
         return semester;
     }
-
+    
     public void listAllCourses(ListInterface<Course> courseList) {
+        Command.cls();
         System.out.println("\nList of Courses:");
         System.out.println("=======================================================================================================================");
         System.out.println("No |Course Code |Course Title                                        |Credit Hours  |Semester  |Created At  |Updated At");
@@ -172,9 +172,8 @@ public class CourseMaintenanceUI {
         System.out.print(getAllCourses(courseList));
         System.out.println("=======================================================================================================================");
         
-
     }
-
+    
     public String getAllCourses(ListInterface<Course> courseList) {
 //        int currentIndex = 0;
 //        for (int i = 1; i <= courseList.size(); i++) {
@@ -183,7 +182,7 @@ public class CourseMaintenanceUI {
         String outputStr = "";
         Iterator it = courseList.getIterator();
         int i = 1;
-
+        
         while (it.hasNext()) {
 //            System.out.println(it.next());
             outputStr += String.format("%-3d", i) + it.next() + "\n";
@@ -191,7 +190,7 @@ public class CourseMaintenanceUI {
         }
         return outputStr;
     }
-
+    
     public void displayCourse(Course course, String val) {
         String word = " " + val + " Course Details";
         MessageUI.printFormattedText(word + "\n", ConsoleColor.CYAN);
@@ -203,7 +202,7 @@ public class CourseMaintenanceUI {
         MessageUI.printFormattedText("Course Title: " + course.getTitle() + "\n", ConsoleColor.CYAN);
         MessageUI.printFormattedText("Credit Hours: " + course.getCreditHours() + "\n", ConsoleColor.CYAN);
         MessageUI.printFormattedText("Semester    : " + course.semToString(course.getSemester()) + "\n", ConsoleColor.CYAN);
-
+        
         Command.pressEnterToContinue();
     }
 
@@ -227,7 +226,7 @@ public class CourseMaintenanceUI {
             return true;
         }
     }
-
+    
     public int inputRemoveCode(ListInterface<Course> courseList) {
         Iterator it = courseList.getIterator();
         int i = 1;
@@ -243,19 +242,20 @@ public class CourseMaintenanceUI {
             String oldCourseCode = courseList.getEntry(i).getCourseCode();
             oldCourseCode = oldCourseCode.toUpperCase();
             match = oldCourseCode.equals(courseCode);
-
+            
             if (match) {
                 return i;
             }
             i++;
         }
-        System.out.println("This " + courseCode + " is not in the list.");
+        MessageUI.printFormattedText("This " + courseCode + " is not in the list.\n", ConsoleColor.YELLOW);
+        Command.pressEnterToContinue();;
         return -1;
     }
-
+    
     public int getSearchMenuChoices() {
         int choice = 0;
-
+        
         System.out.println("=================");
         System.out.println("||Search Course||");
         System.out.println("=================");
@@ -271,7 +271,7 @@ public class CourseMaintenanceUI {
         } while (choice > 2 || choice < 0);
         return choice;
     }
-
+    
     public int getSearchCourseCode(ListInterface<Course> courseList) {
         Search search = new Search();
         String key;
@@ -281,19 +281,19 @@ public class CourseMaintenanceUI {
         int found = search.binarySearch(courseList, key);
         return found;
     }
-
+    
     public void displayCourseDetailsFounded(ListInterface<Course> courseList, int found) {
         MessageUI.displayFoundMessage(courseList.getEntry(found + 1).getCourseCode());
         Course courseSearch = courseList.getEntry(found + 1);
         displayCourse(courseSearch, "Search");
     }
-
+    
     public int getSearchCourseTitle(ListInterface<Course> courseList, ListInterface<Course> courseList2) {
         Iterator it = courseList.getIterator();
         String key;
         boolean find, find2 = false;
         int i = 1;
-
+        
         System.out.print("Enter the course title you want to search(Enter '0' to exit): ");
         key = iv.readString();
         if ("0".equals(key)) {
@@ -308,7 +308,7 @@ public class CourseMaintenanceUI {
                 courseList2.add(courseList.getEntry(i));
                 find2 = true;
             }
-
+            
             i++;
         }
         if (find2) {
@@ -316,7 +316,7 @@ public class CourseMaintenanceUI {
         }
         return -1;
     }
-
+    
     public void displayCourseFounded(ListInterface<Course> courseList2) {
         boolean loop = true;
         int choice;
@@ -330,13 +330,13 @@ public class CourseMaintenanceUI {
                 loop = false;
             } else if (choice > 0 && choice <= courseList2.size()) {
                 displayCourse(courseList2.getEntry(choice), "Search");
-
+                
             } else {
                 MessageUI.displayInvalidChoiceMessage();
             }
         } while (loop);
     }
-
+    
     public void displayCourseFoundedList(ListInterface<Course> courseList2) {
         int i;
         System.out.println("Course");
@@ -354,7 +354,7 @@ public class CourseMaintenanceUI {
         System.out.println("============================================================================================");
         MessageUI.printFormattedText(i - 1 + " result(s) founded!\n", ConsoleColor.GREEN);
     }
-
+    
     public int getAmmendMenuChoices() {
         int choice = 0;
         System.out.println("=================");
@@ -374,7 +374,7 @@ public class CourseMaintenanceUI {
         } while (choice > 4 || choice < 0);
         return choice;
     }
-
+    
     public int getCourseAmmend(ListInterface<Course> courseList, ListInterface<Course> courseList2) {
         Search search = new Search();
         boolean loop = true;
@@ -397,7 +397,7 @@ public class CourseMaintenanceUI {
         } while (loop);
         return -1;
     }
-
+    
     public int getSortMenu(ListInterface<Course> courseList) {
         int choice = 0;
         System.out.println("Sort");
@@ -412,10 +412,10 @@ public class CourseMaintenanceUI {
                 MessageUI.displayInvalidChoiceMessage();
             }
         } while (choice > 2 || choice < 0);
-
+        
         return choice;
     }
-
+    
     public int getSortMenuChoice(ListInterface<Course> courseList, String val) {
         int choice = 0;
         System.out.println(val);
@@ -434,8 +434,8 @@ public class CourseMaintenanceUI {
                 MessageUI.displayInvalidChoiceMessage();
             }
         } while (choice > 6 || choice < 0);
-
+        
         return choice;
     }
-
+    
 }

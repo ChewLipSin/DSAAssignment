@@ -30,7 +30,9 @@ public class CourseProgramMaintenanceUI {
     public CourseProgramMaintenanceUI() {
     }
 
+    
     public int getMenuChoice() {
+        Command.cls();
         int choice = 0;
         System.out.println("================================================");
         System.out.println("||Course and Program Management Subsystem Menu||");
