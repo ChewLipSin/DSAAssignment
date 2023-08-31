@@ -85,6 +85,8 @@ public class CourseGenerateReportMaintenance {
         LinkedListInterface<CourseProgram> cp = new DoublyLinkedList<>();
         ListInterface<Course> courses = new ArrList<>();
         StackInterface<String> choice = new ArrayStack<>();
+        StackInterface<String> arrangeChoice = new ArrayStack<>();
+
         cp = cpDAO.dLLRetrieveFromFile("courseProgram.dat");
         courses = cDAO.retrieveFromFile("course.dat");
         CourseGenerateReportMaintenanceUI cReportUI = new CourseGenerateReportMaintenanceUI(cp, courses);
@@ -93,8 +95,17 @@ public class CourseGenerateReportMaintenance {
             cReportUI.displayCourseReportHeader();
         }
         while (!choice.isEmpty()) {
-            cReportUI.displayCourseReportHeader();
-            String choice2 = choice.pop();
+            arrangeChoice.push(choice.pop());
+        }
+        while (!arrangeChoice.isEmpty()) {
+            String choice2 = arrangeChoice.pop();
+            if (choice2.equals("Course Code Report")) {
+                cReportUI.displayCourseCodeReport();
+            }
+
+            if (choice2.equals("Credit Hour Report")) {
+                cReportUI.displayCreditHoursReport();
+            }
 
         }
     }

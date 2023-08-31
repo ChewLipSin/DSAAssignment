@@ -20,6 +20,7 @@ import utility.Command;
 import utility.ConsoleColor;
 import utility.InputValue;
 import utility.MessageUI;
+import utility.Sort;
 
 /**
  *
@@ -30,6 +31,7 @@ public class CourseGenerateReportMaintenanceUI {
     private LinkedListInterface<CourseProgram> cp = new DoublyLinkedList<>();
     private ListInterface<Course> courses = new ArrList<>();
     private InputValue iv = new InputValue();
+    private Sort sort = new Sort();
 
     public CourseGenerateReportMaintenanceUI(LinkedListInterface<CourseProgram> cp, ListInterface<Course> courses) {
         this.cp = cp;
@@ -166,31 +168,143 @@ public class CourseGenerateReportMaintenanceUI {
             if (choice2 < 0 || choice2 > 4) {
                 MessageUI.displayInvalidChoiceMessage();
             } else if (choice2 == 1 && !checkCode) {
-                choice.push(typeReport.getEntry(0));
+                choice.push(typeReport.getEntry(1));
                 checkCode = true;
             } else if (choice2 == 2 && !checkCredit) {
-                choice.push(typeReport.getEntry(1));
+                choice.push(typeReport.getEntry(2));
                 checkCredit = true;
             } else if (choice2 == 3 && !checkSem) {
-                choice.push(typeReport.getEntry(2));
+                choice.push(typeReport.getEntry(3));
                 checkSem = true;
             } else if (choice2 == 4) {
                 if (!choice.isEmpty()) {
                     String popOut = choice.pop();
-                    if (popOut.equals(typeReport.getEntry(0))) {
+                    if (popOut.equals(typeReport.getEntry(1))) {
                         checkCode = false;
-                    } else if (popOut.equals(typeReport.getEntry(1))) {
-                        checkCredit = false;
                     } else if (popOut.equals(typeReport.getEntry(2))) {
+                        checkCredit = false;
+                    } else if (popOut.equals(typeReport.getEntry(3))) {
                         checkSem = false;
                     }
                 } else {
                     MessageUI.printFormattedText("Nothing can Undo\n", ConsoleColor.YELLOW);
                 }
+            } else if (choice2 == 0) {
+                System.out.println("");
             } else {
                 MessageUI.printFormattedText("You have been assigned value into the stack!\n", ConsoleColor.YELLOW);
             }
         } while (choice2 != 0);
         return choice;
+    }
+
+    public void displayCourseCodeReport() {
+        sort.insertionSort(courses, "courseCode");
+        Iterator<Course> itA = courses.getIterator();
+        Iterator<Course> itB = courses.getIterator();
+        Iterator<Course> itF = courses.getIterator();
+        Iterator<Course> itM = courses.getIterator();
+
+        String line = "\t";
+        for (int i = 0; i < 65; i++) {
+            line += "-";
+        }
+        int countA = 1, countB = 1, countF = 1, countM = 1;
+        System.out.println(line);
+        System.out.println("\tCourse Code Start with 'A'");
+        while (itA.hasNext()) {
+            Course course = itA.next();
+            if (course.getCourseCode().charAt(0) == 'A') {
+                System.out.println(String.format("\t%2d. %8s %s", countA, course.getCourseCode(), course.getTitle()));
+                countA++;
+            }
+        }
+
+        System.out.println(String.format("\tTotal = %d", countA - 1));
+        System.out.println(line);
+        System.out.println("\tCourse Code Start with 'B'");
+        while (itB.hasNext()) {
+            Course course = itB.next();
+            if (course.getCourseCode().charAt(0) == 'B') {
+                System.out.println(String.format("\t%2d. %8s %s", countB, course.getCourseCode(), course.getTitle()));
+                countB++;
+
+            }
+        }
+        System.out.println(String.format("\tTotal = %d", countB - 1));
+        System.out.println(line);
+        System.out.println("\tCourse Code Start with 'F'");
+        while (itF.hasNext()) {
+            Course course = itF.next();
+            if (course.getCourseCode().charAt(0) == 'F') {
+                System.out.println(String.format("\t%2d. %8s %s", countF, course.getCourseCode(), course.getTitle()));
+                countF++;
+            }
+        }
+        System.out.println(String.format("\tTotal = %d", countF - 1));
+        System.out.println(line);
+        System.out.println("\tCourse Code Start with 'M'");
+        while (itM.hasNext()) {
+            Course course = itM.next();
+            if (course.getCourseCode().charAt(0) == 'M') {
+                System.out.println(String.format("\t%2d. %8s %s", countM, course.getCourseCode(), course.getTitle()));
+                countM++;
+            }
+        }
+        System.out.println(String.format("\tTotal = %d", countM - 1));
+ 
+    }
+
+    public void displayCreditHoursReport() {
+        sort.insertionSort(courses, "creditHours");
+        String line = "";
+        int count1 = 1, count2 = 1, count3 = 1, count4 = 1, count5 = 1;
+        for (int i = 0; i < 65; i++) {
+            line += "-";
+        }
+        System.out.println("\t" + line);
+        System.out.println("\tCourse with 1 credit hour");
+        for (int i = 1; i <= courses.size(); i++) {
+            if (courses.getEntry(i).getCreditHours() == 1) {
+                System.out.println(String.format("\t%2d. %s %s", count1, courses.getEntry(i), courses.getEntry(i).getTitle()));
+                count1++;
+            }
+        }
+        System.out.println(String.format("\tTotal = %d", count1 - 1));
+        System.out.println("\tCourse with 2 credit hours");
+        for (int i = 1; i <= courses.size(); i++) {
+            if (courses.getEntry(i).getCreditHours() == 2) {
+                System.out.println(String.format("\t%2d. %s %s", count2, courses.getEntry(i).getCourseCode(), courses.getEntry(i).getTitle()));
+                count2++;
+            }
+        }
+        System.out.println(String.format("\tTotal = %d", count2 - 1));
+        System.out.println("\tCourse with 3 credit hours");
+
+        for (int i = 1; i <= courses.size(); i++) {
+            if (courses.getEntry(i).getCreditHours() == 3) {
+                System.out.println(String.format("\t%2d. %s %s", count3, courses.getEntry(i).getCourseCode(), courses.getEntry(i).getTitle()));
+                count3++;
+            }
+        }
+        System.out.println(String.format("\tTotal = %d", count3 - 1));
+        System.out.println("\tCourse with 4 credit hours");
+
+        for (int i = 1; i <= courses.size(); i++) {
+            if (courses.getEntry(i).getCreditHours() == 4) {
+                System.out.println(String.format("\t%2d. %s %s", count4, courses.getEntry(i).getCourseCode(), courses.getEntry(i).getTitle()));
+                count4++;
+            }
+        }
+        System.out.println(String.format("\tTotal = %d", count4 - 1));
+        System.out.println("\tCourse with 5 credit hours");
+
+        for (int i = 1; i <= courses.size(); i++) {
+            if (courses.getEntry(i).getCreditHours() == 5) {
+                System.out.println(String.format("\t%2d. %s %s", count5, courses.getEntry(i).getCourseCode(), courses.getEntry(i).getTitle()));
+                count5++;
+            }
+        }
+        System.out.println(String.format("\tTotal = %d", count5 - 1));
     }
 }

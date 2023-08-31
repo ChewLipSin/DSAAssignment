@@ -12,7 +12,7 @@ public class ArrayStack<T> implements StackInterface<T> {
 
     private T[] array;
     private int topIndex; // index of top entry
-    private static final int DEFAULT_CAPACITY = 50;
+    private static final int DEFAULT_CAPACITY = 5;
 
     public ArrayStack() {
         this(DEFAULT_CAPACITY);
@@ -46,7 +46,6 @@ public class ArrayStack<T> implements StackInterface<T> {
     @Override
     public T pop() {
         T top = null;
-        System.out.println(top);
         if (!isEmpty()) {
             top = array[topIndex];
             array[topIndex] = null;
