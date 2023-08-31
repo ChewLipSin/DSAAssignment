@@ -10,7 +10,6 @@ import adt.LinkedListInterface;
 import adt.ListInterface;
 import adt.OrderClause;
 import adt.StackInterface;
-import adt.ArrayStack;
 import entity.Course;
 import entity.Course.Sem;
 import entity.CourseProgram;
@@ -31,9 +30,16 @@ public class CourseGenerateReportMaintenanceUI {
 
     private LinkedListInterface<CourseProgram> cp = new DoublyLinkedList<>();
     private ListInterface<Course> courses = new ArrList<>();
-    private InputValue iv = new InputValue();
-    private Sort sort = new Sort();
+    private final InputValue iv = new InputValue();
+    private final Sort sort = new Sort();
 
+    /**
+     * Constructs a CourseGenerateReportMaintenanceUI with the given course
+     * programs and courses.
+     *
+     * @param cp The linked list of course programs.
+     * @param courses The list of courses.
+     */
     public CourseGenerateReportMaintenanceUI(LinkedListInterface<CourseProgram> cp, ListInterface<Course> courses) {
         this.cp = cp;
         this.courses = courses;
@@ -45,6 +51,9 @@ public class CourseGenerateReportMaintenanceUI {
     String formattedDate = myDateObj.format(myFormatObj);
     String formattedTime = myDateObj.format(myFormatObj2);
 
+    /**
+     * Displays the header for the course report menu.
+     */
     public void displayHeader() {
         Command.cls();
         System.out.println("\t\t\t\t==============================================");
@@ -52,12 +61,20 @@ public class CourseGenerateReportMaintenanceUI {
         System.out.println("\t\t\t\t==============================================");
     }
 
+    /**
+     * Displays the options available in the course report menu.
+     */
     public void displayReportMenu() {
         System.out.println("\t\t\t\t1. Generate Course and Program Report");
         System.out.println("\t\t\t\t2. Generate Course Report");
         System.out.println("\t\t\t\t0. Exit");
     }
 
+    /**
+     * Gets the user's choice from the course report menu.
+     *
+     * @return The user's choice.
+     */
     public int getChoices() {
         int choice;
         do {
@@ -70,6 +87,9 @@ public class CourseGenerateReportMaintenanceUI {
         return choice;
     }
 
+    /**
+     * Displays the header for the course program report.
+     */
     public void displayCoursePReportHeader() {
         Command.cls();
         System.out.println("\t\t\t\t==============================================");
@@ -77,6 +97,9 @@ public class CourseGenerateReportMaintenanceUI {
         System.out.println("\t\t\t\t==============================================");
     }
 
+    /**
+     * Displays the header for the course report.
+     */
     public void displayCourseReportHeader() {
         Command.cls();
         System.out.println("\t\t\t\t==============================================");
@@ -84,8 +107,11 @@ public class CourseGenerateReportMaintenanceUI {
         System.out.println("\t\t\t\t==============================================");
     }
 
+    /**
+     * Displays a progress animation, indicating the generation of a report.
+     */
     public void progress() {
-        String anim = "|/-\\";
+        var anim = "|/-\\";
         for (int i = 0; i <= 100; i = i + 50) {
             Command.progressPercentage(i, 100);
             try {
@@ -97,6 +123,10 @@ public class CourseGenerateReportMaintenanceUI {
         Command.pressEnterToContinue();
     }
 
+    /**
+     * Displays the course program report, showing course information grouped by
+     * program.
+     */
     public void displayCourseProgramReport() {
         String line = "";
         sortByProgramID();
@@ -133,18 +163,31 @@ public class CourseGenerateReportMaintenanceUI {
         Command.pressEnterToContinue();
     }
 
+    /**
+     * Sorts the list of course programs by their course codes.
+     */
     public void sortById() {
         cp.orderBy((c1, c2)
                 -> c1.getCourseCode().compareTo(c2.getCourseCode()) < 0
                 ? OrderClause.MOVE_FORWARD : OrderClause.MOVE_BACKWARD);
     }
 
+    /**
+     * Sorts the list of course programs by their program codes.
+     */
     public void sortByProgramID() {
         cp.orderBy((c1, c2)
                 -> c1.getProgramCode().compareTo(c2.getProgramCode()) < 0
                 ? OrderClause.MOVE_FORWARD : OrderClause.MOVE_BACKWARD);
     }
 
+    /**
+     * Converts a Boolean value indicating whether a course is elective or not
+     * into a string representation.
+     *
+     * @param isElective True if the course is elective, false otherwise.
+     * @return The string representation "Elective" if true, or "Main" if false.
+     */
     private String strElective(boolean isElective) {
         if (isElective == true) {
             return "Elective";
@@ -154,11 +197,21 @@ public class CourseGenerateReportMaintenanceUI {
 
     }
 
+    /**
+     * Displays the footer information for the generated report.
+     */
     public void displayReportFooter() {
         System.out.println("\n\t\t\tReport Generated by: University Education System");
         System.out.println("\t\t\tReport Generated at: " + formattedDate + " " + formattedTime);
     }
 
+    /**
+     * Gets user choices for generating course reports and maintains a stack of
+     * chosen reports.
+     *
+     * @param choice A stack containing the user's report choices.
+     * @return The updated stack of report choices.
+     */
     public StackInterface<String> getCourseReportMenu(StackInterface<String> choice) {
         ListInterface<String> typeReport = new ArrList<>();
         ListInterface<String> checkChoice = new ArrList<>();
@@ -172,7 +225,6 @@ public class CourseGenerateReportMaintenanceUI {
         int choice2;
         do {
             Command.cls();
-            int no = 2;
             System.out.println("\t\t\t\t==============================================");
             System.out.println("\t\t\t\t||              Course Report Menu          ||");
             System.out.println("\t\t\t\t==============================================");
@@ -218,6 +270,9 @@ public class CourseGenerateReportMaintenanceUI {
         return choice;
     }
 
+    /**
+     * Displays a report of courses grouped by their course codes.
+     */
     public void displayCourseCodeReport() {
         sort.insertionSort(courses, "courseCode");
         Iterator<Course> itA = courses.getIterator();
@@ -275,6 +330,9 @@ public class CourseGenerateReportMaintenanceUI {
 
     }
 
+    /**
+     * Displays a report of courses grouped by their credit hours.
+     */
     public void displayCreditHoursReport() {
         sort.insertionSort(courses, "creditHours");
         String line = "";
@@ -292,7 +350,7 @@ public class CourseGenerateReportMaintenanceUI {
         }
         System.out.println(String.format("\t\t\tTotal = %d", count1 - 1));
         System.out.println("\t\t\t" + line);
-        System.out.println("\t\t\tCourse with 2 credit hours:");;
+        System.out.println("\t\t\tCourse with 2 credit hours:");
         for (int i = 1; i <= courses.size(); i++) {
             if (courses.getEntry(i).getCreditHours() == 2) {
                 System.out.println(String.format("\t\t\t%2d. %s %s", count2, courses.getEntry(i).getCourseCode(), courses.getEntry(i).getTitle()));
@@ -301,7 +359,7 @@ public class CourseGenerateReportMaintenanceUI {
         }
         System.out.println(String.format("\t\t\tTotal = %d", count2 - 1));
         System.out.println("\t\t\t" + line);
-        System.out.println("\t\t\tCourse with 3 credit hours:");;
+        System.out.println("\t\t\tCourse with 3 credit hours:");
 
         for (int i = 1; i <= courses.size(); i++) {
             if (courses.getEntry(i).getCreditHours() == 3) {
@@ -332,6 +390,10 @@ public class CourseGenerateReportMaintenanceUI {
         System.out.println(String.format("\t\t\tTotal = %d", count5 - 1));
     }
 
+    /**
+     * Displays a report of courses grouped by their intake semester (January or
+     * July).
+     */
     public void displayCourseSemesterReport() {
         Sem janu = Sem.JAN;
         Sem july = Sem.JUL;

@@ -1,9 +1,6 @@
 package entity;
 
 import java.io.Serializable;
-import adt.ListInterface;
-import adt.ArrList;
-import java.lang.Comparable;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -20,12 +17,29 @@ public class Course implements Serializable {
     private LocalDate createdAt;
     private LocalDate updatedAt;
 
-//    private static final String[] SEM = {"JAN", "JULY"};
+    /**
+     * Enumeration for different intake semesters.
+     */
     public enum Sem {
+        /**
+         * Represents all semesters.
+         */
         ALL,
+        /**
+         * Represents the January semester.
+         */
         JAN,
+        /**
+         * Represents the July semester.
+         */
         JUL;
 
+        /**
+         * Returns the string representation of a semester.
+         *
+         * @param sem The semester to convert to a string.
+         * @return The string representation of the semester.
+         */
         public String getString(Sem sem) {
             switch (sem) {
                 case ALL:
@@ -40,6 +54,14 @@ public class Course implements Serializable {
 
     };
 
+    /**
+     * Constructs a new Course instance with specified details.
+     *
+     * @param courseCode The code of the course.
+     * @param title The title of the course.
+     * @param creditHours The credit hours of the course.
+     * @param semester The intake semester of the course.
+     */
     public Course(String courseCode, String title, int creditHours, Sem semester) {
         this.courseCode = courseCode;
         this.title = title;
@@ -49,53 +71,114 @@ public class Course implements Serializable {
         this.updatedAt = LocalDate.now();
     }
 
+    /**
+     * Default constructor for the Course class.
+     */
     public Course() {
     }
 
+    /**
+     * Returns the course code.
+     *
+     * @return The course code.
+     */
     public String getCourseCode() {
         return courseCode;
     }
 
+    /**
+     * Returns the title of the course.
+     *
+     * @return The title of the course.
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Returns the credit hours of the course.
+     *
+     * @return The credit hours of the course.
+     */
     public int getCreditHours() {
         return creditHours;
     }
 
+    /**
+     * Updates the updatedAt date of the course to the current date.
+     */
     public void update() {
         this.updatedAt = LocalDate.now();
     }
 
+    /**
+     * Sets the course code of the course.
+     *
+     * @param courseCode The new course code to set.
+     */
     public void setCourseCode(String courseCode) {
         this.courseCode = courseCode;
     }
 
+    /**
+     * Gets the date when the course was created.
+     *
+     * @return The creation date of the course.
+     */
     public LocalDate getCreatedAt() {
         return createdAt;
     }
 
+    /**
+     * Gets the date when the course was last updated.
+     *
+     * @return The last updated date of the course.
+     */
     public LocalDate getUpdatedAt() {
         return updatedAt;
     }
 
+    /**
+     * Sets the date when the course was last updated.
+     *
+     * @param updatedAt The updated date to set.
+     */
     public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
     }
 
+    /**
+     * Sets the date when the course was created.
+     *
+     * @param createdAt The creation date to set.
+     */
     public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
+    /**
+     * Sets the title of the course.
+     *
+     * @param title The new title to set.
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     * Sets the credit hours of the course.
+     *
+     * @param creditHours The new credit hours to set.
+     */
     public void setCreditHours(int creditHours) {
         this.creditHours = creditHours;
     }
 
+    /**
+     * Computes and returns the hash code value for this course.
+     *
+     * @return The hash code value for this course.
+     */
     @Override
     public int hashCode() {
         int hash = 3;
@@ -105,6 +188,13 @@ public class Course implements Serializable {
         return hash;
     }
 
+    /**
+     * Indicates whether some other object is "equal to" this course.
+     *
+     * @param obj The reference object with which to compare.
+     * @return {@code true} if this course is the same as the obj argument;
+     * {@code false} otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -126,14 +216,31 @@ public class Course implements Serializable {
         return Objects.equals(this.title, other.title);
     }
 
+    /**
+     * Returns the semester of the course.
+     *
+     * @return The semester of the course.
+     */
     public Sem getSemester() {
         return semester;
     }
 
+    /**
+     * Sets the semester of the course.
+     *
+     * @param semester The new semester to set.
+     */
     public void setSemester(Sem semester) {
         this.semester = semester;
     }
 
+    /**
+     * Compares this course's semester with another semester.
+     *
+     * @param sem The semester to compare against.
+     * @return A negative integer, zero, or a positive integer as this semester
+     * is less than, equal to, or greater than the specified semester.
+     */
     public int compareSem(Sem sem) {
         if (this.semester.compareTo(sem) < 0) {
             return -1;
@@ -144,6 +251,12 @@ public class Course implements Serializable {
         }
     }
 
+    /**
+     * Returns a string representation of the course's semester.
+     *
+     * @param semester The semester to convert to a string.
+     * @return The string representation of the semester.
+     */
     public String semToString(Sem semester) {
         if (semester == Sem.JAN) {
             return "JAN";
@@ -157,6 +270,11 @@ public class Course implements Serializable {
         }
     }
 
+    /**
+     * Returns a string representation of the Course object.
+     *
+     * @return A formatted string representation of the Course object.
+     */
     @Override
     public String toString() {
         String sems;
