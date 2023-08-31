@@ -7,6 +7,7 @@ package adt;
 /**
  *
  * @author Chew Lip Sin
+ * @param <T> type of elements stored in the stack.
  */
 public interface WhereClause<T> {
 

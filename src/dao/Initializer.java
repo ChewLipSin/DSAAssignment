@@ -5,13 +5,11 @@
 package dao;
 
 import adt.*;
-import boundary.CourseMaintenanceUI;
-import control.CourseMaintenance;
+
 import entity.Course;
 import entity.CourseProgram;
 import entity.Program;
 import java.io.IOException;
-import utility.Sort;
 
 /**
  *

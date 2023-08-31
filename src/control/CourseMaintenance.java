@@ -14,7 +14,6 @@ import entity.Course.Sem;
 import entity.CourseProgram;
 import entity.Program;
 import java.io.IOException;
-import java.time.LocalDate;
 import utility.*;
 
 /**
@@ -30,7 +29,6 @@ public class CourseMaintenance {
     private static final DAO<Program> pDAO = new DAO<>();
     private final DAO<CourseProgram> cpDAO = new DAO<>();
     private static final CourseProgramMaintenance cpm = new CourseProgramMaintenance();
-    private final CourseProgramMaintenanceUI coursePUI = new CourseProgramMaintenanceUI();
     private final Initializer in = new Initializer();
 
     public CourseMaintenance() {

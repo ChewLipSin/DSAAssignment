@@ -4,7 +4,6 @@
  */
 package boundary;
 
-import adt.ArrList;
 import adt.ListInterface;
 import entity.Course;
 import entity.Course.Sem;
@@ -23,7 +22,6 @@ import utility.Sort;
 public class CourseMaintenanceUI {
     
     InputValue iv = new InputValue();
-    CourseProgramMaintenanceUI cu = new CourseProgramMaintenanceUI();
     Sort sort = new Sort();
     
     public CourseMaintenanceUI() {
@@ -131,7 +129,7 @@ public class CourseMaintenanceUI {
     
     public Sem inputSemester() {
         Sem semester = null;
-        int choice = 0;
+        int choice;
         
         do {
             System.out.println("SEMESTER");
@@ -249,7 +247,7 @@ public class CourseMaintenanceUI {
             i++;
         }
         MessageUI.printFormattedText("This " + courseCode + " is not in the list.\n", ConsoleColor.YELLOW);
-        Command.pressEnterToContinue();;
+        Command.pressEnterToContinue();
         return -1;
     }
     

@@ -4,11 +4,10 @@
  */
 package adt;
 
-import java.util.Iterator;
-
 /**
  *
  * @author Chew Lip Sin
+ * @param <T> type of elements stored in the stack.
  */
 public interface StackInterface<T> {
 
@@ -47,6 +46,10 @@ public interface StackInterface<T> {
      */
     public void clear();
 
+    /**
+     *
+     * @return size of stack
+     */
     public int size();
 } // end StackInterface
 

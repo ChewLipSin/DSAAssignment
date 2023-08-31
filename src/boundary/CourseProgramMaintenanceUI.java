@@ -24,8 +24,8 @@ import utility.ConsoleColor;
  */
 public class CourseProgramMaintenanceUI {
 
-    private InputValue iv = new InputValue();
-    private DAO<CourseProgram> cpDAO = new DAO();
+    private final InputValue iv = new InputValue();
+    private final DAO<CourseProgram> cpDAO = new DAO();
 
     public CourseProgramMaintenanceUI() {
     }

@@ -7,6 +7,7 @@ package adt;
 /**
  *
  * @author Chew Lip Sin
+ * @param <T> The type of elements stored in the linked list.
  */
 public interface FirstOrDefaultClause<T> {
 
