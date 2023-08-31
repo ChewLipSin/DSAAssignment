@@ -74,6 +74,10 @@ public class CourseMaintenanceUI {
         }
         Course newCourse = new Course(courseCode, title, creditHour, semester);
         System.out.println();
+        courseCode = "0";
+        title = "0";
+        creditHour = 0;
+        semester = null;
         return newCourse;
     }
     

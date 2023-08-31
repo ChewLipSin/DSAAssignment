@@ -6,7 +6,6 @@ package control;
 
 import boundary.MainMaintenanceUI;
 import dao.Initializer;
-import entity.Course;
 import java.io.IOException;
 import utility.Command;
 import utility.MessageUI;
