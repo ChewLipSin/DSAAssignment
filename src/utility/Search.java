@@ -4,7 +4,6 @@
  */
 package utility;
 
-import adt.ArrList;
 import adt.ListInterface;
 import entity.Course;
 
