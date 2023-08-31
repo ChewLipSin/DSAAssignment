@@ -40,7 +40,7 @@ public class DAO<T> {
 
             objectOut.writeObject(list);
 
-            System.out.println("DoublyLinkedList saved to " + fileName);
+//            System.out.println("DoublyLinkedList saved to " + fileName);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -74,7 +74,7 @@ public class DAO<T> {
             list = (DoublyLinkedList<T>) objectIn.readObject();
 
             // Now you can use the retrievedList object as your DoublyLinkedList
-            System.out.println("DoublyLinkedList retrieved from " + fileName);
+//            System.out.println("DoublyLinkedList retrieved from " + fileName);
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

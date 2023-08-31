@@ -94,8 +94,14 @@ public class CourseMaintenance {
                     cDAO.saveToFile(courseList, "course.dat");
                     MessageUI.displaySuccessConfirmationMessage("Added");
                     loop = courseUI.getConfirmationChoice("add", 0);
+                } else {
+                    loop = false;
                 }
+            } else {
+                loop = false;
             }
+            newCourse = null;
+            newCourseFull = false;
         } while (loop);
     }
 
@@ -121,7 +127,11 @@ public class CourseMaintenance {
                     MessageUI.displaySuccessConfirmationMessage("Removed");
                     Command.pressEnterToContinue();
                     loop = courseUI.getConfirmationChoice("remove", 0);
+                } else {
+                    loop = false;
                 }
+            } else {
+                loop = false;
             }
         } while (loop);
     }
@@ -175,8 +185,13 @@ public class CourseMaintenance {
                     MessageUI.displayNotFoundMessage();
                 } else if (found == 1) {
                     if (val == "ammend") {
+
                         int index = courseUI.getCourseAmmend(courseList, courseList2);
-                        ammendCourse(courseList, index);
+                        if (index != -1) {
+                            ammendCourse(courseList, index);
+                        }else{
+                            loop = false;
+                        }
                     } else {
                         courseUI.displayCourseFounded(courseList2);
                     }
@@ -248,7 +263,6 @@ public class CourseMaintenance {
                 courseList.replace(found + 1, tempCourse);
                 cDAO.saveToFile(courseList, "course.dat");
                 MessageUI.displaySuccessConfirmationMessage("Ammend");
-                System.out.println(courseList);
                 Command.pressEnterToContinue();
 //                    loop = courseUI.getConfirmationChoice("ammend", 0);
             }
