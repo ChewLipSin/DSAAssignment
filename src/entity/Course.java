@@ -62,7 +62,8 @@ public class Course implements Serializable {
      * @param creditHours The credit hours of the course.
      * @param semester The intake semester of the course.
      */
-    public Course(String courseCode, String title, int creditHours, Sem semester) {
+    public Course(String courseCode, String title, int creditHours, 
+            Sem semester) {
         this.courseCode = courseCode;
         this.title = title;
         this.creditHours = creditHours;
@@ -192,8 +193,8 @@ public class Course implements Serializable {
      * Indicates whether some other object is "equal to" this course.
      *
      * @param obj The reference object with which to compare.
-     * @return {@code true} if this course is the same as the obj argument;
-     * {@code false} otherwise.
+     * @return {@code true} if this course is the same as the obj
+     * argument;{@code false} otherwise.
      */
     @Override
     public boolean equals(Object obj) {
@@ -238,8 +239,9 @@ public class Course implements Serializable {
      * Compares this course's semester with another semester.
      *
      * @param sem The semester to compare against.
-     * @return A negative integer, zero, or a positive integer as this semester
-     * is less than, equal to, or greater than the specified semester.
+     * @return A negative integer, zero, or a positive 
+     * integer as this semester is less than, equal 
+     * to, or greater than the specified semester.
      */
     public int compareSem(Sem sem) {
         if (this.semester.compareTo(sem) < 0) {
@@ -285,6 +287,8 @@ public class Course implements Serializable {
         } else {
             sems = "ALL";
         }
-        return String.format("|%-12s|%-52s|  %-2d          |  %-8s|%-12s|%-12s", courseCode, title, creditHours, sems, createdAt, updatedAt);
+        return String.format("|%-12s|%-52s|  %-2d          |  %-8s|%-12s|"
+                + "%-12s", courseCode, title,
+                creditHours, sems, createdAt, updatedAt);
     }
 }
