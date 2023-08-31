@@ -4,7 +4,6 @@
  */
 package control;
 
-import adt.ListInterface;
 import boundary.MainMaintenanceUI;
 import dao.Initializer;
 import entity.Course;

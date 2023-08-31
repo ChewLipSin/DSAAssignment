@@ -11,7 +11,6 @@ import adt.LinkedListInterface;
 import adt.ListInterface;
 import adt.StackInterface;
 import boundary.CourseGenerateReportMaintenanceUI;
-import boundary.CourseMaintenanceUI;
 import dao.DAO;
 import entity.Course;
 import entity.CourseProgram;
@@ -30,7 +29,6 @@ public class CourseGenerateReportMaintenance {
     private static final DAO<Course> cDAO = new DAO<>();
     private static final DAO<Program> pDAO = new DAO<>();
     private final DAO<CourseProgram> cpDAO = new DAO<>();
-    private final Sort s = new Sort();
 
     public void runCourseGenerateReportMaintenance() throws IOException, InterruptedException {
         LinkedListInterface<CourseProgram> cp = new DoublyLinkedList<>();

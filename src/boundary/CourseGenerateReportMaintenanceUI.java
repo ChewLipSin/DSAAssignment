@@ -214,7 +214,6 @@ public class CourseGenerateReportMaintenanceUI {
      */
     public StackInterface<String> getCourseReportMenu(StackInterface<String> choice) {
         ListInterface<String> typeReport = new ArrList<>();
-        ListInterface<String> checkChoice = new ArrList<>();
         boolean checkCode = false;
         boolean checkCredit = false;
         boolean checkSem = false;

@@ -25,8 +25,6 @@ import utility.Sort;
  */
 public class CourseProgramMaintenance {
 
-    private static final DAO<Course> cDAO = new DAO<>();
-    private static final DAO<Program> pDAO = new DAO<>();
     private static final DAO<CourseProgram> cpDAO = new DAO<>();
     private final CourseProgramMaintenanceUI coursePUI = new CourseProgramMaintenanceUI();
     private final Sort s = new Sort();
