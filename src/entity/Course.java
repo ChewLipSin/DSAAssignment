@@ -287,21 +287,4 @@ public class Course implements Serializable {
         }
         return String.format("|%-12s|%-52s|  %-2d          |  %-8s|%-12s|%-12s", courseCode, title, creditHours, sems, createdAt, updatedAt);
     }
-
-//    class SortbyCourseCode implements Comparator<Course> {
-//
-//        @Override
-//        public int compare(Course c1, Course c2) {
-//            int comparison = c1.courseCode.compareTo(c2.courseCode);
-//            if (comparison == 0) {
-//                return 0;
-//            } else if (comparison > 1) {
-//                return 1;
-//            } else {
-//                return -1;
-//            }
-//
-//        }
-//
-//    }
 }
