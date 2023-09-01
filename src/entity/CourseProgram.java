@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author Chew Lip Sin
  */
-public class CourseProgram implements Serializable {
+public class CourseProgram implements Serializable, Comparable<CourseProgram> {
 
     private String courseCode;
     private String programCode;
@@ -47,6 +47,11 @@ public class CourseProgram implements Serializable {
 
     public void setIsElective(boolean isElective) {
         this.isElective = isElective;
+    }
+
+    @Override
+    public int compareTo(CourseProgram o) {
+        return courseCode.compareTo(o.courseCode);
     }
 
 }

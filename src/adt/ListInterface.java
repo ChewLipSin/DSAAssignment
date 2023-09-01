@@ -1,5 +1,6 @@
 package adt;
 
+import java.util.Comparator;
 import java.util.Iterator;
 
 /**
@@ -146,5 +147,4 @@ public interface ListInterface<T> {
      * @return {@code true} if the array is full, {@code false} otherwise.
      */
     public boolean isFull();
-
 }

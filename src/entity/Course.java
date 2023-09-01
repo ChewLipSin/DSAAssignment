@@ -8,7 +8,7 @@ import java.util.Objects;
  *
  * @author Chew Lip Sin
  */
-public class Course implements Serializable {
+public class Course implements Serializable,Comparable<Course> {
 
     private String courseCode;
     private String title;
@@ -16,6 +16,12 @@ public class Course implements Serializable {
     private Sem semester;
     private LocalDate createdAt;
     private LocalDate updatedAt;
+
+    @Override
+    public int compareTo(Course o) {
+        return courseCode.compareTo(o.courseCode);
+    }
+
 
     /**
      * Enumeration for different intake semesters.
@@ -62,7 +68,7 @@ public class Course implements Serializable {
      * @param creditHours The credit hours of the course.
      * @param semester The intake semester of the course.
      */
-    public Course(String courseCode, String title, int creditHours, 
+    public Course(String courseCode, String title, int creditHours,
             Sem semester) {
         this.courseCode = courseCode;
         this.title = title;
@@ -239,9 +245,8 @@ public class Course implements Serializable {
      * Compares this course's semester with another semester.
      *
      * @param sem The semester to compare against.
-     * @return A negative integer, zero, or a positive 
-     * integer as this semester is less than, equal 
-     * to, or greater than the specified semester.
+     * @return A negative integer, zero, or a positive integer as this semester
+     * is less than, equal to, or greater than the specified semester.
      */
     public int compareSem(Sem sem) {
         if (this.semester.compareTo(sem) < 0) {

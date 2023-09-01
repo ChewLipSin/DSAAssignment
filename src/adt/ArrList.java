@@ -1,6 +1,7 @@
 package adt;
 
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Iterator;
 
 /**
@@ -163,7 +164,7 @@ public class ArrList<T> implements ListInterface<T>, Serializable {
     /**
      * Gets the number of entries currently in the list.
      *
-     * 
+     *
      * @return The number of entries currently in the list. Precondition:The
      * array must exist. Post-condition:The array remains unchanged.
      */
@@ -351,6 +352,31 @@ public class ArrList<T> implements ListInterface<T>, Serializable {
         }
     }
 
+    public static <T extends Comparable<T>> void insertionSort(ListInterface<T> a, Comparator<T> comparator, String val) {
+        for (int unsorted = 1; unsorted < a.size(); unsorted++) {
+            T firstUnsorted = a.getEntry(unsorted + 1);
+            insertInOrder(firstUnsorted, a, unsorted, comparator, val);
+        }
+    }
+
+    //inserts element at the correct index within thes sorted subarray
+    private static <T extends Comparable<T>> int insertInOrder(T element, ListInterface<T> a, int end, Comparator<T> comparator, String val) {
+        int index = end;
+        if ("asc".equals(val)) {
+            while ((index > 0) && (comparator.compare(element, a.getEntry(index)) < 0)) {
+                a.replace(index + 1, a.getEntry(index)); //shifting
+                index--;
+            }
+        } else if (val.equals("des")) {
+            while ((index > 0) && (comparator.compare(element, a.getEntry(index)) > 0)) {
+                a.replace(index + 1, a.getEntry(index)); //shifting
+                index--;
+            }
+        }
+        a.replace(index + 1, element);
+        return 0;
+    }
+
     /**
      * Checks if all provided elements are valid (non-null).
      *
@@ -367,7 +393,7 @@ public class ArrList<T> implements ListInterface<T>, Serializable {
         }
         return valid;
     }
-        
+
     /**
      * Returns an iterator over the elements in the list.
      *
@@ -380,6 +406,7 @@ public class ArrList<T> implements ListInterface<T>, Serializable {
 
     /**
      * Inner class to implement the Iterator interface for the ArrayList.
+     *
      * @param <T>
      */
     public class getIterator<T> implements Iterator<T> {
