@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author Chew Lip Sin
  */
-public class CourseProgram implements Serializable {
+public class CourseProgram implements Serializable{
 
     private String courseCode;
     private String programCode;
@@ -48,5 +48,7 @@ public class CourseProgram implements Serializable {
     public void setIsElective(boolean isElective) {
         this.isElective = isElective;
     }
+
+
 
 }

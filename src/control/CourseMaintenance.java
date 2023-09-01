@@ -11,9 +11,16 @@ import dao.DAO;
 import dao.Initializer;
 import entity.Course;
 import entity.Course.Sem;
+import entity.CourseCodeComparator;
 import entity.CourseProgram;
+import entity.CreatedAtComparator;
+import entity.CreditHoursComparator;
 import entity.Program;
+import entity.SemesterComparator;
+import entity.TitleComparator;
+import entity.UpdatedAtComparator;
 import java.io.IOException;
+import java.util.Comparator;
 import utility.*;
 
 /**
@@ -24,27 +31,39 @@ public class CourseMaintenance {
 
 //    private ListInterface<Course> courseList = new ArrList<>();
     private final CourseMaintenanceUI courseUI = new CourseMaintenanceUI();
-    private final Sort s = new Sort();
     private static final DAO<Course> cDAO = new DAO<>();
     private static final DAO<Program> pDAO = new DAO<>();
     private final DAO<CourseProgram> cpDAO = new DAO<>();
     private static final CourseProgramMaintenance cpm = new CourseProgramMaintenance();
     private final Initializer in = new Initializer();
+    private final TitleComparator titleC = new TitleComparator();
+    private final CourseCodeComparator ccC = new CourseCodeComparator();
+    private final CreditHoursComparator chC = new CreditHoursComparator();
+    private final SemesterComparator sC = new SemesterComparator();
+    private final CreatedAtComparator caC = new CreatedAtComparator();
+    private final UpdatedAtComparator uaC = new UpdatedAtComparator();
 
     public CourseMaintenance() {
     }
 
+    public static void main(String[] args) throws IOException, InterruptedException {
+        CourseMaintenance cMain = new CourseMaintenance();
+        cMain.runCourseMaintenance();
+    }
+
     public void runCourseMaintenance() throws IOException, InterruptedException {
-        ListInterface<Course> courseList = cDAO.retrieveFromFile("course.dat");
-//        ListInterface<Course> courseList = in.initializeCourse();
-//        cDAO.saveToFile(courseList, "course.dat");
-        ListInterface<Program> programList = pDAO.retrieveFromFile("program.dat");
+//        ListInterface<Course> courseList = cDAO.retrieveFromFile("course.dat");
+        ListInterface<Course> courseList = in.initializeCourse();
+        cDAO.saveToFile(courseList, "course.dat");
+        ListInterface<Program> programList = pDAO.retrieveFromFile("Program.dat");
 //        pDAO.saveToFile(programList, "program.dat");
 //        ListInterface<Program> programList = in.ProgramInitializer();
 //        pDAO.saveToFile(programList, "program.dat");
         int choice;
         do {
             Command.cls();
+            System.out.println(courseList);
+            System.out.println(programList);
             choice = courseUI.getMenuChoices();
             switch (choice) {
                 case 0:
@@ -189,7 +208,7 @@ public class CourseMaintenance {
                         int index = courseUI.getCourseAmmend(courseList, courseList2);
                         if (index != -1) {
                             ammendCourse(courseList, index);
-                        }else{
+                        } else {
                             loop = false;
                         }
                     } else {
@@ -275,7 +294,7 @@ public class CourseMaintenance {
 
     public void listedCourse(ListInterface<Course> courseList) {
         int choice;
-        s.insertionSort(courseList, "courseCode");
+        ArrList.insertionSort(courseList, ccC, "asc");
         courseUI.listAllCourses(courseList);
         do {
             choice = courseUI.getSortMenu(courseList);
@@ -296,35 +315,38 @@ public class CourseMaintenance {
     }
 
     private void ascListedCourse(ListInterface<Course> courseList) {
+
         int choice;
+
         do {
             choice = courseUI.getSortMenuChoice(courseList, "Ascending Order");
             switch (choice) {
                 case 0:
                     break;
                 case 1:
-                    s.insertionSort(courseList, "courseCode");
+                    ArrList.insertionSort(courseList, ccC, "asc");
                     break;
                 case 2:
-                    s.insertionSort(courseList, "title");
+                    ArrList.insertionSort(courseList, titleC, "asc");
                     break;
                 case 3:
-                    s.insertionSort(courseList, "creditHours");
+                    ArrList.insertionSort(courseList, chC, "asc");
                     break;
                 case 4:
-                    s.insertionSort(courseList, "semester");
+                    ArrList.insertionSort(courseList, sC, "asc");
                     break;
                 case 5:
-                    s.insertionSort(courseList, "createdAt");
+                    ArrList.insertionSort(courseList, caC, "asc");
                     break;
                 case 6:
-                    s.insertionSort(courseList, "updatedAt");
+                    ArrList.insertionSort(courseList, uaC, "asc");
                     break;
                 default:
                     MessageUI.displayInvalidChoiceMessage();
             }
             courseUI.listAllCourses(courseList);
-        } while (choice != 0);
+        } while (choice
+                != 0);
     }
 
     private void desListedCourse(ListInterface<Course> courseList) {
@@ -335,22 +357,22 @@ public class CourseMaintenance {
                 case 0:
                     break;
                 case 1:
-                    s.insertionSortDes(courseList, "courseCode");
+                    ArrList.insertionSort(courseList, ccC, "des");
                     break;
                 case 2:
-                    s.insertionSortDes(courseList, "title");
+                    ArrList.insertionSort(courseList, titleC, "des");
                     break;
                 case 3:
-                    s.insertionSortDes(courseList, "creditHours");
+                    ArrList.insertionSort(courseList, chC, "des");
                     break;
                 case 4:
-                    s.insertionSortDes(courseList, "semester");
+                    ArrList.insertionSort(courseList, sC, "des");
                     break;
                 case 5:
-                    s.insertionSortDes(courseList, "createdAt");
+                    ArrList.insertionSort(courseList, caC, "des");
                     break;
                 case 6:
-                    s.insertionSortDes(courseList, "updatedAt");
+                    ArrList.insertionSort(courseList, uaC, "des");
                     break;
                 default:
                     MessageUI.displayInvalidChoiceMessage();

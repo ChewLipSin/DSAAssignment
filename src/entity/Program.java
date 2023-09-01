@@ -16,6 +16,7 @@ public class Program implements Serializable {
     private String faculty;
     private String description;
     private LocalDateTime updateTime;
+
     public Program() {
     }
 
@@ -81,5 +82,7 @@ public class Program implements Serializable {
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
     }
+
+
 
 }

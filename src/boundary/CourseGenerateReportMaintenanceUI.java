@@ -343,7 +343,7 @@ public class CourseGenerateReportMaintenanceUI {
         System.out.println("\t\t\tCourse with 1 credit hour:");
         for (int i = 1; i <= courses.size(); i++) {
             if (courses.getEntry(i).getCreditHours() == 1) {
-                System.out.println(String.format("\t\t\t%2d. %s %s", count1, courses.getEntry(i), courses.getEntry(i).getTitle()));
+                System.out.println(String.format("\t\t\t%2d. %s %s", count1, courses.getEntry(i).getCourseCode(), courses.getEntry(i).getTitle()));
                 count1++;
             }
         }
