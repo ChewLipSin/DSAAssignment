@@ -46,7 +46,7 @@ public class DAO<T> {
         }
     }
 
-    public ListInterface<T> retrieveFromFile(String fileName) throws IOException {
+    public ListInterface<T> retrieveFromFile(String fileName){
         File file = new File(fileName);
         ListInterface<T> list = new ArrList<>();
         try {
