@@ -41,13 +41,12 @@ public class DAO<T> {
             objectOut.writeObject(list);
 
 //            System.out.println("DoublyLinkedList saved to " + fileName);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public ListInterface<T> retrieveFromFile(String fileName) {
+    public ListInterface<T> retrieveFromFile(String fileName){
         File file = new File(fileName);
         ListInterface<T> list = new ArrList<>();
         try {
@@ -57,7 +56,7 @@ public class DAO<T> {
         } catch (FileNotFoundException ex) {
             System.out.println("\nNo such file.");
         } catch (IOException ex) {
-            System.out.println("\nCannot read from file.");
+            throw new RuntimeException(ex);
         } catch (ClassNotFoundException ex) {
             System.out.println("\nClass not found.");
         } finally {
@@ -68,14 +67,12 @@ public class DAO<T> {
     public LinkedListInterface<T> dLLRetrieveFromFile(String fileName) {
         File file = new File(fileName);
         LinkedListInterface<T> list = new DoublyLinkedList<>();
-        try (FileInputStream fileIn = new FileInputStream(fileName); 
-            ObjectInputStream objectIn = new ObjectInputStream(fileIn)) {
+        try (FileInputStream fileIn = new FileInputStream(fileName); ObjectInputStream objectIn = new ObjectInputStream(fileIn)) {
 
             list = (DoublyLinkedList<T>) objectIn.readObject();
 
             // Now you can use the retrievedList object as your DoublyLinkedList
 //            System.out.println("DoublyLinkedList retrieved from " + fileName);
-
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

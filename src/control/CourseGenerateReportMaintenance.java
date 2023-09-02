@@ -12,13 +12,13 @@ import adt.ListInterface;
 import adt.StackInterface;
 import boundary.CourseGenerateReportMaintenanceUI;
 import dao.DAO;
+import dao.Initializer;
 import entity.Course;
 import entity.CourseProgram;
 import entity.Program;
 import java.io.IOException;
 import utility.Command;
 import utility.MessageUI;
-import utility.Sort;
 
 /**
  *
@@ -29,10 +29,13 @@ public class CourseGenerateReportMaintenance {
     private static final DAO<Course> cDAO = new DAO<>();
     private static final DAO<Program> pDAO = new DAO<>();
     private final DAO<CourseProgram> cpDAO = new DAO<>();
+    private final Initializer in = new Initializer();
 
     public void runCourseGenerateReportMaintenance() throws IOException, InterruptedException {
         LinkedListInterface<CourseProgram> cp = new DoublyLinkedList<>();
         ListInterface<Course> courses = new ArrList<>();
+//        cp = in.CourseProgramInitializer();
+//        cpDAO.saveToFile(cp, "courseProgram.dat");
         cp = cpDAO.dLLRetrieveFromFile("courseProgram.dat");
         courses = cDAO.retrieveFromFile("course.dat");
         CourseGenerateReportMaintenanceUI cReportUI = new CourseGenerateReportMaintenanceUI(cp, courses);

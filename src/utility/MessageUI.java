@@ -15,6 +15,10 @@ public class MessageUI {
 
     }
 
+    public static void displayInvalidMessage() {
+        System.out.println("\nInvalid Choice!!");
+    }
+
     public static void displayInvalidCreditHourMessage(int creditHour) {
         if (creditHour > 20) {
             printFormattedText("Your input credit hour is more than the range\n", ConsoleColor.RED);
@@ -48,7 +52,7 @@ public class MessageUI {
     }
 
     public static void displayAskAgainMessage(String val) {
-        printFormattedText("Do you want to " + val + " again?(1 is Yes and 0 is No): ",ConsoleColor.BRIGHTBLUE);
+        printFormattedText("Do you want to " + val + " again?(1 is Yes and 0 is No): ", ConsoleColor.BRIGHTBLUE);
     }
-    
+
 }

@@ -10,6 +10,7 @@ import java.util.Iterator;
 /**
  *
  * @author Chew Lip Sin
+ * @author Eugene Teoh
  * @param <T> The type of elements stored in the linked list.
  */
 public interface LinkedListInterface<T> {

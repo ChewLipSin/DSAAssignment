@@ -147,4 +147,7 @@ public interface ListInterface<T> {
      * @return {@code true} if the array is full, {@code false} otherwise.
      */
     public boolean isFull();
+
+    public <T extends Comparable<T>> void bubbleSort();
+
 }
