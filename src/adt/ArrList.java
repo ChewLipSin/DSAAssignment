@@ -1,5 +1,6 @@
 package adt;
 
+import entity.Tutor;
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -402,6 +403,32 @@ public class ArrList<T> implements ListInterface<T>, Serializable {
     @Override
     public Iterator<T> getIterator() {
         return new getIterator();
+    }
+
+
+    @Override
+    public <T extends Comparable<T>> void bubbleSort() {
+        boolean sorted = false;
+        for (int pass = 1; pass < this.size() && !sorted; pass++) {
+            sorted = true;
+            for (int index = 1; index <= this.size() - pass; index++) {
+                // swap adjacent elements if first is greater than second
+                if (((T) this.getEntry(index)).compareTo((T) (this.getEntry(index + 1))) > 0) {
+                    swap(index, index + 1); // swap adjacent elements 
+                    sorted = false;  // array not sorted because a swap was performed
+                }
+            }
+        }
+    }
+
+    private void swap(int a, int b) {
+        T temp = this.getEntry(a);
+        this.replace(a, this.getEntry(b));
+        this.replace(b, temp);
+    }
+
+    public int compare(Tutor tutor1, Tutor tutor2) {
+        return tutor1.getSfaculty().compareTo(tutor2.getSfaculty());
     }
 
     /**

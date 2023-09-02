@@ -9,11 +9,13 @@ import adt.*;
 import entity.Course;
 import entity.CourseProgram;
 import entity.Program;
+import entity.Tutor;
 import java.io.IOException;
 
 /**
  *
  * @author Chew Lip Sin
+ * @author Eugene Teoh
  */
 public class Initializer {
 
@@ -58,6 +60,18 @@ public class Initializer {
         cP.add(new CourseProgram("BAIT1013", "RSD", false));
 
         return cP;
+    }
+
+    public ListInterface<Tutor> initializeTutors() {
+
+        ListInterface<Tutor> ttList = new ArrList<>();
+        ttList.add(new Tutor("Ng Yen Phing", "ngyp@tarc.edu.my", 1, "Management Information Systems"));
+        ttList.add(new Tutor("Ho Chuk Fong", "hocf@tarc.edu.my", 2, "Accounting & Finance"));
+        ttList.add(new Tutor("Chin Wan Yoke", "chinwy@tarc.edu.my", 2, "Banking & Finance"));
+        ttList.add(new Tutor("Ong Ting Hao", "ongth@tarc.edu.my", 5, "Exercise Physiology"));
+        ttList.add(new Tutor("Goh Ching Pang", "gohcp@tarc.edu.my", 3, "Artificial Intelligence"));
+        ttList.add(new Tutor("Lee Fong Yee", "leefy@tarc.edu.my", 4, "Bioscience"));
+        return ttList;
     }
 
 }

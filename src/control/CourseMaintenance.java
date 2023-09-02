@@ -52,18 +52,15 @@ public class CourseMaintenance {
     }
 
     public void runCourseMaintenance() throws IOException, InterruptedException {
-//        ListInterface<Course> courseList = cDAO.retrieveFromFile("course.dat");
-        ListInterface<Course> courseList = in.initializeCourse();
-        cDAO.saveToFile(courseList, "course.dat");
-        ListInterface<Program> programList = pDAO.retrieveFromFile("Program.dat");
-//        pDAO.saveToFile(programList, "program.dat");
+        ListInterface<Course> courseList = cDAO.retrieveFromFile("course.dat");
+//        ListInterface<Course> courseList = in.initializeCourse();
+//        cDAO.saveToFile(courseList, "course.dat");
+        ListInterface<Program> programList = pDAO.retrieveFromFile("program.dat");
 //        ListInterface<Program> programList = in.ProgramInitializer();
 //        pDAO.saveToFile(programList, "program.dat");
         int choice;
         do {
             Command.cls();
-            System.out.println(courseList);
-            System.out.println(programList);
             choice = courseUI.getMenuChoices();
             switch (choice) {
                 case 0:
@@ -95,7 +92,10 @@ public class CourseMaintenance {
                     MessageUI.displayInvalidChoiceMessage();
 
             }
+
         } while (choice != 0);
+        pDAO.saveToFile(programList, "program.dat");
+        cDAO.saveToFile(courseList, "course.dat");
 
     }
 
