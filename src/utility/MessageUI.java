@@ -1,6 +1,5 @@
 package utility;
 
-import utility.ConsoleColor;
 import static utility.MessageUI.printFormattedText;
 /**
  *
