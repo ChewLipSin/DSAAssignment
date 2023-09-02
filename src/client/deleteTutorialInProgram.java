@@ -63,7 +63,7 @@ public class deleteTutorialInProgram {
                     tpList.remove(index);
                     try {
                         DAO.saveToFile(tpList,"tutorialProgram.dat");
-                        printFormattedText("\nProgram deleted successfully.", ConsoleColor.GREEN);
+                        printFormattedText("\nProgram deleted successfully.\n", ConsoleColor.GREEN);
 
                         // Ask user if they want to print the updated list
                         printFormattedText("\nDo you want to print the updated program list? (y/n): ", ConsoleColor.BRIGHTBLUE);

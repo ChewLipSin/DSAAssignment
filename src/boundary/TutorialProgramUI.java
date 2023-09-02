@@ -1,7 +1,6 @@
 package boundary;
 
 import adt.ListInterface;
-import control.TutorialProgramMaintenance;
 import entity.Program;
 import entity.Tutorial;
 import entity.TutorialProgram;
@@ -16,9 +15,9 @@ import static utility.MessageUI.printFormattedText;
  */
 public class TutorialProgramUI {
 
-    private ProgramValidator pV = new ProgramValidator();
-    private TutorialValidator tV = new TutorialValidator();
-    private InputValue iv = new InputValue();
+    private final ProgramValidator pV = new ProgramValidator();
+    private final TutorialValidator tV = new TutorialValidator();
+    private final InputValue iv = new InputValue();
 
     public int getMenuChoice() {
         System.out.print("\n\n\n");

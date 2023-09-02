@@ -10,6 +10,7 @@ import java.util.Scanner;
 import utility.ConsoleColor;
 import utility.InputValue;
 import static utility.MessageUI.printFormattedText;
+import utility.programCodeComparator;
 /**
  *
  * @author Lim Yi Leong
@@ -18,6 +19,7 @@ public class searchProgram {
 
     private ListInterface<Program> pList = new ArrList<>();
     private ProgramMaintenance pM = new ProgramMaintenance();
+    private final programCodeComparator pCompare = new programCodeComparator(); 
     private static ProgramUI pU = new ProgramUI();
     private InputValue iv = new InputValue();
 
@@ -34,9 +36,11 @@ public class searchProgram {
             Iterator<Program> iterator = pList.getIterator();
             String header = String.format("%-15s | %-30s | %-80s | %-60s | %s%n",
                     "Program Code", "Program Level", "Program Name", "Faculty", "Description"); // Labels
+            System.out.println("---------------------------------------------------------------------------------------------------------------------------------------");
             String row = "";
             while (iterator.hasNext()) {
                 Program program = iterator.next();
+                ArrList.insertionSort(pList, pCompare, "asc");
                 if (matchesSearchTerm(program,searchTerm)) {
                     row = String.format("%-15s | %-30s | %-80s | %-60s | %s%n",
                             program.getCode(),

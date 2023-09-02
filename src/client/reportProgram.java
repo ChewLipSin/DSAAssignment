@@ -23,6 +23,7 @@ public class reportProgram {
     public reportProgram() {
         this.tpList = DAO.retrieveFromFile("tutorialProgram.dat");
         this.pList = DAO.retrieveFromFile("program.dat");
+        listProgramByFaculty(pList);
         listTutorialsByProgramCode(pList);
         sumNStudents(tpList);
         listProgramsAndGroups(pList,tpList);
@@ -32,10 +33,40 @@ public class reportProgram {
     String starLine = hyphenLine.replace('-', '*');
 
     //List tutorial every program
+    private void listProgramByFaculty(ListInterface<Program> pList) {
+        printFormattedText("\n" + starLine + "\n", ConsoleColor.BRIGHTRED);
+        printFormattedText("+-----------------------------------------+\n", ConsoleColor.BRIGHTGREEN);
+        printFormattedText("+   List of tutorial group in Programme   +\n", ConsoleColor.CYAN);
+        printFormattedText("+-----------------------------------------+\n", ConsoleColor.BRIGHTGREEN);
+
+        try {
+            ArrList.insertionSort(pList, pCompare, "asc");
+            String pFaculty = "";
+            Iterator<Program> iterator = pList.getIterator();
+            while (iterator.hasNext()) {
+                Program program = iterator.next();
+
+                if (!program.getFaculty().equals(pFaculty)) {
+                    if (!pFaculty.isEmpty()) {
+                        printProgramByFaculty(pFaculty);
+                    }
+                    pFaculty = program.getFaculty();
+                }
+            }
+            if (!pFaculty.isEmpty()) {
+                printProgramByFaculty(pFaculty);
+            }
+        } catch (Exception e) {
+        }
+        
+        printFormattedText("\n" + hyphenLine + "\n", ConsoleColor.BRIGHTRED);
+    }
+    
+    //List tutorial every program
     private void listTutorialsByProgramCode(ListInterface<Program> pList) {
         printFormattedText("\n" + starLine + "\n", ConsoleColor.BRIGHTRED);
         printFormattedText("+-----------------------------------------+\n", ConsoleColor.BRIGHTBLUE);
-        printFormattedText("+   List of tutorial group in Programme   +\n", ConsoleColor.CYAN);
+        printFormattedText("+   List of tutorial group in Programme   +\n", ConsoleColor.GREEN);
         printFormattedText("+-----------------------------------------+\n", ConsoleColor.BRIGHTBLUE);
 
         try {
@@ -57,8 +88,7 @@ public class reportProgram {
                 printTutorialsByProgramCode(tpcode);
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            // Handle exceptions here
+           
         }
         
         printFormattedText("\n" + hyphenLine + "\n", ConsoleColor.BRIGHTRED);
@@ -78,7 +108,7 @@ public class reportProgram {
             TutorialProgram tp = iterator.next();
             if (!tp.getCode().equals(tpcode)) {
                 if (!tpcode.isEmpty()) {
-                    System.out.println("Total students in " + tpcode + ": " + totalStudents);
+                    System.out.println("\nTotal students in " + tpcode + ": " + totalStudents);
                 }
                 tpcode = tp.getCode();
                 totalStudents = tp.getNumStudent();
@@ -87,7 +117,7 @@ public class reportProgram {
             }
         }
         if (!tpcode.isEmpty()) {
-            System.out.println("Total students in " + tpcode + ": " + totalStudents);
+            System.out.println("\nTotal students in " + tpcode + ": " + totalStudents);
         }
         printFormattedText("\n" + hyphenLine + "\n", ConsoleColor.BRIGHTRED);
     }
@@ -115,14 +145,14 @@ public class reportProgram {
                     // Print the tp header
                     if (!tpcode.isEmpty()) {
                         printFormattedText(tpcode + " :\n", ConsoleColor.GREEN);
-                        System.out.println("Total students in " + currentGroup + ": " + groupTotalStudents + "\n");
+                        System.out.println("\nTotal students in " + currentGroup + ": " + groupTotalStudents + "\n");
                     }
                     tpcode = tp.getCode();
                     currentGroup = tp.getGroupname();
                     groupTotalStudents = tp.getNumStudent();
                 } else if (!tp.getGroupname().equals(currentGroup)) {
                     printFormattedText(tpcode + " :\n", ConsoleColor.GREEN);
-                    System.out.println("Total students in " + currentGroup + ": " + groupTotalStudents + "\n");
+                    System.out.println("\nTotal students in " + currentGroup + ": " + groupTotalStudents + "\n");
                     currentGroup = tp.getGroupname();
                     groupTotalStudents = tp.getNumStudent();
                 } else {
@@ -130,15 +160,28 @@ public class reportProgram {
                 }
             }
             printFormattedText(tpcode + " :\n", ConsoleColor.GREEN);
-            System.out.println("Total students in " + currentGroup + ": " + groupTotalStudents + "\n");
+            System.out.println("\nTotal students in " + currentGroup + ": " + groupTotalStudents + "\n");
         } catch (Exception e) {
             e.printStackTrace();
         }
         printFormattedText("\n" + hyphenLine + "\n", ConsoleColor.BRIGHTRED);
     }
+     
+    private void printProgramByFaculty(String faculty) {
+        System.out.println("\nProgramme of " + faculty + " :");
 
+        Iterator<Program> iterator = pList.getIterator();
+        while (iterator.hasNext()) {
+            Program program = iterator.next();
+            if (program.getFaculty().equals(faculty)) {
+                System.out.println(program.getCode());
+            }
+        }
+
+    }
+    
     private void printTutorialsByProgramCode(String programCode) {
-        System.out.println("\nTutorials for program " + programCode + ":");
+        System.out.println("\nTutorials for program " + programCode + " :");
 
         Iterator<TutorialProgram> iterator = tpList.getIterator();
         while (iterator.hasNext()) {

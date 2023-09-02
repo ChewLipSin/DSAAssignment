@@ -11,8 +11,10 @@ import entity.Tutorial;
 import entity.TutorialProgram;
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.Scanner;
+import utility.InputValue;
 import utility.MessageUI;
+import utility.clearScreen;
+
 /**
  *
  * @author Lim Yi Leong
@@ -24,66 +26,34 @@ public class TutorialProgramMaintenance {
     private ListInterface<Tutorial> tList = new ArrList<>();
     private final tDAO DAO = new tDAO();
     private final TutorialProgramUI tpU = new TutorialProgramUI();
-    private final ProgramMaintenance pM = new ProgramMaintenance();
-     private Scanner scanner = new Scanner(System.in);
+    private ProgramMaintenance pM;
+    private final static InputValue iv = new InputValue();
+    private final clearScreen clr = new clearScreen();
 
-    public TutorialProgramMaintenance() {
-        this.tpList = DAO.retrieveFromFile("tutorialProgram.dat");
-    }
-  
     public void runTutorialProgramMaintenance() {
         int choice = 0;
         tpList = DAO.retrieveFromFile("tutorialProgram.dat");
         pList = DAO.retrieveFromFile("program.dat");
         tList = DAO.retrieveFromFile("tutorial.dat");
+        clr.cls();
         do {
             choice = tpU.getMenuChoice();
             switch (choice) {
                 case 1:
-                    System.out.print("\n\n");
-                    System.out.print("-----------> Adding Tutorial To Programme\n"
-                                   + "----------------------------------------->\n");
-                    addNewTutorialProgram(pList,tList);
-                    tpU.listAllTutorialPrograms(getAllTutorialPrograms(tpList));
+                    clr.cls();
+                    addTutorialProgram(tpList);
                     break;
                 case 2:
-                    int choiceS = 0;
-                    do {
-                        System.out.print("\n\n");
-                        System.out.print("--------------------------> Searching Programme\n"
-                                + "       1. List All Programme\n"
-                                + "       2. Search Program\n"
-                                + "       3. Back to Programme Main Page\n");
-                        System.out.print("\nEnter the number to continue(1,2,3): ");
-                        choiceS = scanner.nextInt();
-                        switch (choiceS) {
-                            case 1:
-                                tpU.listAllTutorialPrograms(getAllTutorialPrograms(tpList));
-                                break;
-                            case 2:
-                                new searchTutorialProgram(tpList);
-                                break;
-                            case 3:
-                                runTutorialProgramMaintenance();
-                                break;
-                            default:
-                                MessageUI.displayInvalidChoiceMessage();
-                                break;
-                        }
-                    } while (choiceS != 3);
+                    clr.cls();
+                    searchProgram(tpList);
                     break;
                 case 3:
-                    System.out.print("\n\n");
-                    System.out.print("-------> Deleting Tutorial From Programme\n"
-                                   + "----------------------------------------->\n");
-                    tpU.listAllTutorialPrograms(getAllTutorialPrograms(tpList));
-                    new deleteTutorialInProgram(tpList);
+                    clr.cls();
+                    deleteTutorialProgram(tpList);
                     break;
                 case 4:
-                    pM.runProgramMaintenance();
+                    goP();
                     break;
-                case 5:
-                    //main
                 default:
                     MessageUI.displayInvalidChoiceMessage();
             }
@@ -94,28 +64,28 @@ public class TutorialProgramMaintenance {
     public void addNewTutorialProgram(ListInterface<Program> pList, ListInterface<Tutorial> tList) {
         TutorialProgram newProgram = tpU.inputTutorialProgramDetails(pList, tList);
         if (newProgram != null) {
-        tpList.add(newProgram);
-        try {
-            DAO.saveToFile(tpList,"tutorialProgram.dat");
-        } catch (IOException ex) {
-            System.out.print("Failed to save");
-        }
+            tpList.add(newProgram);
+            try {
+                DAO.saveToFile(tpList, "tutorialProgram.dat");
+            } catch (IOException ex) {
+                System.out.print("Failed to save");
+            }
         }
     }
 
     public String getAllTutorialPrograms(ListInterface<TutorialProgram> tutorialProgramList) {
         String outputStr = "";
         outputStr += "List of Tutorial Programme:\n";
-        outputStr += String.format("%-5s | %-15s | %-80s | %-20s | %-25s | %-30s | %s\n",
-                "No.", "Program Code", "Program Name", "Tutorial Group", "Number of Students", "Class Rap", "Intake");
-
+        outputStr += String.format("%-5s | %-15s | %-20s | %-25s | %-30s | %s\n",
+                "No.", "Program Code", "Tutorial Group", "Number of Students", "Class Rap", "Intake");
+        outputStr += " \n";
         Iterator<TutorialProgram> iterator = tutorialProgramList.getIterator();
         int tutorialNumber = 1;
 
         while (iterator.hasNext()) {
             TutorialProgram tutorialProgram = iterator.next();
-            outputStr += String.format("%-5d | %-15s | %-80s | %-20s | %-25d | %-30s | %d-%02d\n",
-                    tutorialNumber, tutorialProgram.getCode(), tutorialProgram.getProgramname(),
+            outputStr += String.format("%-5d | %-15s | %-20s | %-25d | %-30s | %d-%02d\n",
+                    tutorialNumber, tutorialProgram.getCode(),
                     tutorialProgram.getGroupname(), tutorialProgram.getNumStudent(),
                     tutorialProgram.getClassRap(), tutorialProgram.getIntakeYear(), tutorialProgram.getIntakeMonth());
             tutorialNumber++;
@@ -123,43 +93,91 @@ public class TutorialProgramMaintenance {
 
         return outputStr;
     }
-    
+
     public String getOneTutorialProgram(ListInterface<TutorialProgram> tutorialProgramList, int index) {
-    String outputStr = "";
+        String outputStr = "";
         outputStr += "List of Tutorial Programme:\n";
-        outputStr += String.format("%-5s | %-15s | %-80s | %-10s | %-25s | %30s | %20s\n",
-                "No. | Program Code | Program Name | Tutorial Group | Number of Students | Class Rap | Intake\n");
+        outputStr += String.format("%-5s | %-15s | %-20s | %-25s | %30s | %20s\n",
+                "No. | Program Code | Tutorial Group | Number of Students | Class Rap | Intake\n");
+        outputStr += " \n";
+        Iterator<TutorialProgram> iterator = tutorialProgramList.getIterator();
+        int tutorialNumber = 1;
+        TutorialProgram tutorialProgram = null; // Initialize tutorialProgram outside the loop
+        boolean found = false;  // Renamed 'stop' to 'found' for clarity
 
-    Iterator<TutorialProgram> iterator = tutorialProgramList.getIterator();
-    int tutorialNumber = 1;
-    TutorialProgram tutorialProgram = null; // Initialize tutorialProgram outside the loop
-    boolean found = false;  // Renamed 'stop' to 'found' for clarity
-
-    while (iterator.hasNext()) {
-        tutorialProgram = iterator.next();
-        if (tutorialNumber == index) {
-            found = true; 
-            break;
+        while (iterator.hasNext()) {
+            tutorialProgram = iterator.next();
+            if (tutorialNumber == index) {
+                found = true;
+                break;
+            }
+            tutorialNumber++;
         }
-        tutorialNumber++;
-    }
 
-    if (found) {
-        outputStr += String.format("%-5s | %-15s | %-80s | %-10s | %-25d | %30s | %d-%02d\n",
-                    tutorialNumber, tutorialProgram.getCode(), tutorialProgram.getProgramname(),
+        if (found) {
+            outputStr += String.format("%-5s | %-15s | %-20s | %-25d | %30s | %d-%02d\n",
+                    tutorialNumber, tutorialProgram.getCode(),
                     tutorialProgram.getGroupname(), tutorialProgram.getNumStudent(),
                     tutorialProgram.getClassRap(), tutorialProgram.getIntakeYear(), tutorialProgram.getIntakeMonth());
-    } else {
-        outputStr += "Program not found.\n";
+        } else {
+            outputStr += "Program not found.\n";
+        }
+
+        return outputStr;
     }
 
-    return outputStr;
-}
+    public void addTutorialProgram(ListInterface<TutorialProgram> tpList) {
+        System.out.print("\n-----------> Adding Tutorial To Programme\n"
+                + "----------------------------------------->\n");
+        addNewTutorialProgram(pList, tList);
+        tpU.listAllTutorialPrograms(getAllTutorialPrograms(tpList));
+    }
 
+    public void searchProgram(ListInterface<TutorialProgram> tpList) {
+        int choiceS;
+
+        do {
+            System.out.print("\n--------------------------> Searching Programme\n"
+                    + "       1. List All Programme\n"
+                    + "       2. Search Program\n"
+                    + "       3. Back to Programme Main Page\n");
+            System.out.print("\nEnter the number to continue(1,2,3): ");
+            choiceS = iv.readInteger();
+            switch (choiceS) {
+                case 1:
+                    tpU.listAllTutorialPrograms(getAllTutorialPrograms(tpList));
+                    break;
+                case 2:
+                    searchTutorialProgram stp;
+                    stp = new searchTutorialProgram(tpList);
+                    break;
+
+                case 3:
+                    runTutorialProgramMaintenance();
+                    break;
+                default:
+                    MessageUI.displayInvalidChoiceMessage();
+                    break;
+            }
+        } while (choiceS != 3);
+    }
+    
+    public void goP(){
+        pM = new ProgramMaintenance();
+        pM.runProgramMaintenance();
+    }
+    
+    public void deleteTutorialProgram(ListInterface<TutorialProgram> tpList) {
+        System.out.print("\n--------------------> Deleting Programme\n"
+                + "----------------------------------------->\n\n");
+        tpU.listAllTutorialPrograms(getAllTutorialPrograms(tpList));
+        deleteTutorialInProgram dtp;
+        dtp = new deleteTutorialInProgram(tpList);
+    }
 
     public void displayTutorialPrograms(ListInterface<TutorialProgram> tpList) {
         String outputStr = getAllTutorialPrograms(tpList);
         tpU.listAllTutorialPrograms(outputStr);
     }
-      
+
 }

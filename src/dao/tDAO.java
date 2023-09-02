@@ -21,7 +21,7 @@ public void saveToFile(ListInterface<T> list, String fileName) throws IOExceptio
             try (ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream(file))) {
                 ooStream.writeObject(list);
                 ooStream.close();
-                System.out.println("Data saved to file.");
+                //System.out.println("Data saved to file.");
             }
         } catch (FileNotFoundException ex) {
             System.out.println("\nFile not found");

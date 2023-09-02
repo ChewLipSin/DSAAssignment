@@ -10,10 +10,12 @@ import dao.tDAO;
 import entity.*;
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.Scanner;
 import utility.ConsoleColor;
+import utility.InputValue;
 import utility.MessageUI;
 import static utility.MessageUI.printFormattedText;
+import utility.clearScreen;
+import utility.programCodeComparator;
 /**
  *
  * @author Lim Yi Leong
@@ -21,78 +23,49 @@ import static utility.MessageUI.printFormattedText;
 public class ProgramMaintenance {
 
     private ListInterface<Program> pList = new ArrList<>();
+    private ListInterface<TutorialProgram> tpList = new ArrList<>();
     private final tDAO DAO = new tDAO();
-    private static ProgramUI pU = new ProgramUI();
-    private static TutorialProgramMaintenance tpm = new TutorialProgramMaintenance();
-    private Scanner scanner = new Scanner(System.in);
-
-    public ProgramMaintenance() {
-        this.pList = DAO.retrieveFromFile("program.dat");
-    }
+    private final ProgramUI pU = new ProgramUI();
+    private final programCodeComparator pCompare = new programCodeComparator();
+    private TutorialProgramMaintenance tpm ;
+    private final static InputValue iv = new InputValue();
+    private final clearScreen clr = new clearScreen();
 
     public void runProgramMaintenance() {
         pList = DAO.retrieveFromFile("program.dat");
-        System.out.println(pList);
-        int choice = 0;
+        tpList = DAO.retrieveFromFile("tutorialProgram.dat");
+        int choice;
+        clr.cls();
         do {
             choice = pU.getMenuChoice();
             switch (choice) {
                 case 1:
-                    System.out.print("\n\n");
-                    System.out.print("-----------------------> Adding Programme\n"
-                            + "----------------------------------------->\n\n");
-                    addNewProgram(pList);
+                    clr.cls();
+                    addProgram(pList);
                     break;
                 case 2:
-                    int choiceS = 0;
-                    do {
-                        System.out.print("\n\n");
-                        System.out.print("--------------------------> Searching Programme\n"
-                                + "       1. List All Programme\n"
-                                + "       2. Search Program\n"
-                                + "       3. Back to Programme Main Page\n");
-                        System.out.print("\nEnter the number to continue(1,2,3): ");
-                        choiceS = scanner.nextInt();
-                        switch (choiceS) {
-                            case 1:
-                                pU.listAllPrograms(getAllPrograms(pList));
-                                break;
-                            case 2:
-                                new searchProgram(pList);
-                                break;
-                            case 3:
-                                runProgramMaintenance();
-                                break;
-                            default:
-                                MessageUI.displayInvalidChoiceMessage();
-                                break;
-                        }
-                    } while (choiceS != 3);
+                    clr.cls();
+                    searchProg(pList);
                     break;
-
                 case 3:
-                    System.out.print("\n\n");
-                    System.out.print("--------------------> Modifying Programme\n"
-                            + "----------------------------------------->\n\n");
-                    pU.listAllPrograms(getAllPrograms(pList));
-                    new modifyProgram(pList);
+                    clr.cls();
+                    modifyProgram(pList);
                     break;
                 case 4:
-                    System.out.print("\n\n");
-                    System.out.print("--------------------> Deleting Programme\n"
-                            + "----------------------------------------->\n\n");
-                    pU.listAllPrograms(getAllPrograms(pList));
-                    new deleteProgram(pList);
+                    clr.cls();
+                    deleteProgram(pList);
                     break;
                 case 5:
-                    tpm.runTutorialProgramMaintenance();
+                    clr.cls();
+                    goTP();
                     break;
                 case 6:
-                    new reportProgram();
+                    clr.cls();
+                    printReport();
                     break;
                 case 7:
                     //back main
-                    MessageUI.displayExitMessage();
+                    //MessageUI.displayExitMessage();
                     break;
                 default:
                     MessageUI.displayInvalidChoiceMessage();
@@ -105,7 +78,7 @@ public class ProgramMaintenance {
         if (newProgram != null) {
             pList.add(newProgram);
             try {
-                DAO.saveToFile(pList,"program.dat");
+                DAO.saveToFile(pList, "program.dat");
                 pU.listAllPrograms(getAllPrograms(pList));
             } catch (IOException ex) {
                 //System.out.print("Failed to save");
@@ -117,12 +90,12 @@ public class ProgramMaintenance {
 
     public String getAllPrograms(ListInterface<Program> pList) {
         String outputStr = "";
-
         outputStr += "List of Programme:\n";
         outputStr += String.format("%-5s | %-15s | %-30s | %-80s | %-60s | %s\n",
                 "No.", "Program Code", "Program Level", "Program Name", "Program Faculty", "Program Description");
-
+        outputStr += " \n";
         Iterator<Program> iterator = pList.getIterator();
+        ArrList.insertionSort(pList, pCompare, "asc");
         int programNumber = 1;
 
         while (iterator.hasNext()) {
@@ -141,7 +114,7 @@ public class ProgramMaintenance {
         outputStr += "List of Programs:\n";
         outputStr += String.format("%-5s | %-15s | %-30s | %-80s | %-60s | %s\n",
                 "No.", "Program Code", "Program Level", "Program Name", "Program Faculty", "Program Description");
-
+        outputStr += " \n";
         Iterator<Program> iterator = pList.getIterator();
         int programNumber = 1;
         Program program = null; // Initialize program outside the loop
@@ -167,6 +140,63 @@ public class ProgramMaintenance {
         return outputStr;
     }
 
+    public void addProgram(ListInterface<Program> pList) {
+        System.out.print("\n-----------------------> Adding Programme\n"
+                + "----------------------------------------->\n\n");
+        addNewProgram(pList);
+    }
+
+    public void searchProg(ListInterface<Program> pList) {
+        int choiceS;
+        do{
+            System.out.print("\n--------------------------> Searching Programme\n"
+                    + "       1. List All Programme\n"
+                    + "       2. Search Program\n"
+                    + "       3. Back to Programme Main Page\n");
+            System.out.print("\nEnter the number to continue(1,2,3): ");
+            choiceS = iv.readInteger();
+            switch (choiceS) {
+                case 1:
+                    pU.listAllPrograms(getAllPrograms(pList));
+                    break;
+                case 2:
+                    searchProgram sp = new searchProgram(pList);
+                    break;
+                case 3:
+                    break;
+                default:
+                    MessageUI.displayInvalidChoiceMessage();
+                    break;
+            }
+        }while(choiceS!=3);
+    }
+
+    public void modifyProgram(ListInterface<Program> pList) {
+        System.out.print("\n--------------------> Modifying Programme\n"
+                + "----------------------------------------->\n\n");
+        pU.listAllPrograms(getAllPrograms(pList));
+        modifyProgram mp;
+        mp = new modifyProgram(pList);
+    }
+
+    public void deleteProgram(ListInterface<Program> pList) {
+        System.out.print("\n--------------------> Deleting Programme\n"
+                + "----------------------------------------->\n\n");
+        pU.listAllPrograms(getAllPrograms(pList));
+        deleteProgram dp;
+        dp = new deleteProgram(pList);
+    }
+
+    public void printReport() {
+        reportProgram rp;
+        rp = new reportProgram();
+    }
+
+    public void goTP(){
+        tpm = new TutorialProgramMaintenance();
+        tpm.runTutorialProgramMaintenance();
+    }
+    
     public void displayPrograms(ListInterface<Program> pList) {
         String outputStr = getAllPrograms(pList);
         pU.listAllPrograms(outputStr);

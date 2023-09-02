@@ -33,6 +33,7 @@ public class searchTutorialProgram {
             String header = String.format("%-15s | %-80s | %-20s | %-25s | %-30s | %s%n",
                     "Program Code", "Program Name", "Tutorial Group",
                     "Number of Students", "Class Rap", "Intake");// Labels
+            System.out.println("---------------------------------------------------------------------------------------------------------------------------------------");
             String row = ""; 
             while (iterator.hasNext()) {
                 TutorialProgram tutorialProgram = iterator.next();

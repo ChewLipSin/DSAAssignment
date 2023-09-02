@@ -1,21 +1,18 @@
 package boundary;
 
-import adt.ArrList;
 import adt.ListInterface;
-import control.ProgramMaintenance;
 import entity.Program;
 import java.util.InputMismatchException;
 import utility.ConsoleColor;
 import utility.InputValue;
 import static utility.MessageUI.printFormattedText;
+
 /**
  *
  * @author Lim Yi Leong
  */
 public class ProgramUI {
 
-    private ListInterface<Program> pList = new ArrList<>();
-    private ProgramMaintenance pM = new ProgramMaintenance();
     private InputValue iv = new InputValue();
     private static final String[] levels = {"Foundation", "Diploma", "Bachelor Degree", "Master", "Doctor of Philosophy"};
     private static final String[] faculties = {
@@ -50,7 +47,7 @@ public class ProgramUI {
                 System.out.print("|\n|");
                 printFormattedText(" 6. Programme report         ", ConsoleColor.MAGENTA);
                 System.out.print("|\n|");
-                printFormattedText(" 0. Back to main menu        ", ConsoleColor.BRIGHTMAGENTA);
+                printFormattedText(" 7. Back to main menu        ", ConsoleColor.BRIGHTMAGENTA);
                 System.out.print("|\n");
                 System.out.print("+-----------------------------+\n");
                 System.out.print("Enter choice: ");
@@ -78,17 +75,18 @@ public class ProgramUI {
                 if (code.equals("EXI")) {
                     return null;
                 }
-                if (iv.isValidCode(code)){
-                if (isCodeUnique(code, pList)) {
-                    return code;
+                if (iv.isValidCode(code)) {
+                    if (isCodeUnique(code, pList)) {
+                        return code;
+                    } else {
+                        printFormattedText("\nProgram code already exists. Please enter a unique program code.", ConsoleColor.RED);
+                    }
                 } else {
-                    printFormattedText("\nProgram code already exists. Please enter a unique program code.", ConsoleColor.RED);
+                    printFormattedText("\nInvalid code format. Please enter a 3-character program code.", ConsoleColor.RED);
                 }
-                } else {
-                printFormattedText("\nInvalid code format. Please enter a 3-character program code.", ConsoleColor.RED);
-            }
-            }else
+            } else {
                 printFormattedText("\nInvalid code length. Please enter a 3-character program code.", ConsoleColor.RED);
+            }
         }
     }
 
@@ -148,23 +146,23 @@ public class ProgramUI {
 
     public Program inputProgramDetails(ListInterface<Program> pList) {
         String code = inputProgramCode(pList);
-        if (code==null) {
+        if (code == null) {
             return null;
         }
         String level = inputProgramLevel();
-        if (level==null){
+        if (level == null) {
             return null;
         }
         String name = inputProgramName();
-        if (name==null) {
+        if (name == null) {
             return null;
         }
         String faculty = inputProgramFaculty();
-        if (faculty==null){
+        if (faculty == null) {
             return null;
         }
         String description = inputProgramDescription();
-        if (description==null) {
+        if (description == null) {
             return null;
         }
         System.out.println();

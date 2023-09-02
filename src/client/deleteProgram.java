@@ -70,7 +70,7 @@ public class deleteProgram {
                     pList.remove(index);
                     try {
                         DAO.saveToFile(pList,"program.dat");
-                        printFormattedText("Program deleted successfully.", ConsoleColor.GREEN);
+                        printFormattedText("Program deleted successfully.\n", ConsoleColor.GREEN);
                         deleteTutorialProgram(program, tpList);
                         // Ask user if they want to print the updated list
                         System.out.print("Do you want to print the updated program list? (y/n): ");
@@ -102,12 +102,12 @@ public class deleteProgram {
         System.out.println(tpList.getEntry(1));
         System.out.println(index.getEntry(1));
         for (int i = 1; i <= index.size(); i++) {
-            System.out.println("Removing: " + index.getEntry(i));
+            //System.out.println("Removing: " + index.getEntry(i));
             tpList.remove(index.getEntry(i));
             try {
                 DAO.saveToFile(tpList,"tutorialprogram.dat");
             } catch (IOException ex) {
-                printFormattedText("\nAn error occurred while saving the program list.", ConsoleColor.RED);
+                printFormattedText("\nAn error occurred while saving the program list.\n", ConsoleColor.RED);
             }
         }
 
