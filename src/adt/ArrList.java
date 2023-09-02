@@ -9,6 +9,7 @@ import java.util.Iterator;
  *
  * @author Chew Lip Sin
  * @author Lim Yi Leong
+ * @author Eugene Teoh
  * @param <T> type of elements stored in the stack.
  */
 public class ArrList<T> implements ListInterface<T>, Serializable {
