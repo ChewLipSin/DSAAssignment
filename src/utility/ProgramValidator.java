@@ -2,7 +2,7 @@ package utility;
 
 import adt.ArrList;
 import adt.ListInterface;
-import dao.ProgramDAO;
+import dao.tDAO;
 import entity.Program;
 import java.util.Iterator;
 /**
@@ -10,11 +10,11 @@ import java.util.Iterator;
  * @author Lim Yi Leong
  */
 public class ProgramValidator {
-    private ProgramDAO pDAO = new ProgramDAO();
+    private final tDAO DAO = new tDAO();
     private ListInterface<Program> pList = new ArrList<>();
     
     public boolean isProgramCodeValid(String code) {
-        pList = pDAO.retrieveFromFile();
+        pList = DAO.retrieveFromFile("program.dat");
         Iterator<Program> iterator = pList.getIterator();
         while (iterator.hasNext()) {
             Program p = iterator.next();
@@ -27,7 +27,7 @@ public class ProgramValidator {
     
     public String getProgramName(String code){
         String name = null;
-        pList=pDAO.retrieveFromFile();
+        pList=DAO.retrieveFromFile("program.dat");
         Iterator<Program> iterator = pList.getIterator();
         while (iterator.hasNext()){
             Program p = iterator.next();

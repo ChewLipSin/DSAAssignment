@@ -6,7 +6,7 @@ import client.deleteProgram;
 import client.modifyProgram;
 import client.reportProgram;
 import client.searchProgram;
-import dao.ProgramDAO;
+import dao.tDAO;
 import entity.*;
 import java.io.IOException;
 import java.util.Iterator;
@@ -14,37 +14,34 @@ import java.util.Scanner;
 import utility.ConsoleColor;
 import utility.MessageUI;
 import static utility.MessageUI.printFormattedText;
-
 /**
+ *
  * @author Lim Yi Leong
  */
 public class ProgramMaintenance {
 
     private ListInterface<Program> pList = new ArrList<>();
-    private static ProgramDAO pDAO = new ProgramDAO();
+    private final tDAO DAO = new tDAO();
     private static ProgramUI pU = new ProgramUI();
     private static TutorialProgramMaintenance tpm = new TutorialProgramMaintenance();
     private Scanner scanner = new Scanner(System.in);
 
     public ProgramMaintenance() {
-        this.pList = pDAO.retrieveFromFile();
+        this.pList = DAO.retrieveFromFile("program.dat");
     }
 
     public void runProgramMaintenance() {
-        pList = pDAO.retrieveFromFile();
+        pList = DAO.retrieveFromFile("program.dat");
         System.out.println(pList);
         int choice = 0;
         do {
             choice = pU.getMenuChoice();
             switch (choice) {
-                case 0:
-                    MessageUI.displayExitMessage();
-                    break;
                 case 1:
                     System.out.print("\n\n");
                     System.out.print("-----------------------> Adding Programme\n"
                             + "----------------------------------------->\n\n");
-                    addNewProgram();
+                    addNewProgram(pList);
                     break;
                 case 2:
                     int choiceS = 0;
@@ -94,7 +91,8 @@ public class ProgramMaintenance {
                     new reportProgram();
                     break;
                 case 7:
-                    //main
+                    //back main
+                    MessageUI.displayExitMessage();
                     break;
                 default:
                     MessageUI.displayInvalidChoiceMessage();
@@ -102,18 +100,18 @@ public class ProgramMaintenance {
         } while (choice != 0);
     }
 
-    public void addNewProgram() {
-        Program newProgram = pU.inputProgramDetails();
+    public void addNewProgram(ListInterface<Program> pList) {
+        Program newProgram = pU.inputProgramDetails(pList);
         if (newProgram != null) {
             pList.add(newProgram);
             try {
-                pDAO.saveToFile(pList);
+                DAO.saveToFile(pList,"program.dat");
                 pU.listAllPrograms(getAllPrograms(pList));
             } catch (IOException ex) {
                 //System.out.print("Failed to save");
             }
         } else {
-            printFormattedText("\nExit Successfully", ConsoleColor.BRIGHTMAGENTA);
+            printFormattedText("\nExit Successfully", ConsoleColor.GREEN);
         }
     }
 

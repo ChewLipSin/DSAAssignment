@@ -2,7 +2,7 @@ package entity;
 
 import java.io.Serializable;
 /**
- * @author zyleo
+ * @author Lim Yi Leong
  */
 public class TutorialProgram implements Serializable{
     String code;
@@ -21,7 +21,6 @@ public class TutorialProgram implements Serializable{
         this.intakeYear = intakeYear;
         this.intakeMonth = intakeMonth;
     }
-
     
     public String getCode() {
         return code;

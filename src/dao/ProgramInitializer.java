@@ -24,9 +24,9 @@ public class ProgramInitializer {
         ListInterface<Program> programList = p.ProgramInitializer();
 
         // Save the program data to the file using ProgramDAO
-        ProgramDAO programDAO = new ProgramDAO();
+        tDAO DAO = new tDAO();
         try {
-            programDAO.saveToFile(programList);
+            DAO.saveToFile(programList,"program.dat");
         } catch (IOException ex) {
             System.out.println("Error saving data to file: " + ex.getMessage());
         }

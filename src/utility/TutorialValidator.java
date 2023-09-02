@@ -1,27 +1,40 @@
 package utility;
 
+import adt.ArrList;
 import adt.ListInterface;
-import dao.ProgramDAO;
-import dao.TutorialPrDAO;
-import entity.Program;
+import dao.tDAO;
 import entity.TutorialProgram;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.Iterator;
-
+/**
+ *
+ * @author Lim Yi Leong
+ */
 public class TutorialValidator {
-    private static TutorialPrDAO tpDAO;
-    public static boolean isTutorialGroupValid(String groupName) {
-         tpDAO = new TutorialPrDAO();
-        ListInterface<TutorialProgram> tpList = tpDAO.retrieveFromFile();
+    private final tDAO DAO = new tDAO();
+    private ListInterface<TutorialProgram> tpList = new ArrList<>();
+    
+    public boolean isTutorialGroupValid(String groupName) {
+        tpList = DAO.retrieveFromFile("tutorialProgram.dat");
         Iterator<TutorialProgram> iterator = tpList.getIterator();
         while (iterator.hasNext()) {
             TutorialProgram tp = iterator.next();
-            if (tp.getCode().equalsIgnoreCase(groupName)) {
+            if (tp.getGroupname().equalsIgnoreCase(groupName)) {
                 return true; 
             }
         }
         return false;
+    }
+        public String getTutorialGroupName(String code){
+        String name = null;
+        tpList = DAO.retrieveFromFile("tutorialProgram.dat");
+        Iterator<TutorialProgram> iterator = tpList.getIterator();
+        while (iterator.hasNext()){
+            TutorialProgram tp = iterator.next();
+            if (tp.getCode().equalsIgnoreCase(code)) {
+                name = tp.getGroupname(); 
+                System.out.println(name);
+            }
+        }
+        return name;
     }
 }

@@ -4,21 +4,20 @@ import adt.ArrList;
 import adt.ListInterface;
 import boundary.ProgramUI;
 import control.ProgramMaintenance;
-import dao.ProgramDAO;
+import dao.tDAO;
 import entity.Program;
 import java.io.IOException;
 import java.util.Scanner;
 import utility.ConsoleColor;
 import static utility.MessageUI.printFormattedText;
-
 /**
+ *
  * @author Lim Yi Leong
  */
 public class modifyProgram {
 
     private ListInterface<Program> pList = new ArrList<>();
-    ;
-    private static ProgramDAO pDAO = new ProgramDAO();
+    private final tDAO DAO = new tDAO();
     private static ProgramUI pU = new ProgramUI();
     private ProgramMaintenance pM = new ProgramMaintenance();
     private Scanner scanner;
@@ -63,7 +62,7 @@ public class modifyProgram {
                 if (input.equals("n") || input.equals("no")) {
                     quit = true;
                 } else if (input.equals("y") || input.equals("yes")) {
-                    newCode = pU.inputProgramCode();
+                    newCode = pU.inputProgramCode(pList);
                     quit = true;
                 } else {
                     printFormattedText("Invalid input. Please enter 'y' or 'n'.", ConsoleColor.RED);
@@ -86,7 +85,7 @@ public class modifyProgram {
             program.setDescription(newDescription);
             pList.replace(index, program);
             try {
-                pDAO.saveToFile(pList);
+                DAO.saveToFile(pList,"program.dat");
                 printFormattedText("\nProgram modified successfully.", ConsoleColor.GREEN);
 
                 System.out.println("\nUpdated Program Details:");

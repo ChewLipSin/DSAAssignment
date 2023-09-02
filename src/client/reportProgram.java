@@ -2,44 +2,44 @@ package client;
 
 import adt.ArrList;
 import adt.ListInterface;
-import dao.TutorialPrDAO;
+import dao.tDAO;
 import entity.Program;
-import entity.Tutorial;
 import entity.TutorialProgram;
 import java.util.Iterator;
 import utility.ConsoleColor;
 import static utility.MessageUI.printFormattedText;
-import utility.Sort;
-
+import utility.programCodeComparator;
 /**
+ *
  * @author Lim Yi Leong
  */
 public class reportProgram {
 
     private ListInterface<TutorialProgram> tpList = new ArrList<>();
     private ListInterface<Program> pList = new ArrList<>();
-    private TutorialPrDAO tpDAO = new TutorialPrDAO();
-    private Sort sorter = new Sort();
+    private final tDAO DAO = new tDAO();
+    private final programCodeComparator pCompare = new programCodeComparator(); 
 
     public reportProgram() {
-        tpList = tpDAO.retrieveFromFile();
-        listTutorialsByProgramCode();
+        this.tpList = DAO.retrieveFromFile("tutorialProgram.dat");
+        this.pList = DAO.retrieveFromFile("program.dat");
+        listTutorialsByProgramCode(pList);
         sumNStudents(tpList);
-        listProgramsAndGroups();
+        listProgramsAndGroups(pList,tpList);
 
     }
     String hyphenLine = "--------------------------------------------------------------------------";
     String starLine = hyphenLine.replace('-', '*');
 
     //List tutorial every program
-    private void listTutorialsByProgramCode() {
+    private void listTutorialsByProgramCode(ListInterface<Program> pList) {
         printFormattedText("\n" + starLine + "\n", ConsoleColor.BRIGHTRED);
         printFormattedText("+-----------------------------------------+\n", ConsoleColor.BRIGHTBLUE);
         printFormattedText("+   List of tutorial group in Programme   +\n", ConsoleColor.CYAN);
         printFormattedText("+-----------------------------------------+\n", ConsoleColor.BRIGHTBLUE);
 
         try {
-            Sort.quickSort(tpList, 1, tpList.size() - 1, "code");
+            ArrList.insertionSort(pList, pCompare, "asc");
             String tpcode = "";
             Iterator<TutorialProgram> iterator = tpList.getIterator();
             while (iterator.hasNext()) {
@@ -69,7 +69,7 @@ public class reportProgram {
         printFormattedText("+-----------------------------+\n", ConsoleColor.BRIGHTYELLOW);
         printFormattedText("+ Total Students in Programme +\n", ConsoleColor.YELLOW);
         printFormattedText("+-----------------------------+\n", ConsoleColor.BRIGHTYELLOW);
-        sorter.quickSort(tpList, 1, tpList.size() - 1, "code");
+        ArrList.insertionSort(pList, pCompare, "asc");
 
         int totalStudents = 0;
         String tpcode = "";
@@ -93,14 +93,14 @@ public class reportProgram {
     }
 
     //List each programs tutorial groups students
-    private void listProgramsAndGroups() {
+    private void listProgramsAndGroups(ListInterface<Program> pList, ListInterface<TutorialProgram> tpList) {
         printFormattedText("\n" + starLine + "\n", ConsoleColor.BRIGHTRED);
         printFormattedText("+-----------------------------------------+\n", ConsoleColor.BRIGHTBLUE);
         printFormattedText("+ Total Students of Tutorial in Programme +\n", ConsoleColor.CYAN);
         printFormattedText("+-----------------------------------------+\n", ConsoleColor.BRIGHTBLUE);
 
         try {
-            Sort.quickSort(tpList, 1, tpList.size() - 1, "code");
+            ArrList.insertionSort(pList, pCompare, "asc");
 
             // Iterate through the list and print each program, group, and number of students
             String tpcode = "";
@@ -144,7 +144,7 @@ public class reportProgram {
         while (iterator.hasNext()) {
             TutorialProgram program = iterator.next();
             if (program.getCode().equals(programCode)) {
-                System.out.println(program.getGroupname()); // Print the group name or other relevant information
+                System.out.println(program.getGroupname());
             }
         }
 

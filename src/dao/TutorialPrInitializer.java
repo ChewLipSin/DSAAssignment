@@ -1,7 +1,6 @@
 package dao;
 
 import adt.*;
-import entity.Program;
 import entity.TutorialProgram;
 import java.io.IOException;
 /**
@@ -26,9 +25,9 @@ public class TutorialPrInitializer {
         ListInterface<TutorialProgram> tpList = tp.TutorialPrInitializer();
 
         // Save the program data to the file using ProgramDAO
-        TutorialPrDAO tpDAO = new TutorialPrDAO();
+        tDAO DAO = new tDAO();
         try {
-            tpDAO.saveToFile(tpList);
+            DAO.saveToFile(tpList,"tutorialProgram.dat");
         } catch (IOException ex) {
             System.out.println("Error saving data to file: " + ex.getMessage());
         }

@@ -4,14 +4,14 @@ import adt.ArrList;
 import adt.ListInterface;
 import boundary.TutorialProgramUI;
 import control.TutorialProgramMaintenance;
-import dao.TutorialPrDAO;
+import dao.tDAO;
 import entity.TutorialProgram;
 import java.io.IOException;
 import java.util.Scanner;
 import utility.ConsoleColor;
 import static utility.MessageUI.printFormattedText;
-
 /**
+ *
  * @author Lim Yi Leong
  */
 public class deleteTutorialInProgram {
@@ -19,7 +19,7 @@ public class deleteTutorialInProgram {
     private ListInterface<TutorialProgram> tpList = new ArrList<>();
     private static final TutorialProgramMaintenance tpM = new TutorialProgramMaintenance();
     private static final TutorialProgramUI tpU = new TutorialProgramUI();
-    private static final TutorialPrDAO tpDAO = new TutorialPrDAO();
+    private final tDAO DAO = new tDAO();
     private Scanner scanner;
 
     public deleteTutorialInProgram(ListInterface<TutorialProgram> tutorialGroupList) {
@@ -49,11 +49,10 @@ public class deleteTutorialInProgram {
         }
     }
 
-    public void deleteTP(int index) {
+    private void deleteTP(int index) {
         boolean quit = false;
         while (!quit) {
             if (index >= 0 && index < tpList.size()) {
-                TutorialProgram tutorialProgram = tpList.getEntry(index);
 
                 // Ask for user confirmation
                 printFormattedText("\nAre you sure you want to delete the tutorial group? (y/n): ", ConsoleColor.BRIGHTBLUE);
@@ -63,7 +62,7 @@ public class deleteTutorialInProgram {
                     // Delete the program
                     tpList.remove(index);
                     try {
-                        tpDAO.saveToFile(tpList);
+                        DAO.saveToFile(tpList,"tutorialProgram.dat");
                         printFormattedText("\nProgram deleted successfully.", ConsoleColor.GREEN);
 
                         // Ask user if they want to print the updated list

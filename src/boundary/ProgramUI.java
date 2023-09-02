@@ -8,8 +8,8 @@ import java.util.InputMismatchException;
 import utility.ConsoleColor;
 import utility.InputValue;
 import static utility.MessageUI.printFormattedText;
-
 /**
+ *
  * @author Lim Yi Leong
  */
 public class ProgramUI {
@@ -69,34 +69,38 @@ public class ProgramUI {
         System.out.println(outputStr);
     }
 
-    public String inputProgramCode() {
-        printFormattedText("\nA kindly reminder you can input 'Exi' to exit ^_^\n", ConsoleColor.CYAN);
-        System.out.print("\nEnter program code (3 Character; ie,'RDS'  ): ");
+    public String inputProgramCode(ListInterface<Program> pList) {
+        printFormattedText("\nA kindly reminder you can input 'EXI' to exit ^_^\n", ConsoleColor.CYAN);
         while (true) {
-            String code = iv.readString();
+            System.out.print("\n\nEnter program code (3 Character; ie,'RDS'  ): ");
+            String code = iv.readString().toUpperCase();
             if (code.length() == 3) {
-                if (code.toLowerCase().equals("exi")) {
+                if (code.equals("EXI")) {
                     return null;
                 }
                 if (iv.isValidCode(code)){
-                if (isCodeUnique(code)) {
+                if (isCodeUnique(code, pList)) {
                     return code;
                 } else {
                     printFormattedText("\nProgram code already exists. Please enter a unique program code.", ConsoleColor.RED);
                 }
-            } else {
+                } else {
                 printFormattedText("\nInvalid code format. Please enter a 3-character program code.", ConsoleColor.RED);
             }
-            }printFormattedText("\nInvalid code length. Please enter a 3-character program code.", ConsoleColor.RED);
+            }else
+                printFormattedText("\nInvalid code length. Please enter a 3-character program code.", ConsoleColor.RED);
         }
     }
 
     public String inputProgramLevel() {
+        printFormattedText("\nA kindly reminder you can input '0' to exit ^_^\n", ConsoleColor.CYAN);
         while (true) {
             System.out.print("\n\nEnter number of program level (1-5):\n");
             displayOptions(levels);
             int levelChoice = iv.readInteger();
-
+            if (levelChoice == 0) {
+                return null;
+            }
             if (levelChoice >= 1 && levelChoice <= 5) {
                 return getLevelFromChoice(levelChoice);
             } else {
@@ -108,19 +112,22 @@ public class ProgramUI {
     public String inputProgramName() {
         printFormattedText("\nA kindly reminder you can input 'Exi' to exit ^_^\n", ConsoleColor.CYAN);
         System.out.print("\n\nEnter program name: ");
-        String name = iv.readString();
-        if (!name.toLowerCase().equals("exi")) {
-            return name;
+        String name = iv.readString().toUpperCase();
+        if (name.equals("EXI")) {
+            return null;
         }
-        return null;
+        return name;
     }
 
     public String inputProgramFaculty() {
+        printFormattedText("\nA kindly reminder you can input '0' to exit ^_^\n", ConsoleColor.CYAN);
         while (true) {
             System.out.println("\nSelect the faculty of the program (1-7):\n");
             displayOptions(faculties);
             int facultyChoice = iv.readInteger();
-
+            if (facultyChoice == 0) {
+                return null;
+            }
             if (facultyChoice >= 1 && facultyChoice <= 7) {
                 return getFacultyFromChoice(facultyChoice);
             } else {
@@ -132,30 +139,36 @@ public class ProgramUI {
     public String inputProgramDescription() {
         printFormattedText("\nA kindly reminder you can input 'Exi' to exit ^_^\n", ConsoleColor.CYAN);
         System.out.print("\n\nEnter program description: ");
-        String descp = iv.readString();
-        if (!descp.toLowerCase().equals("exi")) {
+        String descp = iv.readString().toUpperCase();
+        if (!descp.equals("EXI")) {
             return descp;
         }
         return null;
     }
 
-    public Program inputProgramDetails() {
-        String code = inputProgramCode();
+    public Program inputProgramDetails(ListInterface<Program> pList) {
+        String code = inputProgramCode(pList);
         if (code==null) {
             return null;
         }
         String level = inputProgramLevel();
+        if (level==null){
+            return null;
+        }
         String name = inputProgramName();
         if (name==null) {
             return null;
         }
         String faculty = inputProgramFaculty();
+        if (faculty==null){
+            return null;
+        }
         String description = inputProgramDescription();
         if (description==null) {
             return null;
         }
         System.out.println();
-        if (!code.isEmpty() && !name.isEmpty() && !description.isEmpty() && isCodeUnique(code) && isNameUnique(name)) {
+        if (!code.isEmpty() && !name.isEmpty() && !description.isEmpty() && isCodeUnique(code, pList) && isNameUnique(name, pList)) {
             return new Program(code, level, name, faculty, description);
         } else {
             return null;
@@ -185,20 +198,20 @@ public class ProgramUI {
         System.out.print("Choose an option : ");
     }
 
-    private boolean isCodeUnique(String code) {
-        for (int i = 0; i < pList.size(); i++) {
+    private boolean isCodeUnique(String code, ListInterface<Program> pList) {
+        for (int i = 1; i <= pList.size(); i++) {
             Program program = pList.getEntry(i);
-            if (program.getCode().equals(code)) {
+            if (program.getCode().toUpperCase().equals(code.toUpperCase())) {
                 return false;
             }
         }
         return true; // Code is unique
     }
 
-    private boolean isNameUnique(String name) {
-        for (int i = 0; i < pList.size(); i++) {
+    private boolean isNameUnique(String name, ListInterface<Program> pList) {
+        for (int i = 1; i < pList.size(); i++) {
             Program program = pList.getEntry(i);
-            if (program.getName().equals(name)) {
+            if (program.getName().toUpperCase().equals(name.toUpperCase())) {
                 return false;
             }
         }

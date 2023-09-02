@@ -5,40 +5,45 @@ import adt.ListInterface;
 import boundary.TutorialProgramUI;
 import client.deleteTutorialInProgram;
 import client.searchTutorialProgram;
-import dao.TutorialPrDAO;
+import dao.tDAO;
+import entity.Program;
+import entity.Tutorial;
 import entity.TutorialProgram;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Scanner;
 import utility.MessageUI;
 /**
+ *
  * @author Lim Yi Leong
  */
 public class TutorialProgramMaintenance {
 
     private ListInterface<TutorialProgram> tpList = new ArrList<>();
-    private static final TutorialPrDAO tpDAO = new TutorialPrDAO();
-    private static final TutorialProgramUI tpU = new TutorialProgramUI();
-    private static final ProgramMaintenance pM = new ProgramMaintenance();
+    private ListInterface<Program> pList = new ArrList<>();
+    private ListInterface<Tutorial> tList = new ArrList<>();
+    private final tDAO DAO = new tDAO();
+    private final TutorialProgramUI tpU = new TutorialProgramUI();
+    private final ProgramMaintenance pM = new ProgramMaintenance();
      private Scanner scanner = new Scanner(System.in);
 
     public TutorialProgramMaintenance() {
-        this.tpList = tpDAO.retrieveFromFile();
+        this.tpList = DAO.retrieveFromFile("tutorialProgram.dat");
     }
   
     public void runTutorialProgramMaintenance() {
         int choice = 0;
+        tpList = DAO.retrieveFromFile("tutorialProgram.dat");
+        pList = DAO.retrieveFromFile("program.dat");
+        tList = DAO.retrieveFromFile("tutorial.dat");
         do {
             choice = tpU.getMenuChoice();
             switch (choice) {
-                case 0:
-                    MessageUI.displayExitMessage();
-                    break;
                 case 1:
                     System.out.print("\n\n");
                     System.out.print("-----------> Adding Tutorial To Programme\n"
                                    + "----------------------------------------->\n");
-                    addNewTutorialProgram();
+                    addNewTutorialProgram(pList,tList);
                     tpU.listAllTutorialPrograms(getAllTutorialPrograms(tpList));
                     break;
                 case 2:
@@ -86,13 +91,15 @@ public class TutorialProgramMaintenance {
         //main page
     }
 
-    public void addNewTutorialProgram() {
-        TutorialProgram newProgram = tpU.inputTutorialProgramDetails();
+    public void addNewTutorialProgram(ListInterface<Program> pList, ListInterface<Tutorial> tList) {
+        TutorialProgram newProgram = tpU.inputTutorialProgramDetails(pList, tList);
+        if (newProgram != null) {
         tpList.add(newProgram);
         try {
-            tpDAO.saveToFile(tpList);
+            DAO.saveToFile(tpList,"tutorialProgram.dat");
         } catch (IOException ex) {
             System.out.print("Failed to save");
+        }
         }
     }
 

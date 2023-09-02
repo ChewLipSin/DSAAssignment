@@ -4,22 +4,20 @@ import adt.ArrList;
 import adt.ListInterface;
 import boundary.ProgramUI;
 import control.ProgramMaintenance;
-import dao.ProgramDAO;
 import entity.Program;
 import java.util.Iterator;
 import java.util.Scanner;
 import utility.ConsoleColor;
 import utility.InputValue;
 import static utility.MessageUI.printFormattedText;
-
 /**
+ *
  * @author Lim Yi Leong
  */
 public class searchProgram {
 
     private ListInterface<Program> pList = new ArrList<>();
     private ProgramMaintenance pM = new ProgramMaintenance();
-    private static ProgramDAO pDAO = new ProgramDAO();
     private static ProgramUI pU = new ProgramUI();
     private InputValue iv = new InputValue();
 
@@ -57,10 +55,9 @@ public class searchProgram {
             } else {
                 printFormattedText("\nNo matching programs found.", ConsoleColor.BRIGHTRED);
             }
-            System.out.print("\n\n");
-            printFormattedText("\nDo you want to continue searching? (y/n): ", ConsoleColor.BRIGHTBLUE);
+            printFormattedText("\n\nDo you want to continue searching? (y=yes): ", ConsoleColor.BRIGHTBLUE);
             String choice = scanner.nextLine();
-            if (!choice.equalsIgnoreCase("y")) {
+            if (!choice.equalsIgnoreCase("Y")||!choice.equalsIgnoreCase("YES")) {
                 continueSearching = false;
             }
         }

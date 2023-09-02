@@ -4,14 +4,13 @@ import adt.ArrList;
 import adt.ListInterface;
 import boundary.TutorialProgramUI;
 import control.TutorialProgramMaintenance;
-import dao.TutorialPrDAO;
 import entity.TutorialProgram;
 import java.util.Iterator;
 import java.util.Scanner;
 import utility.ConsoleColor;
 import static utility.MessageUI.printFormattedText;
-
 /**
+ *
  * @author Lim Yi Leong
  */
 public class searchTutorialProgram {
@@ -19,7 +18,6 @@ public class searchTutorialProgram {
     private ListInterface<TutorialProgram> tpList = new ArrList<>();
     private static TutorialProgramMaintenance tpM = new TutorialProgramMaintenance();
     private static TutorialProgramUI tpU = new TutorialProgramUI();
-    private static TutorialPrDAO tpDAO = new TutorialPrDAO();
 
     public searchTutorialProgram(ListInterface<TutorialProgram> tpList) {
         Scanner scanner = new Scanner(System.in);
@@ -57,10 +55,9 @@ public class searchTutorialProgram {
             } else {
                 printFormattedText("\nNo matching tutorial programs found.", ConsoleColor.BRIGHTRED);
             }
-            System.out.print("\n\n");
-            printFormattedText("\nDo you want to continue searching? (y/n): ", ConsoleColor.BRIGHTBLUE);
+            printFormattedText("\n\nDo you want to continue searching? (y=yes): ", ConsoleColor.BRIGHTBLUE);
             String choice = scanner.nextLine();
-            if (!choice.equalsIgnoreCase("y")) {
+            if (!choice.equalsIgnoreCase("Y")||!choice.equalsIgnoreCase("YES")) {
                 continueSearching = false;
             }
         }

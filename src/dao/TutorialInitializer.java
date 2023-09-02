@@ -30,9 +30,9 @@ public class TutorialInitializer {
         ListInterface<Tutorial> tList = t.TutorialInitializer();
 
         // Save the program data to the file using ProgramDAO
-        TutorialDAO tDAO = new TutorialDAO();
+        tDAO DAO = new tDAO();
         try {
-            tDAO.saveToFile(tList);
+            DAO.saveToFile(tList,"tutorial.dat");
         } catch (IOException ex) {
             System.out.println("Error saving data to file: " + ex.getMessage());
         }

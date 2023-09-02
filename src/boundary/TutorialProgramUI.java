@@ -3,22 +3,21 @@ package boundary;
 import adt.ListInterface;
 import control.TutorialProgramMaintenance;
 import entity.Program;
+import entity.Tutorial;
 import entity.TutorialProgram;
 import utility.ProgramValidator;
 import utility.TutorialValidator;
 import utility.ConsoleColor;
 import utility.InputValue;
 import static utility.MessageUI.printFormattedText;
-
 /**
+ *
  * @author Lim Yi Leong
  */
 public class TutorialProgramUI {
 
-    private ListInterface<TutorialProgram> tpList;
-    private ListInterface<Program> pList;
-    private TutorialProgramMaintenance tpM;
     private ProgramValidator pV = new ProgramValidator();
+    private TutorialValidator tV = new TutorialValidator();
     private InputValue iv = new InputValue();
 
     public int getMenuChoice() {
@@ -50,11 +49,19 @@ public class TutorialProgramUI {
         System.out.println(outputStr);
     }
 
-    public String inputTutorialProgramCode() {
+    public String inputTutorialProgramCode(ListInterface<Program> pList) {
+        printFormattedText("\nA kindly reminder you can input 'EXI' to exit ^_^\n", ConsoleColor.CYAN);
         String code;
         do {
-            System.out.print("\nEnter tutorial programme code: ");
-            code = iv.readString();
+            System.out.println("\nThe programme code exists in programme :");
+            for (int i = 1; i <= pList.size(); i++) {
+                System.out.println(pList.getEntry(i).getCode());
+            }
+            System.out.print("\nEnter tutorial programme code : ");
+            code = iv.readString().toUpperCase();
+            if (code.equalsIgnoreCase("EXI")) {
+                    return null;
+            }
             if (!pV.isProgramCodeValid(code)) {
                 printFormattedText("\nInvalid program code. Please try again.", ConsoleColor.RED);
             }
@@ -63,51 +70,70 @@ public class TutorialProgramUI {
     }
 
     public String inputTutorialProgramName(String code) {
-        return pV.getProgramName(code);
+        System.out.println();
+        return pV.getProgramName(code.toUpperCase());
     }
 
-    public String inputTutorialProgramGroup() {
+    public String inputTutorialProgramGroup(String code, ListInterface<Tutorial> tList) {
+        printFormattedText("\n\nA kindly reminder you can input 'EXI' to exit ^_^\n", ConsoleColor.CYAN);
         String group;
+        boolean stop = false;
         do {
-            System.out.print("\n\nEnter tutorial program group name: ");
-            group = iv.readString();
-            if (!TutorialValidator.isTutorialGroupValid(group)) {
-                printFormattedText("\nInvalid tutorial group name. Please try again.", ConsoleColor.RED);
+            System.out.print("\nThe tutorial group exists in programme " + code + ":\n");
+            tV.getTutorialGroupName(code);
+
+            System.out.print("\n\nEnter tutorial program group name (RSDGX ; X is number): ");
+            group = iv.readString().toUpperCase();
+            if (group.equalsIgnoreCase("EXI")) {
+                return null;
             }
-        } while (!TutorialValidator.isTutorialGroupValid(group));
+            // Check if the first three characters of 'group' match 'code'
+            if (!group.startsWith(code.substring(0, 3))) {
+                printFormattedText("\nThe first three characters of the group must match the program code.\n", ConsoleColor.RED);
+            } else if (tV.isTutorialGroupValid(group)) {
+                printFormattedText("\nTutorial group already exists. Please try again.\n", ConsoleColor.RED);
+            } else {
+                stop = true;
+            }
+        } while (!stop);
         return group;
     }
 
     public int inputTutorialProgramNumStudents() {
+        printFormattedText("\nA kindly reminder you can input '0' to exit ^_^\n", ConsoleColor.CYAN);
         printFormattedText("\n\nA group of Students -> Min:10 Max:30", ConsoleColor.CYAN);
         while (true) {
             System.out.print("\nEnter number of students (10-30): ");
             int input = iv.readInteger();
-
+            if (input == 0){
+                return 0;
+            }
             if (input >= 10 && input <= 30) {
                 int num = input;
-                if (num >= 10 && num <= 30) {
-                    return num;
                 } else {
                     printFormattedText("\nInvalid input! Please enter a number between 10 and 30.", ConsoleColor.RED);
                 }
-            } else {
-                printFormattedText("\nInvalid input! Please enter a valid two-digit number.", ConsoleColor.RED);
             }
-        }
     }
 
     public String inputTutorialProgramClassRep() {
+        printFormattedText("\nA kindly reminder you can input 'EXI' to exit ^_^\n", ConsoleColor.CYAN);
         System.out.print("\n\nEnter student name of group representative: ");
-        String classRep = iv.readString();
+        String classRep = iv.readString().toUpperCase();
+        if (classRep.equalsIgnoreCase("EXI")) {
+                return null;
+        }
         return classRep;
     }
 
     public int inputTutorialProgramIntakeYear() {
+        printFormattedText("\nA kindly reminder you can input '0' to exit ^_^\n", ConsoleColor.CYAN);
         while (true) {
             System.out.print("\n\nEnter intake year (2022-2023): ");
             int input = iv.readInteger();
-
+            if (input == 0) {
+                return 0;
+            }
             int year = input;
             if (year >= 2022 && year <= 2023) {
                 return year;
@@ -118,10 +144,14 @@ public class TutorialProgramUI {
     }
 
     public int inputTutorialProgramIntakeMonth() {
+        printFormattedText("\nA kindly reminder you can input '0' to exit ^_^\n", ConsoleColor.CYAN);
         printFormattedText("\n\nIntake Available -> January = 1; June = 6; September = 9", ConsoleColor.CYAN);
         while (true) {
             System.out.print("\nEnter intake month: ");
             int input = iv.readInteger();
+            if (input == 0) {
+                return 0;
+            }
             int digit = input;
             if (digit == 1 || digit == 6 || digit == 9 || digit >= 1 && digit <= 12) {
                 return digit;
@@ -131,14 +161,35 @@ public class TutorialProgramUI {
         }
     }
 
-    public TutorialProgram inputTutorialProgramDetails() {
-        String code = inputTutorialProgramCode();
+    public TutorialProgram inputTutorialProgramDetails(ListInterface<Program> pList, ListInterface<Tutorial> tList) {
+        String code = inputTutorialProgramCode(pList);
+        if (code==null) {
+            return null;
+        }
         String name = inputTutorialProgramName(code);
-        String group = inputTutorialProgramGroup();
+        if (name==null) {
+            return null;
+        }
+        String group = inputTutorialProgramGroup(code,tList);
+        if (group==null) {
+            return null;
+        }
         int numStudents = inputTutorialProgramNumStudents();
+        if (numStudents==0) {
+            return null;
+        }
         String classRap = inputTutorialProgramClassRep();
+        if (classRap==null) {
+            return null;
+        }
         int intakeYear = inputTutorialProgramIntakeYear();
+        if (intakeYear==0) {
+            return null;
+        }
         int intakeMonth = inputTutorialProgramIntakeMonth();
+        if (intakeMonth==0) {
+            return null;
+        }
         if (!code.isEmpty() && !name.isEmpty() && !group.isEmpty() && !classRap.isEmpty()) {
             return new TutorialProgram(code, name, group, numStudents, classRap, intakeYear, intakeMonth);
         } else {
