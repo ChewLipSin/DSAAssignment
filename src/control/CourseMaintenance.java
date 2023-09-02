@@ -45,11 +45,11 @@ public class CourseMaintenance {
 
     public CourseMaintenance() {
     }
-
-    public static void main(String[] args) throws IOException, InterruptedException {
-        CourseMaintenance cMain = new CourseMaintenance();
-        cMain.runCourseMaintenance();
-    }
+//
+//    public static void main(String[] args) throws IOException, InterruptedException {
+//        CourseMaintenance cMain = new CourseMaintenance();
+//        cMain.runCourseMaintenance();
+//    }
 
     public void runCourseMaintenance() throws IOException, InterruptedException {
         ListInterface<Course> courseList = cDAO.retrieveFromFile("course.dat");
