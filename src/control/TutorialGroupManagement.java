@@ -26,9 +26,23 @@ public class TutorialGroupManagement {
         tutorialGroups = ttlgrpDAO.retrieveFromFile("TtlGrpStudents.dat");
     }
 
-    public static void main(String[] args) {
-//        tutorialGroups = Initializer.initializeTutorialGroups();
-//            ttlgrpDAO.saveToFile(tutorialGroups, "TtlGrpStudents.dat");
+//    public static void main(String[] args) {
+////        tutorialGroups = Initializer.initializeTutorialGroups();
+////            ttlgrpDAO.saveToFile(tutorialGroups, "TtlGrpStudents.dat");
+//        TutorialGroupManagement tutorialGroupManagement = new TutorialGroupManagement();
+//
+//        Scanner scanner = new Scanner(System.in);
+//
+//        boolean continueProgram = true;
+//        while (continueProgram) {
+//            continueProgram = tutorialGroupManagement(scanner, tutorialGroups);
+//        }
+//
+//        System.out.println("Exiting the program...");
+//        scanner.close();
+//    }
+    public void runTutorialGroupManagement() {
+
         TutorialGroupManagement tutorialGroupManagement = new TutorialGroupManagement();
 
         Scanner scanner = new Scanner(System.in);
@@ -38,8 +52,6 @@ public class TutorialGroupManagement {
             continueProgram = tutorialGroupManagement(scanner, tutorialGroups);
         }
 
-        System.out.println("Exiting the program...");
-        scanner.close();
     }
 
     private static boolean tutorialGroupManagement(Scanner scanner, ListInterface<TutorialGroup> tutorialGroups) {

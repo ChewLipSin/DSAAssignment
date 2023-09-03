@@ -20,6 +20,7 @@ public class MainMaintenance {
     private final CourseMaintenance courseMain = new CourseMaintenance();
     private final TutorManagement tutorMain = new TutorManagement();
     private final Initializer in = new Initializer();
+    private final TutorialGroupManagement tutorialGroupManagement = new TutorialGroupManagement();
 
     public static void main(String[] args) throws IOException, InterruptedException {
         MainMaintenance mainMain = new MainMaintenance();
@@ -43,7 +44,7 @@ public class MainMaintenance {
                     tutorMain.runTutorManagement();
                     break;
                 case 3:
-//                   runTutorialGroupMaintenance(courseList, "search");
+                    tutorialGroupManagement.runTutorialGroupManagement();
                     break;
                 case 4:
                     courseMain.runCourseMaintenance();
