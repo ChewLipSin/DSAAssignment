@@ -69,7 +69,7 @@ public class ProgramUI {
     public String inputProgramCode(ListInterface<Program> pList) {
         printFormattedText("\nA kindly reminder you can input 'EXI' to exit ^_^\n", ConsoleColor.CYAN);
         while (true) {
-            System.out.print("\n\nEnter program code (3 Character; ie,'RDS'  ): ");
+            System.out.print("\n\nEnter program code (ie:'RDS'): ");
             String code = iv.readString().toUpperCase();
             if (code.length() == 3) {
                 if (code.equals("EXI")) {
@@ -93,7 +93,7 @@ public class ProgramUI {
     public String inputProgramLevel() {
         printFormattedText("\nA kindly reminder you can input '0' to exit ^_^\n", ConsoleColor.CYAN);
         while (true) {
-            System.out.print("\n\nEnter number of program level (1-5):\n");
+            System.out.print("\n\nEnter number of program level (1-5) :\n");
             displayOptions(levels);
             int levelChoice = iv.readInteger();
             if (levelChoice == 0) {
@@ -109,7 +109,7 @@ public class ProgramUI {
 
     public String inputProgramName() {
         printFormattedText("\nA kindly reminder you can input 'Exi' to exit ^_^\n", ConsoleColor.CYAN);
-        System.out.print("\n\nEnter program name: ");
+        System.out.print("\n\nEnter program name : ");
         String name = iv.readString().toUpperCase();
         if (name.equals("EXI")) {
             return null;
@@ -120,7 +120,7 @@ public class ProgramUI {
     public String inputProgramFaculty() {
         printFormattedText("\nA kindly reminder you can input '0' to exit ^_^\n", ConsoleColor.CYAN);
         while (true) {
-            System.out.println("\nSelect the faculty of the program (1-7):\n");
+            System.out.println("\nSelect the faculty of the program (1-7) :\n");
             displayOptions(faculties);
             int facultyChoice = iv.readInteger();
             if (facultyChoice == 0) {
@@ -136,7 +136,7 @@ public class ProgramUI {
 
     public String inputProgramDescription() {
         printFormattedText("\nA kindly reminder you can input 'Exi' to exit ^_^\n", ConsoleColor.CYAN);
-        System.out.print("\n\nEnter program description: ");
+        System.out.print("\n\nEnter program description : ");
         String descp = iv.readString().toUpperCase();
         if (!descp.equals("EXI")) {
             return descp;

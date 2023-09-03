@@ -41,6 +41,11 @@ public class InputValue {
     }
 
     public boolean isValidCode(String code) {
-        return code.matches("[A-Za-z]{3}"); // Check if the code consists only of letters and has a length of 3
+        return code.matches("[A-Za-z]{3}");
+    }
+    
+    public boolean isValidTutorialGroupName(String groupName) {
+    return groupName.matches("[A-Za-z]{3}G([1-9]|1\\d|2[0-9]|30)"); // 2[0-9] matches any two-digit number starting with 2 (20 to 29).
+    //followed by a number from 1 to 30 
     }
 }

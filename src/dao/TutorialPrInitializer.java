@@ -20,7 +20,7 @@ public class TutorialPrInitializer {
     return tpList;
   }
 
-    public static void main(String[] args) {
+    public static void inputTutorialProgram() {
         TutorialPrInitializer tp = new TutorialPrInitializer();
         ListInterface<TutorialProgram> tpList = tp.TutorialPrInitializer();
 

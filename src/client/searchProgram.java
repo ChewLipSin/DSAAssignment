@@ -35,8 +35,7 @@ public class searchProgram {
             String outputStr = "";
             Iterator<Program> iterator = pList.getIterator();
             String header = String.format("%-15s | %-30s | %-80s | %-60s | %s%n",
-                    "Program Code", "Program Level", "Program Name", "Faculty", "Description"); // Labels
-            System.out.println("---------------------------------------------------------------------------------------------------------------------------------------");
+                    "Program Code", "Program Level", "Program Name", "Faculty", "Description");
             String row = "";
             while (iterator.hasNext()) {
                 Program program = iterator.next();

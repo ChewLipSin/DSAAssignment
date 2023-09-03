@@ -12,6 +12,7 @@ import java.util.Iterator;
 public class ProgramValidator {
     private final tDAO DAO = new tDAO();
     private ListInterface<Program> pList = new ArrList<>();
+    private final programCodeComparator pCompare = new programCodeComparator();
     
     public boolean isProgramCodeValid(String code) {
         pList = DAO.retrieveFromFile("program.dat");
@@ -31,11 +32,25 @@ public class ProgramValidator {
         Iterator<Program> iterator = pList.getIterator();
         while (iterator.hasNext()){
             Program p = iterator.next();
+            
             if (p.getCode().equalsIgnoreCase(code)) {
                 name = p.getName(); 
-                System.out.print("The tutorial programme name : "+ name);
+                System.out.print("The programme name : "+ name);
             }
         }
         return name;
+    }
+    
+        public String getProgramCode(){
+        String code = null;
+        pList=DAO.retrieveFromFile("program.dat");
+        Iterator<Program> iterator = pList.getIterator();
+        while (iterator.hasNext()){
+            ArrList.insertionSort(pList, pCompare, "asc");
+            Program p = iterator.next();
+                code = p.getCode(); 
+                System.out.println(code);
+        }
+        return code;
     }
 }

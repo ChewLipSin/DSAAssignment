@@ -78,7 +78,6 @@ public class TutorialProgramMaintenance {
         outputStr += "List of Tutorial Programme:\n";
         outputStr += String.format("%-5s | %-15s | %-20s | %-25s | %-30s | %s\n",
                 "No.", "Program Code", "Tutorial Group", "Number of Students", "Class Rap", "Intake");
-        outputStr += " \n";
         Iterator<TutorialProgram> iterator = tutorialProgramList.getIterator();
         int tutorialNumber = 1;
 
@@ -99,7 +98,6 @@ public class TutorialProgramMaintenance {
         outputStr += "List of Tutorial Programme:\n";
         outputStr += String.format("%-5s | %-15s | %-20s | %-25s | %30s | %20s\n",
                 "No. | Program Code | Tutorial Group | Number of Students | Class Rap | Intake\n");
-        outputStr += " \n";
         Iterator<TutorialProgram> iterator = tutorialProgramList.getIterator();
         int tutorialNumber = 1;
         TutorialProgram tutorialProgram = null; // Initialize tutorialProgram outside the loop

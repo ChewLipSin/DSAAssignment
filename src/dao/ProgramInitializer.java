@@ -28,7 +28,7 @@ public class ProgramInitializer {
     return pList;
   }
 
-    public static void main(String[] args) {
+    public static void inputProgram() {
         ProgramInitializer p = new ProgramInitializer();
         ListInterface<Program> programList = p.ProgramInitializer();
 

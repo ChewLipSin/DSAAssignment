@@ -6,6 +6,9 @@ import client.deleteProgram;
 import client.modifyProgram;
 import client.reportProgram;
 import client.searchProgram;
+import static dao.ProgramInitializer.inputProgram;
+import static dao.TutorialInitializer.inputTutorial;
+import static dao.TutorialPrInitializer.inputTutorialProgram;
 import dao.tDAO;
 import entity.*;
 import java.io.IOException;
@@ -93,13 +96,12 @@ public class ProgramMaintenance {
         outputStr += "List of Programme:\n";
         outputStr += String.format("%-5s | %-15s | %-30s | %-80s | %-60s | %s\n",
                 "No.", "Program Code", "Program Level", "Program Name", "Program Faculty", "Program Description");
-        outputStr += " \n";
         Iterator<Program> iterator = pList.getIterator();
-        ArrList.insertionSort(pList, pCompare, "asc");
         int programNumber = 1;
 
         while (iterator.hasNext()) {
             Program program = iterator.next();
+            ArrList.insertionSort(pList, pCompare, "asc");
             outputStr += String.format("%-5d | %-15s | %-30s | %-80s | %-60s | %s\n",
                     programNumber, program.getCode(), program.getLevel(), program.getName(),
                     program.getFaculty(), program.getDescription());
@@ -114,7 +116,6 @@ public class ProgramMaintenance {
         outputStr += "List of Programs:\n";
         outputStr += String.format("%-5s | %-15s | %-30s | %-80s | %-60s | %s\n",
                 "No.", "Program Code", "Program Level", "Program Name", "Program Faculty", "Program Description");
-        outputStr += " \n";
         Iterator<Program> iterator = pList.getIterator();
         int programNumber = 1;
         Program program = null; // Initialize program outside the loop
@@ -203,6 +204,9 @@ public class ProgramMaintenance {
     }
 
     public static void main(String[] args) {
+        inputProgram();
+        inputTutorial();
+        inputTutorialProgram();
         ProgramMaintenance programMaintenance = new ProgramMaintenance();
         programMaintenance.runProgramMaintenance();
     }

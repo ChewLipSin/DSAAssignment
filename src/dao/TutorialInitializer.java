@@ -25,7 +25,7 @@ public class TutorialInitializer {
     return tList;
   }
 
-    public static void main(String[] args) {
+    public static void inputTutorial() {
         TutorialInitializer t = new TutorialInitializer();
         ListInterface<Tutorial> tList = t.TutorialInitializer();
 

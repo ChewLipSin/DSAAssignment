@@ -5,6 +5,7 @@ import adt.ListInterface;
 import dao.tDAO;
 import entity.TutorialProgram;
 import java.util.Iterator;
+import static utility.MessageUI.printFormattedText;
 /**
  *
  * @author Lim Yi Leong
@@ -34,6 +35,9 @@ public class TutorialValidator {
                 name = tp.getGroupname(); 
                 System.out.println(name);
             }
+        }
+        if (name==null){
+            printFormattedText("\n---No tutorial group exist---\n",ConsoleColor.MAGENTA);
         }
         return name;
     }

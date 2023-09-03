@@ -53,9 +53,8 @@ public class TutorialProgramUI {
         String code;
         do {
             System.out.println("\nThe programme code exists in programme :");
-            for (int i = 1; i <= pList.size(); i++) {
-                System.out.println(pList.getEntry(i).getCode());
-            }
+            pV.getProgramCode();
+            
             System.out.print("\nEnter tutorial programme code : ");
             code = iv.readString().toUpperCase();
             if (code.equalsIgnoreCase("EXI")) {
@@ -78,10 +77,10 @@ public class TutorialProgramUI {
         String group;
         boolean stop = false;
         do {
-            System.out.print("\nThe tutorial group exists in programme " + code + ":\n");
+            System.out.print("\nThe tutorial group exists in " + code + " :");
             tV.getTutorialGroupName(code);
 
-            System.out.print("\n\nEnter tutorial program group name (RSDGX ; X is number): ");
+            System.out.print("\n\nEnter tutorial program group name (ie.RSDG1) : ");
             group = iv.readString().toUpperCase();
             if (group.equalsIgnoreCase("EXI")) {
                 return null;
@@ -89,7 +88,11 @@ public class TutorialProgramUI {
             // Check if the first three characters of 'group' match 'code'
             if (!group.startsWith(code.substring(0, 3))) {
                 printFormattedText("\nThe first three characters of the group must match the program code.\n", ConsoleColor.RED);
-            } else if (tV.isTutorialGroupValid(group)) {
+            } else 
+                if (!iv.isValidTutorialGroupName(group)){
+                printFormattedText("\nPlease input follow the format example -> RSDG1, RSDG2...\n", ConsoleColor.RED);
+            }else 
+                if (tV.isTutorialGroupValid(group)) {
                 printFormattedText("\nTutorial group already exists. Please try again.\n", ConsoleColor.RED);
             } else {
                 stop = true;
@@ -109,10 +112,15 @@ public class TutorialProgramUI {
             }
             if (input >= 10 && input <= 30) {
                 int num = input;
+                if (num >= 10 && num <= 30) {
+                    return num;
                 } else {
                     printFormattedText("\nInvalid input! Please enter a number between 10 and 30.", ConsoleColor.RED);
                 }
+            } else {
+                printFormattedText("\nInvalid input! Please enter a valid two-digit number.", ConsoleColor.RED);
             }
+        }
     }
 
     public String inputTutorialProgramClassRep() {
