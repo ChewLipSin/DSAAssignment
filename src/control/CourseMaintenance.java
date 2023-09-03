@@ -37,11 +37,11 @@ public class CourseMaintenance {
     private static final CourseProgramMaintenance cpm = new CourseProgramMaintenance();
     private final Initializer in = new Initializer();
     private final TitleComparator titleC = new TitleComparator();
-    private final CourseCodeComparator ccC = new CourseCodeComparator();
-    private final CreditHoursComparator chC = new CreditHoursComparator();
-    private final SemesterComparator sC = new SemesterComparator();
-    private final CreatedAtComparator caC = new CreatedAtComparator();
-    private final UpdatedAtComparator uaC = new UpdatedAtComparator();
+    private final CourseCodeComparator cCodeC = new CourseCodeComparator();
+    private final CreditHoursComparator cHoursC = new CreditHoursComparator();
+    private final SemesterComparator semC = new SemesterComparator();
+    private final CreatedAtComparator createdAtC = new CreatedAtComparator();
+    private final UpdatedAtComparator updatedAtC = new UpdatedAtComparator();
 
     public CourseMaintenance() {
     }
@@ -296,7 +296,7 @@ public class CourseMaintenance {
 
     public void listedCourse(ListInterface<Course> courseList) {
         int choice;
-        ArrList.insertionSort(courseList, ccC, "asc");
+        ArrList.insertionSort(courseList, cCodeC, "asc");
         courseUI.listAllCourses(courseList);
         do {
             choice = courseUI.getSortMenu(courseList);
@@ -326,22 +326,22 @@ public class CourseMaintenance {
                 case 0:
                     break;
                 case 1:
-                    ArrList.insertionSort(courseList, ccC, "asc");
+                    ArrList.insertionSort(courseList, cCodeC, "asc");
                     break;
                 case 2:
                     ArrList.insertionSort(courseList, titleC, "asc");
                     break;
                 case 3:
-                    ArrList.insertionSort(courseList, chC, "asc");
+                    ArrList.insertionSort(courseList, cHoursC, "asc");
                     break;
                 case 4:
-                    ArrList.insertionSort(courseList, sC, "asc");
+                    ArrList.insertionSort(courseList, semC, "asc");
                     break;
                 case 5:
-                    ArrList.insertionSort(courseList, caC, "asc");
+                    ArrList.insertionSort(courseList, createdAtC, "asc");
                     break;
                 case 6:
-                    ArrList.insertionSort(courseList, uaC, "asc");
+                    ArrList.insertionSort(courseList, updatedAtC, "asc");
                     break;
                 default:
                     MessageUI.displayInvalidChoiceMessage();
@@ -359,22 +359,22 @@ public class CourseMaintenance {
                 case 0:
                     break;
                 case 1:
-                    ArrList.insertionSort(courseList, ccC, "des");
+                    ArrList.insertionSort(courseList, cCodeC, "des");
                     break;
                 case 2:
                     ArrList.insertionSort(courseList, titleC, "des");
                     break;
                 case 3:
-                    ArrList.insertionSort(courseList, chC, "des");
+                    ArrList.insertionSort(courseList, cHoursC, "des");
                     break;
                 case 4:
-                    ArrList.insertionSort(courseList, sC, "des");
+                    ArrList.insertionSort(courseList, semC, "des");
                     break;
                 case 5:
-                    ArrList.insertionSort(courseList, caC, "des");
+                    ArrList.insertionSort(courseList, createdAtC, "des");
                     break;
                 case 6:
-                    ArrList.insertionSort(courseList, uaC, "des");
+                    ArrList.insertionSort(courseList, updatedAtC, "des");
                     break;
                 default:
                     MessageUI.displayInvalidChoiceMessage();

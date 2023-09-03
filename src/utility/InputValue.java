@@ -88,7 +88,7 @@ public class InputValue {
                 String inputStr = in.nextLine().trim();
 
                 if (inputStr.isEmpty()) {
-                    return 0;
+                    return 8;
                 }
 
                 input = Integer.parseInt(inputStr);
