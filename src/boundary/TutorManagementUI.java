@@ -30,7 +30,7 @@ public class TutorManagementUI {
         System.out.println("6. Filter Tutor Name by First Alphabet");
         System.out.println("7. Report");
         System.out.println("0. Back to Main Menu");
-        int choice = InputValue.inputInt("Enter Choice: ");
+        int choice = InputValue.inputChoice("Enter Choice: ", 0, 7);
         System.out.println();
         return choice;
     }
@@ -153,7 +153,7 @@ public class TutorManagementUI {
         if (!newEmail.isEmpty()) {
             tutor.setEmail(newEmail);
         }
-        if (newFaculty != 0) {
+        if (newFaculty != 8) {
             tutor.setFaculty(newFaculty);
         }
         if (!newProfession.isEmpty()) {

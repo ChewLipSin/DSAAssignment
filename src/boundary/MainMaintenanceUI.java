@@ -21,7 +21,7 @@ public class MainMaintenanceUI {
         System.out.println("||           Main Menu            ||");
         System.out.println("====================================");
         System.out.println("1. Program Management Subsystem");
-        System.out.println("2. Tutorial Management Subsystem Menu");
+        System.out.println("2. Tutor Management Subsystem Menu");
         System.out.println("3. Tutorial Group Management Subsystem Menu");
         System.out.println("4. Course Management Subsystem Menu");
         System.out.println("0. Exit");
