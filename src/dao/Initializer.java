@@ -9,7 +9,9 @@ import adt.*;
 import entity.Course;
 import entity.CourseProgram;
 import entity.Program;
+import entity.Student;
 import entity.Tutor;
+import entity.TutorialGroup;
 import java.io.IOException;
 
 /**
@@ -74,4 +76,22 @@ public class Initializer {
         return ttList;
     }
 
+    public static ListInterface<TutorialGroup> initializeTutorialGroups() {
+        ListInterface<TutorialGroup> tutorialGroups = new ArrList<>();
+
+        tutorialGroups.add(new TutorialGroup("RDS2S1G1"));
+        tutorialGroups.add(new TutorialGroup("RAC2S1G1"));
+        tutorialGroups.add(new TutorialGroup("RDS2S1G2"));
+        tutorialGroups.add(new TutorialGroup("RDS2S1G3"));
+        tutorialGroups.add(new TutorialGroup("RAC2S1G2"));
+        tutorialGroups.add(new TutorialGroup("RSW2S1G1"));
+
+        tutorialGroups.getEntry(1).addStudent(new Student("Fung Chun Xiang", "23WMR09149", "fungcx-pm21@student.tarc.edu.my"));
+        tutorialGroups.getEntry(1).addStudent(new Student("Eugene Teoh Kai Siang", "23WMR09147", "eugenetks-pm21@student.tarc.edu.my"));
+        tutorialGroups.getEntry(2).addStudent(new Student("Tee Wen Xin", "23WMR08480", "teewx-wm21@student.tarc.edu.my"));
+        tutorialGroups.getEntry(3).addStudent(new Student("Khor Jinn Zhi", "23WMR09176", "khorjz-pm21@student.tarc.edu.my"));
+        tutorialGroups.getEntry(3).addStudent(new Student("Lee Tze Siaen", "23WMR09179", "leets-pm21@student.tarc.edu.my"));
+
+        return tutorialGroups;
+    }
 }

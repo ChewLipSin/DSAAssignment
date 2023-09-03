@@ -80,21 +80,52 @@ public class InputValue {
         return result;
     }
 
-    public static int intChoice(String prompt, int min, int max) {
+    public static int inputChoice(String prompt, int min, int max) {
         int input;
         while (true) {
             try {
                 System.out.print(prompt);
-                input = in.nextInt();
-                in.nextLine(); // Consume newline
+                String inputStr = in.nextLine().trim();
+
+                if (inputStr.isEmpty()) {
+                    return 0;
+                }
+
+                input = Integer.parseInt(inputStr);
+
                 if (input >= min && input <= max) {
                     break;
                 } else {
                     System.out.println("Invalid input. Please enter a number between " + min + " and " + max + ".");
                 }
-            } catch (Exception ex) {
+            } catch (NumberFormatException ex) {
                 System.out.println("Invalid input. Please enter a valid number.");
-                in.nextLine(); // Clear invalid input from the scanner
+            }
+        }
+        return input;
+    }
+    
+    public static int intChoice(String prompt, int min, int max) {
+        int input;
+            while (true) {
+                try {
+                System.out.print(prompt);
+                String inputStr = in.nextLine().trim();
+
+                if (inputStr.isEmpty()) {
+                    System.out.println("Input cannot be empty. Please enter a number between " + min + " and " + max + ".");
+                    continue;
+                }
+
+                input = Integer.parseInt(inputStr);
+
+                if (input >= min && input <= max) {
+                    break;
+                } else {
+                    System.out.println("Invalid input. Please enter a number between " + min + " and " + max + ".");
+                }
+            } catch (NumberFormatException ex) {
+                System.out.println("** Input is not a number, try again. **");
             }
         }
         return input;

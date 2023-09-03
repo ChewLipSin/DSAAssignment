@@ -19,15 +19,17 @@ public class TutorManagementUI {
     Scanner scanner = new Scanner(System.in);
 
     public static int getMenuChoice() {
-        System.out.println("\n- MAIN MENU -");
-        System.out.println("1. Add New Tutor");
-        System.out.println("2. Search Tutor");
-        System.out.println("3. Remove Existing Tutor");
-        System.out.println("4. Edit Tutor Info");
-        System.out.println("5. List All Tutors");
-        System.out.println("6. Filter Tutor");
+        System.out.println("=====================================");
+        System.out.println("|| Tutor Management Subsystem Menu ||");
+        System.out.println("=====================================");
+        System.out.println("1. List All Tutors");
+        System.out.println("2. Add New Tutor");
+        System.out.println("3. Edit Tutor Info");
+        System.out.println("4. Remove Existing Tutor");
+        System.out.println("5. Search Tutor");
+        System.out.println("6. Filter Tutor Name by First Alphabet");
         System.out.println("7. Report");
-        System.out.println("0. Quit");
+        System.out.println("0. Back to Main Menu");
         int choice = InputValue.inputInt("Enter Choice: ");
         System.out.println();
         return choice;
@@ -142,7 +144,7 @@ public class TutorManagementUI {
         System.out.println("5. FACULTY OF ENGINEERING AND TECHNOLOGY");
         System.out.println("6. FACULTY OF COMMUNICATION & CREATIVE INDUSTRIES");
         System.out.println("7. FACULTY OF SOCIAL SCIENCES AND HUMANITIES");
-        int newFaculty = InputValue.intChoice("Enter Choice (leave blank to keep unchanged): ", 1, 7);
+        int newFaculty = InputValue.inputChoice("Enter Choice (leave blank to keep unchanged): ", 1, 7);
         String newProfession = InputValue.inputString("Enter new Profession (leave blank to keep unchanged): ");
 
         if (!newName.isEmpty()) {

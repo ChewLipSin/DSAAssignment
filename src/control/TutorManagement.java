@@ -28,20 +28,20 @@ public class TutorManagement {
                 case 0:
                     break;
                 case 1:
-                    addNewTutor();
                     tutorUI.listAllTutors(getAllTutors());
                     break;
                 case 2:
-                    TutorManagementUI.searchTutor();
+                    addNewTutor();
+                    tutorUI.listAllTutors(getAllTutors());
                     break;
                 case 3:
-                    TutorManagementUI.removeTutor();
-                    break;
-                case 4:
                     TutorManagementUI.editExistTutor();
                     break;
+                case 4:
+                    TutorManagementUI.removeTutor();
+                    break;
                 case 5:
-                    tutorUI.listAllTutors(getAllTutors());
+                    TutorManagementUI.searchTutor();
                     break;
                 case 6:
                     TutorManagementUI.filterTutor();
