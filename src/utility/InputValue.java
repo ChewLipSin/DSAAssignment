@@ -104,11 +104,11 @@ public class InputValue {
         }
         return input;
     }
-    
+
     public static int intChoice(String prompt, int min, int max) {
         int input;
-            while (true) {
-                try {
+        while (true) {
+            try {
                 System.out.print(prompt);
                 String inputStr = in.nextLine().trim();
 
@@ -181,6 +181,15 @@ public class InputValue {
 
     public static void closeInput() {
         in.close();
+    }
+
+    public boolean isValidCode(String code) {
+        return code.matches("[A-Za-z]{3}");
+    }
+
+    public boolean isValidTutorialGroupName(String groupName) {
+        return groupName.matches("[A-Za-z]{3}G([1-9]|1\\d|2[0-9]|30)"); // 2[0-9] matches any two-digit number starting with 2 (20 to 29).
+        //followed by a number from 1 to 30 
     }
 //    public String readAlphaInt() {
 //        String input;
