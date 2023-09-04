@@ -12,7 +12,11 @@ import adt.OrderClause;
 import adt.StackInterface;
 import entity.Course;
 import entity.Course.Sem;
+import entity.CourseCodeComparator;
 import entity.CourseProgram;
+import entity.CreditHoursComparator;
+import entity.SemesterComparator;
+import entity.TitleComparator;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
@@ -20,7 +24,6 @@ import utility.Command;
 import utility.ConsoleColor;
 import utility.InputValue;
 import utility.MessageUI;
-import utility.Sort;
 
 /**
  *
@@ -31,7 +34,6 @@ public class CourseGenerateReportMaintenanceUI {
     private LinkedListInterface<CourseProgram> cp = new DoublyLinkedList<>();
     private ListInterface<Course> courses = new ArrList<>();
     private final InputValue iv = new InputValue();
-    private final Sort sort = new Sort();
 
     /**
      * Constructs a CourseGenerateReportMaintenanceUI with the given course
@@ -50,6 +52,10 @@ public class CourseGenerateReportMaintenanceUI {
     DateTimeFormatter myFormatObj2 = DateTimeFormatter.ofPattern("h:mm a");
     String formattedDate = myDateObj.format(myFormatObj);
     String formattedTime = myDateObj.format(myFormatObj2);
+    private final CourseCodeComparator cCodeC = new CourseCodeComparator();
+    private final CreditHoursComparator cHoursC = new CreditHoursComparator();
+    private final TitleComparator titleC = new TitleComparator();
+    private final SemesterComparator semC = new SemesterComparator();
 
     /**
      * Displays the header for the course report menu.
@@ -273,7 +279,7 @@ public class CourseGenerateReportMaintenanceUI {
      * Displays a report of courses grouped by their course codes.
      */
     public void displayCourseCodeReport() {
-        sort.insertionSort(courses, "courseCode");
+        ArrList.insertionSort(courses, cCodeC, "asc");
         Iterator<Course> itA = courses.getIterator();
         Iterator<Course> itB = courses.getIterator();
         Iterator<Course> itF = courses.getIterator();
@@ -333,7 +339,7 @@ public class CourseGenerateReportMaintenanceUI {
      * Displays a report of courses grouped by their credit hours.
      */
     public void displayCreditHoursReport() {
-        sort.insertionSort(courses, "creditHours");
+        ArrList.insertionSort(courses, cHoursC, "asc");
         String line = "";
         int count1 = 1, count2 = 1, count3 = 1, count4 = 1, count5 = 1;
         for (int i = 0; i < 65; i++) {
@@ -399,8 +405,8 @@ public class CourseGenerateReportMaintenanceUI {
 
         Sem alll = Sem.ALL;
 
-        sort.insertionSort(courses, "title");
-        sort.insertionSort(courses, "semester");
+        ArrList.insertionSort(courses, titleC, "asc");
+        ArrList.insertionSort(courses, semC, "asc");
         int countJan = 0, countJuly = 0;
         Iterator<Course> itJan = courses.getIterator();
         Iterator<Course> itJuly = courses.getIterator();

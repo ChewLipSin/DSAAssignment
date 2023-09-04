@@ -4,22 +4,23 @@
  */
 package utility;
 
+import adt.ArrList;
 import adt.ListInterface;
 import entity.Course;
+import entity.CourseCodeComparator;
 
 /**
  *
  * @author Chew Lip Sin
  */
 public class Search<T> {
-
-    private Sort sort = new Sort();
+    private final CourseCodeComparator cCodeC = new CourseCodeComparator();
 
     // Returns index of x if it is present in courseList,
     // else return -1
     public int binarySearch(ListInterface<Course> courseList, String x) {
         ListInterface<Course> courseList2 = courseList;
-        sort.insertionSort(courseList, "courseCode");
+        ArrList.insertionSort(courseList, cCodeC,"asc");
         int l = 0, r = courseList2.size() - 1;
 
         // Loop to implement Binary Search

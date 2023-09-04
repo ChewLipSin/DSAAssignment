@@ -4,6 +4,7 @@
  */
 package control;
 
+import adt.ArrList;
 import adt.DoublyLinkedList;
 import adt.LinkedListInterface;
 import adt.ListInterface;
@@ -12,12 +13,12 @@ import boundary.CourseProgramMaintenanceUI;
 import dao.DAO;
 import dao.Initializer;
 import entity.Course;
+import entity.CourseCodeComparator;
 import entity.CourseProgram;
 import entity.Program;
 import utility.Command;
 import utility.MessageUI;
 import utility.Search;
-import utility.Sort;
 
 /**
  *
@@ -27,10 +28,10 @@ public class CourseProgramMaintenance {
 
     private static final DAO<CourseProgram> cpDAO = new DAO<>();
     private final CourseProgramMaintenanceUI coursePUI = new CourseProgramMaintenanceUI();
-    private final Sort s = new Sort();
     private final Search search = new Search();
     private final CourseMaintenanceUI courseUI = new CourseMaintenanceUI();
     private final Initializer in = new Initializer();
+    private final CourseCodeComparator cCodeC = new CourseCodeComparator();
 
     public void runCourseProgramMaintenance(ListInterface<Course> courseList, ListInterface<Program> programList) {
         LinkedListInterface<CourseProgram> courseProgramList = cpDAO.dLLRetrieveFromFile("courseProgram.dat");
@@ -55,8 +56,7 @@ public class CourseProgramMaintenance {
     }
 
     private void addCourseProgram(LinkedListInterface<CourseProgram> courseProgramList, ListInterface<Course> courseList, ListInterface<Program> programList) {
-        s.insertionSort(courseList, "courseCode");
-
+        ArrList.insertionSort(courseList, cCodeC, "asc");
         int choice;
         do {
             courseProgramList = cpDAO.dLLRetrieveFromFile("courseProgram.dat");
@@ -71,7 +71,7 @@ public class CourseProgramMaintenance {
     }
 
     private void removeCourseProgram(LinkedListInterface<CourseProgram> courseProgramList, ListInterface<Course> courseList, ListInterface<Program> programList) {
-        s.insertionSort(courseList, "courseCode");
+        ArrList.insertionSort(courseList, cCodeC,"asc");
         int choice;
         do {
             courseProgramList = cpDAO.dLLRetrieveFromFile("courseProgram.dat");
