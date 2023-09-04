@@ -1,4 +1,4 @@
-# Education Management System(Data Stucture and Alogirithm)
+# University Education Management System(Data Stucture and Alogirithm)
 We are from Tunku Abdul Rahman University Management and Technology(TARUMT). This is BACS2063 Data Structure and Algorithms assignment project.
 We were assigned to create our own adt collections and implement them on our assignment.
 
@@ -51,6 +51,14 @@ We were assigned to create our own adt collections and implement them on our ass
 - Many courses are offered in the semester.
 - A course is taken by many programmes.
 
+## ADT Collections
+- ArrayList
+- Hash Maps
+- Stack
+- Doubly Linked List
 
-
+## Languages
+- JAVA
+## Tools
+- Apache NetBeans 18
 
