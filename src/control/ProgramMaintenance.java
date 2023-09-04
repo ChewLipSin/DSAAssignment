@@ -34,6 +34,7 @@ public class ProgramMaintenance {
     public void runProgramMaintenance() {
         Initializer.inputProgram();
         Initializer.inputTutorial();
+        tpm = new TutorialProgramMaintenance();
         Initializer.inputTutorialProgram();
         pList = DAO.retrieveFromFile("program.dat");
         tpList = DAO.retrieveFromFile("tutorialProgram.dat");
@@ -60,7 +61,7 @@ public class ProgramMaintenance {
                     break;
                 case 5:
                     Command.cls();
-                    goTP();
+                    tpm.runTutorialProgramMaintenance();
                     break;
                 case 6:
                     Command.cls();
@@ -185,11 +186,6 @@ public class ProgramMaintenance {
     public void printReport() {
         reportProgram rp;
         rp = new reportProgram();
-    }
-
-    public void goTP() {
-        tpm = new TutorialProgramMaintenance();
-        tpm.runTutorialProgramMaintenance();
     }
 
     public void displayPrograms(ListInterface<Program> pList) {

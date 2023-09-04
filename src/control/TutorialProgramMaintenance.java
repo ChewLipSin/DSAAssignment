@@ -39,24 +39,23 @@ public class TutorialProgramMaintenance {
             choice = tpU.getMenuChoice();
             switch (choice) {
                 case 1:
-        Command.cls();
+                    Command.cls();
                     addTutorialProgram(tpList);
                     break;
                 case 2:
-        Command.cls();
+                    Command.cls();
                     searchProgram(tpList);
                     break;
                 case 3:
-        Command.cls();
+                    Command.cls();
                     deleteTutorialProgram(tpList);
                     break;
                 case 4:
-                    goP();
                     break;
                 default:
                     MessageUI.displayInvalidChoiceMessage();
             }
-        } while (choice != 0);
+        } while (choice != 4);
         //main page
     }
 
@@ -154,12 +153,7 @@ public class TutorialProgramMaintenance {
             }
         } while (choiceS != 3);
     }
-    
-    public void goP(){
-        pM = new ProgramMaintenance();
-        pM.runProgramMaintenance();
-    }
-    
+
     public void deleteTutorialProgram(ListInterface<TutorialProgram> tpList) {
         System.out.print("\n--------------------> Deleting Programme\n"
                 + "----------------------------------------->\n\n");
