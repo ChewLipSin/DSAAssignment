@@ -61,6 +61,8 @@ public class CourseMaintenance {
         int choice;
         do {
             Command.cls();
+            System.out.println(courseList);
+            System.out.println(programList);
             choice = courseUI.getMenuChoices();
             switch (choice) {
                 case 0:
