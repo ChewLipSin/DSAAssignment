@@ -15,7 +15,14 @@ public enum ConsoleColor {
     YELLOW("\u001B[33m"),
     BLUE("\u001B[34m"),
     BRIGHTBLUE("\u001B[34;1m"),
-    CYAN("\u001b[36m");
+    CYAN("\u001b[36m"),
+    MAGENTA("\u001B[35m"),
+    BRIGHTMAGENTA("\u001B[35;1m"),
+    WHITE("\u001B[37m"),
+    BRIGHTRED("\u001B[31;1m"),
+    BRIGHTGREEN("\u001B[32;1m"),
+    BRIGHTWHITE("\u001B[37;1m"),
+    BRIGHTYELLOW("\u001B[33;1m");
 
     private final String code;
 

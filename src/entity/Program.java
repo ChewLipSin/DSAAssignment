@@ -1,25 +1,18 @@
 package entity;
 
-import adt.ArrList;
-import adt.ListInterface;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
 /**
  * @author Lim Yi Leong
  */
-public class Program implements Serializable {
-
+public class Program implements Serializable, Comparable<Program>{
     private String code;
     private String level;
     private String name;
     private String faculty;
     private String description;
     private LocalDateTime updateTime;
-
-    public Program() {
-    }
-
+    
     public Program(String code, String name) {
         this.code = code;
         this.name = name;
@@ -83,6 +76,9 @@ public class Program implements Serializable {
         this.updateTime = updateTime;
     }
 
-
-
+    @Override
+    public int compareTo(Program o) {
+        return code.compareTo(o.code);
+    }
+    
 }
