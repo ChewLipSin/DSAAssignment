@@ -25,8 +25,8 @@ import utility.programCodeComparator;
  */
 public class ProgramMaintenance {
 
-    private ListInterface<Program> pList = new ArrList<>();
-    private ListInterface<TutorialProgram> tpList = new ArrList<>();
+    private ListInterface<Program> pList = new ArrList<Program>();
+    private ListInterface<TutorialProgram> tpList = new ArrList<TutorialProgram>();
     private final tDAO DAO = new tDAO();
     private final ProgramUI pU = new ProgramUI();
     private final programCodeComparator pCompare = new programCodeComparator();
@@ -35,6 +35,9 @@ public class ProgramMaintenance {
     private final clearScreen clr = new clearScreen();
 
     public void runProgramMaintenance() {
+//        inputProgram();
+//        inputTutorial();
+//        inputTutorialProgram();
         pList = DAO.retrieveFromFile("program.dat");
         tpList = DAO.retrieveFromFile("tutorialProgram.dat");
         int choice;
@@ -202,11 +205,8 @@ public class ProgramMaintenance {
         String outputStr = getAllPrograms(pList);
         pU.listAllPrograms(outputStr);
     }
-
+    @SuppressWarnings("unchecked")
     public static void main(String[] args) {
-        inputProgram();
-        inputTutorial();
-        inputTutorialProgram();
         ProgramMaintenance programMaintenance = new ProgramMaintenance();
         programMaintenance.runProgramMaintenance();
     }

@@ -21,9 +21,9 @@ import utility.clearScreen;
  */
 public class TutorialProgramMaintenance {
 
-    private ListInterface<TutorialProgram> tpList = new ArrList<>();
-    private ListInterface<Program> pList = new ArrList<>();
-    private ListInterface<Tutorial> tList = new ArrList<>();
+    private ListInterface<Program> pList = new ArrList<Program>();
+    private ListInterface<TutorialProgram> tpList = new ArrList<TutorialProgram>();
+    private ListInterface<Tutorial> tList = new ArrList<Tutorial>();
     private final tDAO DAO = new tDAO();
     private final TutorialProgramUI tpU = new TutorialProgramUI();
     private ProgramMaintenance pM;
