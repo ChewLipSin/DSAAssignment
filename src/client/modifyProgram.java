@@ -16,11 +16,11 @@ import static utility.MessageUI.printFormattedText;
  */
 public class modifyProgram {
 
-    private ListInterface<Program> pList = new ArrList<>();
+    private ListInterface<Program> pList = new ArrList<Program>();
     private final tDAO DAO = new tDAO();
-    private static ProgramUI pU = new ProgramUI();
-    private ProgramMaintenance pM = new ProgramMaintenance();
-    private Scanner scanner;
+    private final ProgramUI pU = new ProgramUI();
+    private final ProgramMaintenance pM = new ProgramMaintenance();
+    private final Scanner scanner;
 
     public modifyProgram(ListInterface<Program> pList) {
         this.pList = pList;

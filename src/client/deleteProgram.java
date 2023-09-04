@@ -17,8 +17,8 @@ import static utility.MessageUI.printFormattedText;
  */
 public class deleteProgram {
 
-    private ListInterface<Program> pList = new ArrList<>();
-    private ListInterface<TutorialProgram> tpList = new ArrList<>();
+    private ListInterface<Program> pList = new ArrList<Program>();
+    private ListInterface<TutorialProgram> tpList = new ArrList<TutorialProgram>();
     private final tDAO DAO = new tDAO();
     private static final ProgramUI pU = new ProgramUI();
     private static final ProgramMaintenance pM = new ProgramMaintenance();

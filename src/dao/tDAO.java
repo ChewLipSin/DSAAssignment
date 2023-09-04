@@ -9,7 +9,6 @@ import java.io.File;
  */
 public class tDAO<T> {
 
-  
 public void saveToFile(ListInterface<T> list, String fileName) throws IOException {
         File file = new File(fileName);
 //        if (file.createNewFile()) {

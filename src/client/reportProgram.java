@@ -15,8 +15,8 @@ import utility.programCodeComparator;
  */
 public class reportProgram {
 
-    private ListInterface<TutorialProgram> tpList = new ArrList<>();
-    private ListInterface<Program> pList = new ArrList<>();
+    private ListInterface<TutorialProgram> tpList = new ArrList<TutorialProgram>();
+    private ListInterface<Program> pList = new ArrList<Program>();
     private final tDAO DAO = new tDAO();
     private final programCodeComparator pCompare = new programCodeComparator(); 
 

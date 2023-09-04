@@ -14,7 +14,6 @@ import static utility.MessageUI.printFormattedText;
  * @author Lim Yi Leong
  */
 public class TutorialProgramUI {
-
     private final ProgramValidator pV = new ProgramValidator();
     private final TutorialValidator tV = new TutorialValidator();
     private final InputValue iv = new InputValue();

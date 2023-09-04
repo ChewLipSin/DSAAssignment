@@ -17,11 +17,11 @@ import utility.programCodeComparator;
  */
 public class searchProgram {
 
-    private ListInterface<Program> pList = new ArrList<>();
-    private ProgramMaintenance pM = new ProgramMaintenance();
+    private ListInterface<Program> pList = new ArrList<Program>();
+    private final ProgramMaintenance pM = new ProgramMaintenance();
     private final programCodeComparator pCompare = new programCodeComparator(); 
-    private static ProgramUI pU = new ProgramUI();
-    private InputValue iv = new InputValue();
+    private final ProgramUI pU = new ProgramUI();
+    private final InputValue iv = new InputValue();
 
     public searchProgram(ListInterface<Program> pList) {
         Scanner scanner = new Scanner(System.in);

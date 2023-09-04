@@ -15,9 +15,9 @@ import static utility.MessageUI.printFormattedText;
  */
 public class searchTutorialProgram {
 
-    private ListInterface<TutorialProgram> tpList = new ArrList<>();
-    private static TutorialProgramMaintenance tpM = new TutorialProgramMaintenance();
-    private static TutorialProgramUI tpU = new TutorialProgramUI();
+    private final ListInterface<TutorialProgram> tpList = new ArrList<TutorialProgram>();
+    private final TutorialProgramMaintenance tpM = new TutorialProgramMaintenance();
+    private final TutorialProgramUI tpU = new TutorialProgramUI();
 
     public searchTutorialProgram(ListInterface<TutorialProgram> tpList) {
         Scanner scanner = new Scanner(System.in);

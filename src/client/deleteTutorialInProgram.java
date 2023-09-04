@@ -16,9 +16,9 @@ import static utility.MessageUI.printFormattedText;
  */
 public class deleteTutorialInProgram {
 
-    private ListInterface<TutorialProgram> tpList = new ArrList<>();
-    private static final TutorialProgramMaintenance tpM = new TutorialProgramMaintenance();
-    private static final TutorialProgramUI tpU = new TutorialProgramUI();
+    private ListInterface<TutorialProgram> tpList = new ArrList<TutorialProgram>();
+    private final TutorialProgramMaintenance tpM = new TutorialProgramMaintenance();
+    private final TutorialProgramUI tpU = new TutorialProgramUI();
     private final tDAO DAO = new tDAO();
     private Scanner scanner;
 

@@ -13,7 +13,7 @@ import static utility.MessageUI.printFormattedText;
  */
 public class ProgramUI {
 
-    private InputValue iv = new InputValue();
+    private final InputValue iv = new InputValue();
     private static final String[] levels = {"Foundation", "Diploma", "Bachelor Degree", "Master", "Doctor of Philosophy"};
     private static final String[] faculties = {
         "FOCS - Faculty of Computing and Information Technology",
