@@ -1,5 +1,5 @@
 # Education Management System(Data Stucture and Alogirithm)
-We are from Tunku Abdul Rahman University Management and Technology. This is BACS2063 Data Structure and Algorithms assignment project.
+We are from Tunku Abdul Rahman University Management and Technology(TARUMT). This is BACS2063 Data Structure and Algorithms assignment project.
 We were assigned to create our own adt collections and implement them on our assignment.
 
 ## Subsystem Module
