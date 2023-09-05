@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package control;
 
 import adt.*;
@@ -61,8 +58,6 @@ public class CourseMaintenance {
         int choice;
         do {
             Command.cls();
-            System.out.println(courseList);
-            System.out.println(programList);
             choice = courseUI.getMenuChoices();
             switch (choice) {
                 case 0:

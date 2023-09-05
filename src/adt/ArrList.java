@@ -244,8 +244,7 @@ public class ArrList<T> implements ListInterface<T>, Serializable {
         boolean isSuccessful = true;
 
         if ((givenPosition >= 1) && (givenPosition <= numberOfEntries)) {
-            //-1 because the givenPosition will only start with 1, does not like
-//            index of array list that start with 0. 
+            //-1 because the givenPosition will only start with 1, does not like index of array list that start with 0. 
             arr[givenPosition - 1] = newEntry;
         } else {
             isSuccessful = false;
@@ -277,8 +276,7 @@ public class ArrList<T> implements ListInterface<T>, Serializable {
         //if the array list is not empty
         if (!isEmpty()) {
             for (int i = 0; i < numberOfEntries; i++) {
-                if (arr[i].equals(anEntry)) { //compare the given entry and
-//                    every entry in the array list,
+                if (arr[i].equals(anEntry)) { //compare the given entry and every entry in the array list,
                     // if true then go in and remove the given entry                       
                     removeGap(i + 1);
                     isSuccessful = true;
@@ -306,8 +304,7 @@ public class ArrList<T> implements ListInterface<T>, Serializable {
     private void doubleArray() {
         T[] oldArray = arr;
         arr = (T[]) new Object[2 * oldArray.length];
-        System.arraycopy(oldArray, 0, arr, 0,
-                numberOfEntries);
+        System.arraycopy(oldArray, 0, arr, 0, numberOfEntries);
     }
 
     /**
@@ -357,8 +354,7 @@ public class ArrList<T> implements ListInterface<T>, Serializable {
         }
     }
 
-    public static <T extends Comparable<T>> void insertionSort(
-            ListInterface<T> a, Comparator<T> comparator, String val) {
+    public static <T extends Comparable<T>> void insertionSort(ListInterface<T> a, Comparator<T> comparator, String val) {
         for (int unsorted = 1; unsorted < a.size(); unsorted++) {
             T firstUnsorted = a.getEntry(unsorted + 1);
             insertInOrder(firstUnsorted, a, unsorted, comparator, val);
@@ -366,21 +362,16 @@ public class ArrList<T> implements ListInterface<T>, Serializable {
     }
 
     //inserts element at the correct index within thes sorted subarray
-    private static <T extends Comparable<T>> int insertInOrder(T element,
-            ListInterface<T> a, int end, Comparator<T> comparator, String val) {
+    private static <T extends Comparable<T>> int insertInOrder(T element, ListInterface<T> a, int end, Comparator<T> comparator, String val) {
         int index = end;
         if ("asc".equals(val)) {
-            while ((index > 0) && (comparator.compare(element, 
-                    a.getEntry(index)) < 0)) {
-                a.replace(index + 1, a.getEntry(index));
-                //shifting
+            while ((index > 0) && (comparator.compare(element, a.getEntry(index)) < 0)) {
+                a.replace(index + 1, a.getEntry(index)); //shifting
                 index--;
             }
         } else if (val.equals("des")) {
-            while ((index > 0) && (comparator.compare(
-                    element, a.getEntry(index)) > 0)) {
-                a.replace(index + 1, a.getEntry(
-                        index)); //shifting
+            while ((index > 0) && (comparator.compare(element, a.getEntry(index)) > 0)) {
+                a.replace(index + 1, a.getEntry(index)); //shifting
                 index--;
             }
         }
