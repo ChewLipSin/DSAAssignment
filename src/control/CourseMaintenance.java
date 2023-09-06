@@ -1,4 +1,3 @@
-
 package control;
 
 import adt.*;
@@ -54,7 +53,9 @@ public class CourseMaintenance {
 //        cDAO.saveToFile(courseList, "course.dat");
         ListInterface<Program> programList = pDAO.retrieveFromFile("program.dat");
 //        ListInterface<Program> programList = in.ProgramInitializer();
-//        pDAO.saveToFile(programList, "program.dat");
+//        pDAO.saveToFile(programList, "program.dat");//        
+//        cDAO.saveToFile(courseList, "course.dat");
+
         int choice;
         do {
             Command.cls();
