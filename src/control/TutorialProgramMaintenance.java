@@ -145,7 +145,6 @@ public class TutorialProgramMaintenance {
                     break;
 
                 case 3:
-                    runTutorialProgramMaintenance();
                     break;
                 default:
                     MessageUI.displayInvalidChoiceMessage();
