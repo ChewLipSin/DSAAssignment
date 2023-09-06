@@ -14,7 +14,8 @@ import static utility.MessageUI.printFormattedText;
 public class ProgramUI {
 
     private final InputValue iv = new InputValue();
-    private static final String[] levels = {"Foundation", "Diploma", "Bachelor Degree", "Master", "Doctor of Philosophy"};
+    private static final String[] levels = {"Foundation", "Diploma", "Bachelor Degree", "Master", 
+        "Doctor of Philosophy"};
     private static final String[] faculties = {
         "FOCS - Faculty of Computing and Information Technology",
         "FSSH - Faculty of Social Science and Humanities",
@@ -32,30 +33,31 @@ public class ProgramUI {
         while (!validInput) {
             try {
                 System.out.print("\n\n");
-                System.out.print("+-----------------------------+\n|");
-                printFormattedText("  PROGRAMME MANAGEMENT MENU  ", ConsoleColor.RESET);
-                System.out.print("|\n+-----------------------------+\n|");
-                printFormattedText(" 1. Add new program          ", ConsoleColor.RESET);
+                System.out.print("+-------------------------------+\n|");
+                printFormattedText("   PROGRAMME MANAGEMENT MENU  ", ConsoleColor.RESET);
+                System.out.print(" |\n+-------------------------------+\n|");
+                printFormattedText("  1. Add new program          ", ConsoleColor.RESET);
+                System.out.print(" |\n|");
+                printFormattedText("  2. Find program details     ", ConsoleColor.RESET);
+                System.out.print(" |\n|");
+                printFormattedText("  3. Modify program details   ", ConsoleColor.RESET);
+                System.out.print(" |\n|");
+                printFormattedText("  4. Delete program           ", ConsoleColor.RESET);
+                System.out.print(" |\n|");
+                printFormattedText("  5. Programme tutorial service", ConsoleColor.RESET);
                 System.out.print("|\n|");
-                printFormattedText(" 2. Find program details     ", ConsoleColor.RESET);
-                System.out.print("|\n|");
-                printFormattedText(" 3. Modify program details   ", ConsoleColor.RESET);
-                System.out.print("|\n|");
-                printFormattedText(" 4. Delete program           ", ConsoleColor.RESET);
-                System.out.print("|\n|");
-                printFormattedText(" 5. Programme course service ", ConsoleColor.RESET);
-                System.out.print("|\n|");
-                printFormattedText(" 6. Programme report         ", ConsoleColor.RESET);
-                System.out.print("|\n|");
-                printFormattedText(" 7. Back to main menu        ", ConsoleColor.RESET);
-                System.out.print("|\n");
-                System.out.print("+-----------------------------+\n");
+                printFormattedText("  6. Programme report         ", ConsoleColor.RESET);
+                System.out.print(" |\n|");
+                printFormattedText("  7. Back to main menu        ", ConsoleColor.RESET);
+                System.out.print(" |\n");
+                System.out.print("+-------------------------------+\n");
                 System.out.print("Enter choice: ");
 
                 choice = iv.readInteger();
                 validInput = true;
             } catch (InputMismatchException e) {
-                printFormattedText("\nInvalid input. Please enter a valid integer choice.", ConsoleColor.RED);
+                printFormattedText("\nInvalid input. Please enter a valid integer choice.", 
+                        ConsoleColor.RED);
             }
         }
         System.out.println();
@@ -67,7 +69,8 @@ public class ProgramUI {
     }
 
     public String inputProgramCode(ListInterface<Program> pList) {
-        printFormattedText("\nA kindly reminder you can input 'EXI' to exit ^_^\n", ConsoleColor.CYAN);
+        printFormattedText("\nA kindly reminder you can input 'EXI' to exit ^_^\n", 
+                ConsoleColor.CYAN);
         while (true) {
             System.out.print("\n\nEnter program code (ie:'RDS'): ");
             String code = iv.readString().toUpperCase();
@@ -79,19 +82,27 @@ public class ProgramUI {
                     if (isCodeUnique(code, pList)) {
                         return code;
                     } else {
-                        printFormattedText("\nProgram code already exists. Please enter a unique program code.", ConsoleColor.RED);
+                        printFormattedText("""
+                                           Program code already exists. Please enter a unique 
+                                           program code.""", ConsoleColor.RED);
                     }
                 } else {
-                    printFormattedText("\nInvalid code format. Please enter a 3-character program code.", ConsoleColor.RED);
+                    printFormattedText("""
+                                       Invalid code format. Please enter a 3-character 
+                                       program code.""", ConsoleColor.RED);
                 }
             } else {
-                printFormattedText("\nInvalid code length. Please enter a 3-character program code.", ConsoleColor.RED);
+                printFormattedText("""
+                                   Invalid code length. Please enter a 3-character program 
+                                   code.""", ConsoleColor.RED);
             }
         }
     }
 
     public String inputProgramLevel() {
-        printFormattedText("\nA kindly reminder you can input '0' to exit ^_^\n", ConsoleColor.CYAN);
+        printFormattedText("""
+                           A kindly reminder you can input '0' to exit ^_^
+                           """, ConsoleColor.CYAN);
         while (true) {
             System.out.print("\n\nEnter number of program level (1-5) :\n");
             displayOptions(levels);
@@ -100,15 +111,19 @@ public class ProgramUI {
                 return null;
             }
             if (levelChoice >= 1 && levelChoice <= 5) {
-                return getLevelFromChoice(levelChoice);
+                return getLevelFromChoice(levelChoice).toUpperCase();
             } else {
-                printFormattedText("\nInvalid input. Please enter a value between 1 and 5.", ConsoleColor.RED);
+                printFormattedText("""
+                                   Invalid input. Please enter a value between 1 and 5.""",
+                        ConsoleColor.RED);
             }
         }
     }
 
     public String inputProgramName() {
-        printFormattedText("\nA kindly reminder you can input 'Exi' to exit ^_^\n", ConsoleColor.CYAN);
+        printFormattedText("""
+                           A kindly reminder you can input 'Exi' to exit ^_^
+                           """, ConsoleColor.CYAN);
         System.out.print("\n\nEnter program name : ");
         String name = iv.readString().toUpperCase();
         if (name.equals("EXI")) {
@@ -118,24 +133,31 @@ public class ProgramUI {
     }
 
     public String inputProgramFaculty() {
-        printFormattedText("\nA kindly reminder you can input '0' to exit ^_^\n", ConsoleColor.CYAN);
+        printFormattedText("""
+                           A kindly reminder you can input '0' to exit ^_^
+                           """, ConsoleColor.CYAN);
         while (true) {
-            System.out.println("\nSelect the faculty of the program (1-7) :\n");
+            System.out.println(
+                    "\nSelect the faculty of the program (1-7) :\n");
             displayOptions(faculties);
             int facultyChoice = iv.readInteger();
             if (facultyChoice == 0) {
                 return null;
             }
             if (facultyChoice >= 1 && facultyChoice <= 7) {
-                return getFacultyFromChoice(facultyChoice);
+                return getFacultyFromChoice(facultyChoice).toUpperCase();
             } else {
-                printFormattedText("\nInvalid input. Please enter a value between 1 and 7.", ConsoleColor.RED);
+                printFormattedText("""
+                                   Invalid input. Please enter a value between 1 and 7.""", 
+                        ConsoleColor.RED);
             }
         }
     }
 
     public String inputProgramDescription() {
-        printFormattedText("\nA kindly reminder you can input 'Exi' to exit ^_^\n", ConsoleColor.CYAN);
+        printFormattedText("""
+                           A kindly reminder you can input 'Exi' to exit ^_^
+                           """,ConsoleColor.CYAN);
         System.out.print("\n\nEnter program description : ");
         String descp = iv.readString().toUpperCase();
         if (!descp.equals("EXI")) {
@@ -166,7 +188,8 @@ public class ProgramUI {
             return null;
         }
         System.out.println();
-        if (!code.isEmpty() && !name.isEmpty() && !description.isEmpty() && isCodeUnique(code, pList) && isNameUnique(name, pList)) {
+        if (!code.isEmpty() && !name.isEmpty() && !description.isEmpty() && 
+                isCodeUnique(code, pList) && isNameUnique(name, pList)) {
             return new Program(code, level, name, faculty, description);
         } else {
             return null;
@@ -199,7 +222,8 @@ public class ProgramUI {
     private boolean isCodeUnique(String code, ListInterface<Program> pList) {
         for (int i = 1; i <= pList.size(); i++) {
             Program program = pList.getEntry(i);
-            if (program.getCode().toUpperCase().equals(code.toUpperCase())) {
+            if (program.getCode().toUpperCase().
+                    equals(code.toUpperCase())) {
                 return false;
             }
         }
@@ -209,7 +233,8 @@ public class ProgramUI {
     private boolean isNameUnique(String name, ListInterface<Program> pList) {
         for (int i = 1; i < pList.size(); i++) {
             Program program = pList.getEntry(i);
-            if (program.getName().toUpperCase().equals(name.toUpperCase())) {
+            if (program.getName().toUpperCase().
+                    equals(name.toUpperCase())) {
                 return false;
             }
         }
