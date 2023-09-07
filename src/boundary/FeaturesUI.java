@@ -1,7 +1,12 @@
 package boundary;
+
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 /**
  *
- * @author fungc
+ * @author Fung Chun Xiang
  */
 import utility.Validation;
 import dao.DAO;
@@ -60,7 +65,6 @@ public class FeaturesUI {
     }
 
     public static void removeStudent(Scanner scanner, TutorialGroup group) {
-        // Add your student removal logic here
         String nameToRemove = promptString("Enter student name to remove: ");
         String idToRemove = promptString("Enter student ID to remove: ");
 
@@ -76,7 +80,6 @@ public class FeaturesUI {
     }
 
     public static void changeStudentGroup(Scanner scanner, TutorialGroup group) {
-        // Add your student group change logic here
         System.out.print("Enter student name to change group: ");
         String nameToChange = scanner.nextLine();
         System.out.print("Enter student ID to change group: ");
@@ -116,7 +119,6 @@ public class FeaturesUI {
         System.out.print("Enter student ID to find: ");
         String idToFind = scanner.nextLine();
 
-        // You can return a Student object with the entered name and ID
         return new Student(nameToFind, idToFind);
     }
 
