@@ -1,10 +1,14 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 /**
  *
- * @author fungc
+ * @author Fung Chun Xiang
  */
 package boundary;
 
-import adt.ArrList; // Make sure to import the correct ArrayList class
+import adt.ArrList;
 import adt.ListInterface;
 import control.TutorialGroupManagement;
 import entity.TutorialGroup;
@@ -14,6 +18,12 @@ import java.util.Scanner;
 
 public class TutorialGroupManagementUI {
     private static final Scanner scanner = new Scanner(System.in);
+    
+    public static void printHeader(){
+        System.out.println("\n=========================================");
+        System.out.println("|| Tutorial Group Management Subsystem ||");
+        System.out.println("=========================================\n");
+    }
 
     public static void listGroup(ListInterface<TutorialGroup> tutorialGroups) {
         if (tutorialGroups.isEmpty()) {
@@ -40,15 +50,29 @@ public class TutorialGroupManagementUI {
     
     public static TutorialGroup getSelectedTutorialGroup(ListInterface<TutorialGroup> tutorialGroups) {
 
-        System.out.println("Enter programme code to filter tutorial groups.(leave blank to skip)");
-        System.out.print(" (e.g. RDS) --> ");
+    while (true) {
+        System.out.println("Enter programme code to filter tutorial groups (e.g. RDS)");
+        System.out.print(" (leave blank to skip) --> ");
         String keyword = scanner.nextLine();
+
         ListInterface<TutorialGroup> filteredGroups = TutorialGroupManagement.filterTutorialGroups(tutorialGroups, keyword);
+
         if (!filteredGroups.isEmpty()) {
+            System.out.println();
             System.out.println("Filtered tutorial groups:");
             listGroup(filteredGroups);
-            System.out.println(); // Add an empty line for better readability
+            System.out.println();
+        } else {
+            System.out.println("No tutorial groups found with the provided keyword.");
+            System.out.print("Do you want to re-enter the keyword? (Y/N): ");
+            String reEnter = scanner.nextLine();
+            System.out.println();
+            if (reEnter.equalsIgnoreCase("N")) {
+                return null; 
+            }
+            continue;
         }
+
 
         int selectedGroupIndex;
         while (true) {
@@ -71,7 +95,8 @@ public class TutorialGroupManagementUI {
             return null;
         }
 
-        return filteredGroups.getEntry(selectedGroupIndex);  // Use filteredGroups here
+        return filteredGroups.getEntry(selectedGroupIndex);
+    }
     }
 
     public static void displayTutorialGroupMenu(TutorialGroup group) {
@@ -87,13 +112,11 @@ public class TutorialGroupManagementUI {
     }
 
     public static int promptInt(String message) {
-        // Your input handling code here
         System.out.print(message);
         return scanner.nextInt();
     }
 
     public static String promptString(String message) {
-        // Your input handling code here
         System.out.print(message);
         return scanner.nextLine();
     }

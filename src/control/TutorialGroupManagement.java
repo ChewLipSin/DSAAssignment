@@ -1,8 +1,11 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ */
 package control;
 
 /**
  *
- * @author fungc
+ * @author Fung Chun Xiang
  */
 import adt.*;
 import entity.TutorialGroup;
@@ -10,6 +13,7 @@ import entity.Student;
 import boundary.TutorialGroupManagementUI;
 import boundary.FeaturesUI;
 import dao.*;
+import utility.*;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -23,21 +27,6 @@ public class TutorialGroupManagement {
         tutorialGroups = ttlgrpDAO.retrieveFromFile("TtlGrpStudents.dat");
     }
 
-//    public static void main(String[] args) {
-////        tutorialGroups = Initializer.initializeTutorialGroups();
-////            ttlgrpDAO.saveToFile(tutorialGroups, "TtlGrpStudents.dat");
-//        TutorialGroupManagement tutorialGroupManagement = new TutorialGroupManagement();
-//
-//        Scanner scanner = new Scanner(System.in);
-//
-//        boolean continueProgram = true;
-//        while (continueProgram) {
-//            continueProgram = tutorialGroupManagement(scanner, tutorialGroups);
-//        }
-//
-//        System.out.println("Exiting the program...");
-//        scanner.close();
-//    }
     public void runTutorialGroupManagement() {
 
         TutorialGroupManagement tutorialGroupManagement = new TutorialGroupManagement();
@@ -53,6 +42,7 @@ public class TutorialGroupManagement {
 
     private static boolean tutorialGroupManagement(Scanner scanner, ListInterface<TutorialGroup> tutorialGroups) {
 
+        TutorialGroupManagementUI.printHeader();
         TutorialGroupManagementUI.listGroup(tutorialGroups);
         TutorialGroup selectedGroup = TutorialGroupManagementUI.getSelectedTutorialGroup(tutorialGroups);
         if (selectedGroup != null) {
@@ -75,17 +65,19 @@ public class TutorialGroupManagement {
                 switch (choice) {
                     case 1:
                         // Add Student
+                        System.out.println();
                         FeaturesUI.addStudent(scanner, selectedGroup);
                         break;
 
                     case 2:
                         // Remove Student
-                        // Implement the student removal logic here
+                        System.out.println();
                         FeaturesUI.removeStudent(scanner, selectedGroup);
                         break;
 
                     case 3:
                         // List Students
+                        System.out.println();
                         students = selectedGroup.listStudents();
                         if (students.isEmpty()) {
                             System.out.println("No students in the group.");
@@ -106,20 +98,21 @@ public class TutorialGroupManagement {
 
                     case 4:
                         // Change Student Tutorial Group
-                        // Implement the student group change logic here
+                        System.out.println();
                         FeaturesUI.changeStudentGroup(scanner, selectedGroup);
                         break;
 
                     case 5:
                         // Find Student
-                        // Implement the student finding logic here
+                        System.out.println();
                         Student studentToFind = FeaturesUI.findStudent(scanner);
 
                         students = selectedGroup.listStudents();
                         boolean found = false;
                         for (int i = 1; i <= students.size(); i++) {
                             Student student = students.getEntry(i);
-                            if (student.getName().equalsIgnoreCase(studentToFind.getName()) || student.getId().equalsIgnoreCase(studentToFind.getId())) {
+                            if (student.getName().equalsIgnoreCase(studentToFind.getName()) || 
+                                    student.getId().equalsIgnoreCase(studentToFind.getId())) {
                                 found = true;
                                 System.out.println("Student found in the group:");
                                 System.out.println(student); // Display the student information
@@ -134,12 +127,13 @@ public class TutorialGroupManagement {
 
                     case 6:
                         // Generate Reports
-                        // Implement the report generation logic here
+                        System.out.println();
                         FeaturesUI.generateReport(selectedGroup);
                         break;
 
                     case 0:
-                        System.out.println("Exiting...");
+                        MessageUI.displayExitMessage();
+                        System.out.println();
                         return true;
 
                     default:
@@ -175,4 +169,20 @@ public class TutorialGroupManagement {
         }
         return null; // Return null if the group is not found
     }
+    
+//      public static void main(String[] args) {
+//        tutorialGroups = Initializer.initializeTutorialGroups();
+//            ttlgrpDAO.saveToFile(tutorialGroups, "TtlGrpStudents.dat");
+//        TutorialGroupManagement tutorialGroupManagement = new TutorialGroupManagement();
+//
+//        Scanner scanner = new Scanner(System.in);
+//
+//        boolean continueProgram = true;
+//        while (continueProgram) {
+//            continueProgram = tutorialGroupManagement(scanner, tutorialGroups);
+//        }
+//
+//        System.out.println("Exiting the program...");
+//        scanner.close();
+//    }
 }
