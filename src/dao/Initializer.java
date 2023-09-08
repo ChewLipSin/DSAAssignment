@@ -117,20 +117,90 @@ public class Initializer {
     //  Method to return a collection of with hard-coded entity values
     public ListInterface<Program> ProgramInitializer() {
         ListInterface<Program> pList = new ArrList<>();
-        pList.add(new Program("RSD", "Bachelor Degree", "Bachelor of Information Technology (Honours) in Software Systems Development", "FOCS - Faculty of Computing and Information Technology", "This programme produces and equips graduates with in-depth knowledge and skills that are essential to work as professionals in the software systems development and computer networking sectors."));
-        pList.add(new Program("RBA", "Bachelor Degree", "Bachelor of Business Administration (Honours)", "FAFB - Faculty of Accountancy, Finance & Business", "This programme provides students with a well-rounded business education through a core curriculum of management, marketing, finance, accounting, economics and law courses."));
-        pList.add(new Program("RAC", "Bachelor Degree", "Bachelor of Accounting (Honours)", "FAFB - Faculty of Accountancy, Finance & Business", "This programme provides a wide spectrum of knowledge and skills required for a career in the accountancy and finance profession."));
-        pList.add(new Program("RBF", "Bachelor Degree", "Bachelor of Banking and Finance (Honours)", "FAFB - Faculty of Accountancy, Finance & Business", "This programme aims to produce graduates who are equipped with the knowledge and core competencies and dispositions necessary for pursuing a demanding career in the highly competitive domestic and international banking and finance industry."));
-        pList.add(new Program("RME", "Bachelor Degree", "Bachelor of Mechanical Engineering with Honours", "FOET - Faculty of Engineering and Technology", "Mechanical engineering is the broadest among all engineering disciplines. Thus, most of the modern-day inventions are due to knowledge and application of mechanical engineering."));
-        pList.add(new Program("DAC", "Diploma", "Diploma in Accounting", "FAFB - Faculty of Accountancy, Finance & Business", "This programme provides students with broad base knowledge in financial accounting & reporting, management accounting, finance, economics, management, taxation, auditing, law and information technology & systems."));
-        pList.add(new Program("DMC", "Diploma", "Diploma in Mass Communication (Advertising)", "FCCI - Faculty of Communication & Creative Industries", "This programme encompasses the basic knowledge and practical skills of advertising, media and communication."));
-        pList.add(new Program("DCS", "Diploma", "Diploma in Computer Science", "FOCS - Faculty of Computing and Information Technology", "Students are trained in both theoretical knowledge and practical skills for software development, system design and related mathematical techniques."));
-        pList.add(new Program("DIT", "Diploma", "Diploma in Information Technology", "FOCS - Faculty of Computing and Information Technology", "This programme provides students with a basic understanding of computing techniques and aims to develop the computing and information technology-based knowledge and skills required in modern industrial, commercial and service organisations."));
-        pList.add(new Program("DIS", "Diploma", "Diploma in Information System", "FOCS - Faculty of Computing and Information Technology", "This programme majors in business information systems. It aims to produce graduates with fundamental knowledge in information technology and its business related applications."));
-        pList.add(new Program("RCB", "Bachelor Degree", "Bachelor of Communication (Honours) in Broadcasting", "FCCI - Faculty of Communication & Creative Industries", "This programme entails knowledge and skills for the technical understanding, writing, scripting, presenting and organising of traditional and new broadcast media."));
-        pList.add(new Program("RFS", "Bachelor Degree", "Bachelor of Science (Hons) in Food Science", "FOAS - Faculty of Applied Sciences", "This programme applies the pure science subjects, such as chemistry, biochemistry, nutrition, biology and microbiology to the study of the nature, properties and composition of foods."));
-        pList.add(new Program("RCA", "Bachelor Degree", "Bachelor of Corporate Administration (Honours)", "FAFB - Faculty of Accountancy, Finance & Business", "This programme provides students with broad base knowledge in management, law, accounting, taxation, finance and corporate governance."));
-        pList.add(new Program("RSW", "Bachelor Degree", "Bachelor of Software Engineering (Honours)", "FOCS - Faculty of Computing and Information Technology", "Graduates of this programme will be able to develop, manage and maintain high-quality software in a systematic, controlled and efficient manner. "));
+        pList.add(new Program("RSD", "BACHELOR DEGREE", 
+                "BACHELOR OF INFORMATION TECHNOLOGY (HONOURS) IN SOFTWARE SYSTEMS DEVELOPMENT", 
+                "FOCS - FACULTY OF COMPUTING AND INFORMATION TECHNOLOGY", 
+                "THIS PROGRAMME PRODUCES AND EQUIPS GRADUATES WITH IN-DEPTH KNOWLEDGE AND S"
+                        + "KILLS THAT ARE ESSENTIAL TO WORK AS PROFESSIONALS IN THE SOFTWARE "
+                        + "SYSTEMS DEVELOPMENT AND COMPUTER NETWORKING SECTORS."));
+        pList.add(new Program("RBA", "BACHELOR DEGREE", 
+                "BACHELOR OF BUSINESS ADMINISTRATION (HONOURS)", 
+                "FAFB - FACULTY OF ACCOUNTANCY, FINANCE & BUSINESS", 
+                "THIS PROGRAMME PROVIDES STUDENTS WITH A WELL-ROUNDED BUSINESS EDUCATION "
+                        + "THROUGH A CORE CURRICULUM OF MANAGEMENT, MARKETING, FINANCE, "
+                        + "ACCOUNTING, ECONOMICS AND LAW COURSES."));
+        pList.add(new Program("RAC", "BACHELOR DEGREE", 
+                "BACHELOR OF ACCOUNTING (HONOURS)", 
+                "FAFB - FACULTY OF ACCOUNTANCY, FINANCE & BUSINESS", 
+                "THIS PROGRAMME PROVIDES A WIDE SPECTRUM OF KNOWLEDGE AND SKILLS REQUIRED "
+                        + "FOR A CAREER IN THE ACCOUNTANCY AND FINANCE PROFESSION."));
+        pList.add(new Program("RBF", "BACHELOR DEGREE", 
+                "BACHELOR OF BANKING AND FINANCE (HONOURS)", 
+                "FAFB - FACULTY OF ACCOUNTANCY, FINANCE & BUSINESS", 
+                "THIS PROGRAMME AIMS TO PRODUCE GRADUATES WHO ARE EQUIPPED WITH THE KNOWLEDGE "
+                        + "AND CORE COMPETENCIES AND DISPOSITIONS NECESSARY FOR PURSUING A "
+                        + "DEMANDING CAREER IN THE HIGHLY COMPETITIVE DOMESTIC AND "
+                        + "INTERNATIONAL BANKING AND FINANCE INDUSTRY."));
+        pList.add(new Program("RME", "BACHELOR DEGREE", 
+                "BACHELOR OF MECHANICAL ENGINEERING WITH HONOURS", 
+                "FOET - FACULTY OF ENGINEERING AND TECHNOLOGY", 
+                "MECHANICAL ENGINEERING IS THE BROADEST AMONG ALL ENGINEERING DISCIPLINES. "
+                        + "THUS, MOST OF THE MODERN-DAY INVENTIONS ARE DUE TO KNOWLEDGE AND "
+                        + "APPLICATION OF MECHANICAL ENGINEERING."));
+        pList.add(new Program("DAC", "DIPLOMA", 
+                "DIPLOMA IN ACCOUNTING", 
+                "FAFB - FACULTY OF ACCOUNTANCY, FINANCE & BUSINESS", 
+                "THIS PROGRAMME PROVIDES STUDENTS WITH BROAD BASE KNOWLEDGE IN FINANCIAL "
+                        + "ACCOUNTING & REPORTING, MANAGEMENT ACCOUNTING, FINANCE, ECONOMICS, "
+                        + "MANAGEMENT, TAXATION, AUDITING, LAW AND INFORMATION "
+                        + "TECHNOLOGY & SYSTEMS."));
+        pList.add(new Program("DMC", "DIPLOMA", 
+                "DIPLOMA IN MASS COMMUNICATION (ADVERTISING)", 
+                "FCCI - FACULTY OF COMMUNICATION & CREATIVE INDUSTRIES", 
+                "THIS PROGRAMME ENCOMPASSES THE BASIC KNOWLEDGE AND PRACTICAL SKILLS "
+                        + "OF ADVERTISING, MEDIA AND COMMUNICATION."));
+        pList.add(new Program("DCS", "DIPLOMA", 
+                "DIPLOMA IN COMPUTER SCIENCE", 
+                "FOCS - FACULTY OF COMPUTING AND INFORMATION TECHNOLOGY", 
+                "STUDENTS ARE TRAINED IN BOTH THEORETICAL KNOWLEDGE AND PRACTICAL SKILLS FOR "
+                        + "SOFTWARE DEVELOPMENT, SYSTEM DESIGN AND RELATED "
+                        + "MATHEMATICAL TECHNIQUES."));
+        pList.add(new Program("DIT", "DIPLOMA", 
+                "DIPLOMA IN INFORMATION TECHNOLOGY", 
+                "FOCS - FACULTY OF COMPUTING AND INFORMATION TECHNOLOGY", 
+                "THIS PROGRAMME PROVIDES STUDENTS WITH A BASIC UNDERSTANDING OF COMPUTING "
+                        + "TECHNIQUES AND AIMS TO DEVELOP THE COMPUTING AND INFORMATION "
+                        + "TECHNOLOGY-BASED KNOWLEDGE AND SKILLS REQUIRED IN MODERN INDUSTRIAL, "
+                        + "COMMERCIAL AND SERVICE ORGANISATIONS."));
+        pList.add(new Program("DIS", "DIPLOMA", 
+                "DIPLOMA IN INFORMATION SYSTEM", 
+                "FOCS - FACULTY OF COMPUTING AND INFORMATION TECHNOLOGY", 
+                "THIS PROGRAMME MAJORS IN BUSINESS INFORMATION SYSTEMS. IT AIMS TO PRODUCE "
+                        + "GRADUATES WITH FUNDAMENTAL KNOWLEDGE IN INFORMATION TECHNOLOGY AND "
+                        + "ITS BUSINESS RELATED APPLICATIONS."));
+        pList.add(new Program("RCB", "BACHELOR DEGREE", 
+                "BACHELOR OF COMMUNICATION (HONOURS) IN BROADCASTING", 
+                "FCCI - FACULTY OF COMMUNICATION & CREATIVE INDUSTRIES", 
+                "THIS PROGRAMME ENTAILS KNOWLEDGE AND SKILLS FOR THE TECHNICAL UNDERSTANDING, "
+                        + "WRITING, SCRIPTING, PRESENTING AND ORGANISING OF TRADITIONAL AND NEW "
+                        + "BROADCAST MEDIA."));
+        pList.add(new Program("RFS", "BACHELOR DEGREE", 
+                "BACHELOR OF SCIENCE (HONS) IN FOOD SCIENCE", 
+                "FOAS - FACULTY OF APPLIED SCIENCES", 
+                "THIS PROGRAMME APPLIES THE PURE SCIENCE SUBJECTS, SUCH AS CHEMISTRY, "
+                        + "BIOCHEMISTRY, NUTRITION, BIOLOGY AND MICROBIOLOGY TO THE "
+                        + "STUDY OF THE NATURE, PROPERTIES AND COMPOSITION OF FOODS."));
+        pList.add(new Program("RCA", "BACHELOR DEGREE", 
+                "BACHELOR OF CORPORATE ADMINISTRATION (HONOURS)", 
+                "FAFB - FACULTY OF ACCOUNTANCY, FINANCE & BUSINESS", 
+                "THIS PROGRAMME PROVIDES STUDENTS WITH BROAD BASE KNOWLEDGE IN MANAGEMENT, "
+                        + "LAW, ACCOUNTING, TAXATION, FINANCE AND CORPORATE GOVERNANCE."));
+        pList.add(new Program("RSW", "BACHELOR DEGREE", 
+                "BACHELOR OF SOFTWARE ENGINEERING (HONOURS)", 
+                "FOCS - FACULTY OF COMPUTING AND INFORMATION TECHNOLOGY", 
+                "GRADUATES OF THIS PROGRAMME WILL BE ABLE TO DEVELOP, MANAGE AND MAINTAIN "
+                        + "HIGH-QUALITY SOFTWARE IN A SYSTEMATIC, CONTROLLED AND "
+                        + "EFFICIENT MANNER. "));
         return pList;
     }
 
@@ -148,11 +218,21 @@ public class Initializer {
     //  Method to return a collection of with hard-coded entity values
     public ListInterface<TutorialProgram> TutorialPrInitializer() {
         ListInterface<TutorialProgram> tpList = new ArrList<>();
-        tpList.add(new TutorialProgram("RSD", "Bachelor of Information Technology (Honours) in Software Systems Development", "RSDG1", 24, "Gini Thai May", 2023, 6));
-        tpList.add(new TutorialProgram("RBA", "Bachelor of Business Administration (Honours)", "RBAG1", 25, "Modi", 2023, 6));
-        tpList.add(new TutorialProgram("RAC", "Bachelor of Accounting (Honours)", "RACG1", 23, "Abdullah", 2023, 1));
-        tpList.add(new TutorialProgram("RBF", "Bachelor of Banking and Finance (Honours)", "RBFG1", 24, "Chou Tzuyu", 2023, 6));
-        tpList.add(new TutorialProgram("RME", "Bachelor of Mechanical Engineering with Honours", "RMEG1", 23, "Zhao LuSi", 2023, 6));
+        tpList.add(new TutorialProgram("RSD", 
+                "BACHELOR OF INFORMATION TECHNOLOGY (HONOURS) IN SOFTWARE SYSTEMS DEVELOPMENT", 
+                "RSDG1", 24, "Gini Thai May", 2023, 6));
+        tpList.add(new TutorialProgram("RBA", 
+                "BACHELOR OF BUSINESS ADMINISTRATION (HONOURS)", "RBAG1", 25, 
+                "Modi", 2023, 6));
+        tpList.add(new TutorialProgram("RAC", 
+                "BACHELOR OF ACCOUNTING (HONOURS)", "RACG1", 23, 
+                "Abdullah", 2023, 1));
+        tpList.add(new TutorialProgram("RBF", 
+                "BACHELOR OF BANKING AND FINANCE (HONOURS)", "RBFG1", 24, 
+                "Chou Tzuyu", 2023, 6));
+        tpList.add(new TutorialProgram("RME", 
+                "BACHELOR OF MECHANICAL ENGINEERING WITH HONOURS", "RMEG1", 23, 
+                "Zhao LuSi", 2023, 6));
 
         return tpList;
     }
