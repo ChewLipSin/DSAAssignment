@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.Scanner;
 import utility.ConsoleColor;
 import static utility.MessageUI.printFormattedText;
+
 /**
  *
  * @author Lim Yi Leong
@@ -25,7 +26,7 @@ public class searchTutorialProgram {
 
         while (continueSearching) {
             System.out.print("\n\n");
-            System.out.print("Enter a search term: ");
+            System.out.print("Enter a Code : ");
             String searchTerm = scanner.nextLine().toLowerCase();
 
             String outputStr = "";
@@ -33,10 +34,10 @@ public class searchTutorialProgram {
             String header = String.format("%-15s | %-80s | %-20s | %-25s | %-30s | %s%n",
                     "Program Code", "Program Name", "Tutorial Group",
                     "Number of Students", "Class Rap", "Intake");// Labels
-            String row = ""; 
+            String row = "";
             while (iterator.hasNext()) {
                 TutorialProgram tutorialProgram = iterator.next();
-                if (matchesSearchTerm(tutorialProgram, searchTerm)) {
+                if (tutorialProgram.getCode().toLowerCase().equals(searchTerm)) {
                     row = String.format("%-15s | %-80s | %-20s | %-25d | %-30s | %d-%02d%n",
                             tutorialProgram.getCode(),
                             tutorialProgram.getProgramname(),
@@ -57,19 +58,37 @@ public class searchTutorialProgram {
             }
             printFormattedText("\n\nDo you want to continue searching? (y=yes): ", ConsoleColor.BRIGHTBLUE);
             String choice = scanner.nextLine();
-            if (!choice.equalsIgnoreCase("Y")||!choice.equalsIgnoreCase("YES")) {
+            if (!choice.equalsIgnoreCase("Y") || !choice.equalsIgnoreCase("YES")) {
                 continueSearching = false;
             }
         }
     }
 
-    private boolean matchesSearchTerm(TutorialProgram tutorialProgram, String searchTerm) {
-        return tutorialProgram.getCode().toLowerCase().contains(searchTerm)
-                || tutorialProgram.getProgramname().toLowerCase().contains(searchTerm)
-                || tutorialProgram.getGroupname().toLowerCase().contains(searchTerm)
-                || String.valueOf(tutorialProgram.getNumStudent()).contains(searchTerm)
-                || tutorialProgram.getClassRap().toLowerCase().contains(searchTerm)
-                || String.valueOf(tutorialProgram.getIntakeYear()).contains(searchTerm)
-                || String.valueOf(tutorialProgram.getIntakeMonth()).contains(searchTerm);
+    private boolean matchesSearchTerm(ListInterface<TutorialProgram> tpList, String searchTerm) {
+        for (int index = 1; index < tpList.size(); index++) {
+            TutorialProgram tprogram = tpList.getEntry(index);
+            if (tprogram.getCode().equalsIgnoreCase(searchTerm)) {
+                return true;
+            }
+            if (tprogram.getProgramname().equalsIgnoreCase(searchTerm)) {
+                return true;
+            }
+            if (tprogram.getGroupname().equalsIgnoreCase(searchTerm)) {
+                return true;
+            }
+            if (tprogram.getClassRap().equalsIgnoreCase(searchTerm)) {
+                return true;
+            }
+            if (Integer.toString(tprogram.getNumStudent()).equals(searchTerm)) {
+                return true;
+            }
+            if (Integer.toString(tprogram.getIntakeMonth()).equals(searchTerm)) {
+                return true;
+            }
+            if (Integer.toString(tprogram.getIntakeYear()).equals(searchTerm)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

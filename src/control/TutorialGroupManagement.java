@@ -152,7 +152,7 @@ public class TutorialGroupManagement {
 
         for (int i = 1; i <= tutorialGroups.size(); i++) {
             TutorialGroup group = tutorialGroups.getEntry(i);
-            if (group.getGroupName().toLowerCase().contains(keyword.toLowerCase())) {
+            if (group.getGroupName().toLowerCase().equals(keyword.toLowerCase())) {
                 filteredGroups.add(group);
             }
         }
