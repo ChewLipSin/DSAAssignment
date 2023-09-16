@@ -86,7 +86,7 @@ public class CourseMaintenanceUI {
     }
 
     public String inputCourseCode(ListInterface<Course> courseList) {
-        Iterator it = courseList.getIterator();
+        Iterator<Course> it = courseList.getIterator();
         int i = 1;
         String courseCode = "";
         boolean match;
@@ -99,8 +99,8 @@ public class CourseMaintenanceUI {
             }
             courseCode = courseCode.toUpperCase();
             while (it.hasNext()) {
-                it.next();
-                String oldCourseCode = courseList.getEntry(i).getCourseCode();
+                Course course = it.next();
+                String oldCourseCode = course.getCourseCode();
                 oldCourseCode = oldCourseCode.toUpperCase();
                 match = oldCourseCode.equals(courseCode);
                 i++;
@@ -234,7 +234,7 @@ public class CourseMaintenanceUI {
     }
 
     public int inputRemoveCode(ListInterface<Course> courseList) {
-        Iterator it = courseList.getIterator();
+        Iterator<Course> it = courseList.getIterator();
         int i = 1;
         boolean match = false;
         System.out.print("Enter the course code you want to delete(Enter '0' to exit): ");
@@ -244,8 +244,8 @@ public class CourseMaintenanceUI {
         }
         courseCode = courseCode.toUpperCase();
         while (it.hasNext()) {
-            it.next();
-            String oldCourseCode = courseList.getEntry(i).getCourseCode();
+            Course course = it.next();
+            String oldCourseCode = course.getCourseCode();
             oldCourseCode = oldCourseCode.toUpperCase();
             match = oldCourseCode.equals(courseCode);
 
@@ -295,7 +295,7 @@ public class CourseMaintenanceUI {
     }
 
     public int getSearchCourseTitle(ListInterface<Course> courseList, ListInterface<Course> courseList2) {
-        Iterator it = courseList.getIterator();
+        Iterator<Course> it = courseList.getIterator();
         String key;
         boolean find, find2 = false;
         int i = 1;
@@ -305,13 +305,15 @@ public class CourseMaintenanceUI {
         if ("0".equals(key)) {
             return 0;
         }
+
         key = key.toLowerCase();
         while (it.hasNext()) {
             it.next();
-            find = courseList.getEntry(i).getTitle().toLowerCase().contains(key);
+            Course course = it.next();
+            find = course.getTitle().toLowerCase().equals(key);
 
             if (find) {
-                courseList2.add(courseList.getEntry(i));
+                courseList2.add(course);
                 find2 = true;
             }
 

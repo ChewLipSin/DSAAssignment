@@ -117,6 +117,13 @@ public class Initializer {
     //  Method to return a collection of with hard-coded entity values
     public ListInterface<Program> ProgramInitializer() {
         ListInterface<Program> pList = new ArrList<>();
+        pList.add(new Program("DAC", "DIPLOMA", 
+                "DIPLOMA IN ACCOUNTING", 
+                "FAFB - FACULTY OF ACCOUNTANCY, FINANCE & BUSINESS", 
+                "THIS PROGRAMME PROVIDES STUDENTS WITH BROAD BASE KNOWLEDGE IN FINANCIAL "
+                        + "ACCOUNTING & REPORTING, MANAGEMENT ACCOUNTING, FINANCE, ECONOMICS, "
+                        + "MANAGEMENT, TAXATION, AUDITING, LAW AND INFORMATION "
+                        + "TECHNOLOGY & SYSTEMS."));
         pList.add(new Program("RSD", "BACHELOR DEGREE", 
                 "BACHELOR OF INFORMATION TECHNOLOGY (HONOURS) IN SOFTWARE SYSTEMS DEVELOPMENT", 
                 "FOCS - FACULTY OF COMPUTING AND INFORMATION TECHNOLOGY", 
@@ -147,13 +154,6 @@ public class Initializer {
                 "MECHANICAL ENGINEERING IS THE BROADEST AMONG ALL ENGINEERING DISCIPLINES. "
                         + "THUS, MOST OF THE MODERN-DAY INVENTIONS ARE DUE TO KNOWLEDGE AND "
                         + "APPLICATION OF MECHANICAL ENGINEERING."));
-        pList.add(new Program("DAC", "DIPLOMA", 
-                "DIPLOMA IN ACCOUNTING", 
-                "FAFB - FACULTY OF ACCOUNTANCY, FINANCE & BUSINESS", 
-                "THIS PROGRAMME PROVIDES STUDENTS WITH BROAD BASE KNOWLEDGE IN FINANCIAL "
-                        + "ACCOUNTING & REPORTING, MANAGEMENT ACCOUNTING, FINANCE, ECONOMICS, "
-                        + "MANAGEMENT, TAXATION, AUDITING, LAW AND INFORMATION "
-                        + "TECHNOLOGY & SYSTEMS."));
         pList.add(new Program("DMC", "DIPLOMA", 
                 "DIPLOMA IN MASS COMMUNICATION (ADVERTISING)", 
                 "FCCI - FACULTY OF COMMUNICATION & CREATIVE INDUSTRIES", 
@@ -218,22 +218,21 @@ public class Initializer {
     //  Method to return a collection of with hard-coded entity values
     public ListInterface<TutorialProgram> TutorialPrInitializer() {
         ListInterface<TutorialProgram> tpList = new ArrList<>();
-        tpList.add(new TutorialProgram("RSD", 
-                "BACHELOR OF INFORMATION TECHNOLOGY (HONOURS) IN SOFTWARE SYSTEMS DEVELOPMENT", 
-                "RSDG1", 24, "Gini Thai May", 2023, 6));
-        tpList.add(new TutorialProgram("RBA", 
-                "BACHELOR OF BUSINESS ADMINISTRATION (HONOURS)", "RBAG1", 25, 
-                "Modi", 2023, 6));
         tpList.add(new TutorialProgram("RAC", 
                 "BACHELOR OF ACCOUNTING (HONOURS)", "RACG1", 23, 
                 "Abdullah", 2023, 1));
+        tpList.add(new TutorialProgram("RBA", 
+                "BACHELOR OF BUSINESS ADMINISTRATION (HONOURS)", "RBAG1", 25, 
+                "Modi", 2023, 6));
         tpList.add(new TutorialProgram("RBF", 
                 "BACHELOR OF BANKING AND FINANCE (HONOURS)", "RBFG1", 24, 
                 "Chou Tzuyu", 2023, 6));
         tpList.add(new TutorialProgram("RME", 
                 "BACHELOR OF MECHANICAL ENGINEERING WITH HONOURS", "RMEG1", 23, 
                 "Zhao LuSi", 2023, 6));
-
+        tpList.add(new TutorialProgram("RSD", 
+                "BACHELOR OF INFORMATION TECHNOLOGY (HONOURS) IN SOFTWARE SYSTEMS DEVELOPMENT", 
+                "RSDG1", 24, "Gini Thai May", 2023, 6));
         return tpList;
     }
 
